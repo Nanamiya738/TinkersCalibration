@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/ingot"
+  },
+  "fluid": {
+    "name": "tinkerscalibration:moltenmoonsteel",
+    "amount": 90
+  },
+  "result": "tinkerscalibration:moonsteel_ingot",
+  "cooling_time": 100
+}

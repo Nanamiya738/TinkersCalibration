@@ -1,6 +1,32 @@
 {
   "replace": false,
   "values": [
-    "#tinkerscalibration:moltenemperorslime"
+    "tinkerscalibration:moltenemperorslime",
+    "tinkerscalibration:moltenalumite",
+    "tinkerscalibration:moltenmoonsteel",
+    "tinkerscalibration:moltenmangobberslime",
+    "tinkerscalibration:moltenmandite",
+    "tinkerscalibration:moltenlindsteel",
+    "tinkerscalibration:moltentitanium",
+    "tinkerscalibration:moltensoulgold",
+    "tinkerscalibration:moltengobber",
+    "tinkerscalibration:moltenfazelle",
+    "tinkerscalibration:moltennethergobber",
+    "tinkerscalibration:moltenendgobber",
+    "tinkerscalibration:moltencarminite",
+    "tinkerscalibration:moltenjazz",
+    "tinkerscalibration:moltenredmatter",
+    "tinkerscalibration:moltendarkmatter",
+    "tinkerscalibration:moltenimmersedsilver",
+    "tinkerscalibration:molteninertwitherium",
+    "tinkerscalibration:moltenhalleium",
+    "tinkerscalibration:moltenhothium",
+    "tinkerscalibration:moltenmagiga",
+    "tinkerscalibration:moltentonium",
+    "tinkerscalibration:moltenoraclium",
+    "tinkerscalibration:moltensteamium",
+    "tinkerscalibration:moltenstellarium",
+    "tinkerscalibration:moltenwitherium",
+    "tinkerscalibration:moltengravity"
   ]
 }

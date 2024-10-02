@@ -1,11 +1,17 @@
 {
   "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "modid": "gobber2",
+      "type": "forge:mod_loaded"
+    }
+  ],
   "ingredient": {
     "item": "gobber2:gobber2_block_end"
   },
   "result": {
     "fluid": "tinkerscalibration:moltenendgobber",
-    "amount": 900
+    "amount": 810
   },
   "temperature": 1100,
   "time": 150

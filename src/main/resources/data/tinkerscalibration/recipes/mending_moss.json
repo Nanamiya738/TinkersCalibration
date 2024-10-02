@@ -1,0 +1,31 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "XXX",
+          "XAX",
+          "XXX"
+        ],
+        "key": {
+          "X": {
+            "item": "minecraft:experience_bottle"
+          },
+          "A": {
+            "item": "tinkerscalibration:moss_ball"
+          }
+        },
+        "result": {
+          "item": "tinkerscalibration:mending_moss"
+        }
+      }
+    }
+  ]
+}

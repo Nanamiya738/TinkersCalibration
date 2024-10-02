@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "name": "tinkerscalibration:moltenimmersedsilver",
+    "amount": 90
+  },
+  "temperature": 1090,
+  "output": "tinkerscalibration:immersedsilver"
+}

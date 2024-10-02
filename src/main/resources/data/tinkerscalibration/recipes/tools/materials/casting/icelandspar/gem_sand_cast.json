@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/gem"
+  },
+  "fluid": {
+    "name": "tinkerscalibration:moltenicelandspar",
+    "amount": 100
+  },
+  "result": "tinkerscalibration:iceland_spar_crystal",
+  "cooling_time": 45
+}

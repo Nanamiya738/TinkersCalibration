@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "modid": "upgradednetherite",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "fluid": {
+    "name": "tinkerscalibration:moltenprismarite",
+    "amount": 90
+  },
+  "result": "upgradednetherite:water_upgraded_netherite_ingot",
+  "cooling_time": 74
+}

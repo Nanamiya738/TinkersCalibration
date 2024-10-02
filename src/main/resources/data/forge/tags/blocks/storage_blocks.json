@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:storage_blocks/lindsteel",
+    "#forge:storage_blocks/fazelle",
+    "#forge:storage_blocks/emperorslime",
+    "#forge:storage_blocks/immersed_silver",
+    "#forge:storage_blocks/inert_witherium",
+    "#forge:storage_blocks/halleium",
+    "#forge:storage_blocks/hothium",
+    "#forge:storage_blocks/magiga",
+    "#forge:storage_blocks/tonium",
+    "#forge:storage_blocks/oraclium",
+    "#forge:storage_blocks/steamium",
+    "#forge:storage_blocks/stellarium",
+    "#forge:storage_blocks/witherium",
+    "#forge:storage_blocks/corundum",
+    "#forge:storage_blocks/nitre",
+    "#forge:storage_blocks/spinel",
+    "#forge:storage_blocks/talcum",
+    "#forge:storage_blocks/tourmaline",
+    "#forge:storage_blocks/vibrating_crystal",
+    "#forge:storage_blocks/prehnite",
+    "#forge:storage_blocks/iceland_spar",
+    "#forge:storage_blocks/lizanite",
+    "#forge:storage_blocks/topaz"
+  ]
+}

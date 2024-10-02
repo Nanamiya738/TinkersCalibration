@@ -1,6 +1,6 @@
 {
   "type": "tconstruct:melting",
-  "ingredient": { "item": "tconstruct:ichor_sling" },
+  "ingredient": { "item": "tconstruct:ichor_slime_sling" },
   "result": {
     "fluid": "tinkerscalibration:moltenichor",
     "amount": 1750

@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:bamboo"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:molten_iron",
+    "amount": 60
+  },
+  "result": "tinkerscalibration:bamboo_steel",
+  "cooling_time": 166
+}

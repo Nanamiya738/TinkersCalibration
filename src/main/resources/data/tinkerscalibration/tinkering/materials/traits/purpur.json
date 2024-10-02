@@ -19,6 +19,16 @@
         "name": "tconstruct:enderference",
         "level": 1
       }
+    ],
+    "tconstruct:armor": [
+      {
+        "name": "tinkerscalibration:enderference_armor",
+        "level": 1
+      },
+      {
+        "name": "tinkerscalibration:levitate_armor",
+        "level": 1
+      }
     ]
   }
 }

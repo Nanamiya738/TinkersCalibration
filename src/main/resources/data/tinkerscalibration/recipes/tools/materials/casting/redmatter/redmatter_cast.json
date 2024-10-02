@@ -1,5 +1,11 @@
 {
   "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "modid": "projecte",
+      "type": "forge:mod_loaded"
+    }
+  ],
   "fluid": {
     "name": "tinkerscalibration:moltenredmatter",
     "amount": 90

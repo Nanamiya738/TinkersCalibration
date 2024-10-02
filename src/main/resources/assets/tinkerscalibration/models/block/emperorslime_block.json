@@ -4,7 +4,7 @@
   "textures": {
     "bottom":   "tinkerscalibration:block/emperorslime_bottom",
     "top":      "tinkerscalibration:block/emperorslime_top",
-    "side":     "tconstruct:block/storage/queens_slime_side"
+    "side":     "tinkerscalibration:block/emperorslime_side"
   },
   "colors": [{ "luminosity": 9 }]
 }

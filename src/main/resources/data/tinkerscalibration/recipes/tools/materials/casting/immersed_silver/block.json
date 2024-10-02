@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_basin",
+  "fluid": {
+    "name": "tinkerscalibration:moltenimmersedsilver",
+    "amount": 810
+  },
+  "result": "tinkerscalibration:immersed_silver_block",
+  "cooling_time": 275
+}

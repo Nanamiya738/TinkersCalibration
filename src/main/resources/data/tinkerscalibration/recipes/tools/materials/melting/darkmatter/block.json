@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "modid": "projecte",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "ingredient": {
+    "item": "projecte:dark_matter_block"
+  },
+  "result": {
+    "fluid": "tinkerscalibration:moltendarkmatter",
+    "amount": 360
+  },
+  "temperature": 1500,
+  "time": 150
+}

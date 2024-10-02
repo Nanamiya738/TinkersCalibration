@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/nugget"
+  },
+  "fluid": {
+    "name": "tinkerscalibration:moltenoraclium",
+    "amount": 10
+  },
+  "result": "tinkerscalibration:oraclium_nugget",
+  "cooling_time": 40
+}

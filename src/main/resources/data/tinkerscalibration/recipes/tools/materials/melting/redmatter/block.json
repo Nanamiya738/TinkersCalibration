@@ -1,11 +1,17 @@
 {
   "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "modid": "projecte",
+      "type": "forge:mod_loaded"
+    }
+  ],
   "ingredient": {
     "item": "projecte:red_matter_block"
   },
   "result": {
     "fluid": "tinkerscalibration:moltenredmatter",
-    "amount": 900
+    "amount": 360
   },
   "temperature": 1500,
   "time": 150

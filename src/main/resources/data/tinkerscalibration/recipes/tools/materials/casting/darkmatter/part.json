@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:material_fluid",
+  "conditions": [
+    {
+      "modid": "projecte",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "fluid": {
+    "name": "tinkerscalibration:moltendarkmatter",
+    "amount": 90
+  },
+  "temperature": 1500,
+  "output": "tinkerscalibration:darkmatter"
+}

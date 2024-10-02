@@ -1,5 +1,11 @@
 {
   "type": "tconstruct:alloy",
+  "conditions": [
+    {
+      "modid": "tinkers_thinking",
+      "type": "forge:mod_loaded"
+    }
+  ],
   "inputs": [
     {
       "name": "tconstruct:molten_iron",

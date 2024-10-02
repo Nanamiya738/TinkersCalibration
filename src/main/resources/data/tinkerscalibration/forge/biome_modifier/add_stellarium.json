@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#tinkerscalibration:hot_biomes",
+  "features": [
+    "tinkerscalibration:stellarium_ore"
+  ],
+  "step": "underground_decoration"
+}

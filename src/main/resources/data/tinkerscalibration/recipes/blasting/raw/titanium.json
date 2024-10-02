@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "tinkerscalibration:raw_titanium"
+  },
+  "result": "tinkerscalibration:titanium_ingot",
+  "experience": 1.5,
+  "cookingtime": 100
+}

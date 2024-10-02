@@ -1,0 +1,31 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "registry": "minecraft:item",
+      "tags": [
+        "forge:ores/vibrating_crystal",
+        "forge:ore_rates/sparse"
+      ],
+      "type": "tconstruct:tag_intersection_present"
+    }
+  ],
+  "rate": "gem",
+  "ingredient": {
+    "type": "forge:intersection",
+    "children": [
+      {
+        "tag": "forge:ores/vibrating_crystal"
+      },
+      {
+        "tag": "forge:ore_rates/sparse"
+      }
+    ]
+  },
+  "result": {
+    "fluid": "tinkerscalibration:moltenvibratingcrystal",
+    "amount": 100
+  },
+  "temperature": 895,
+  "time": 112
+}

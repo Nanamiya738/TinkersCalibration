@@ -11,6 +11,12 @@
         "name": "tinkerscalibration:purgatory",
         "level": 1
       }
+    ],
+    "tconstruct:armor": [
+      {
+        "name": "tinkerscalibration:purgatory_armor",
+        "level": 1
+      }
     ]
   }
 }

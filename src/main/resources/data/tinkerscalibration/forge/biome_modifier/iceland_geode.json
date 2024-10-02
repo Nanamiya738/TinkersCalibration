@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#tinkerscalibration:cold_biomes",
+  "features": "tinkerscalibration:iceland_spar_geode",
+  "step": "local_modifications"
+}

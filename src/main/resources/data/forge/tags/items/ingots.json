@@ -1,0 +1,26 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:ingots/mangobberslime",
+    "#forge:ingots/moonsteel",
+    "#forge:ingots/alumite",
+    "#forge:ingots/mandite",
+    "#forge:ingots/gravity",
+    "#forge:ingots/lindsteel",
+    "#forge:ingots/fazelle",
+    "#forge:ingots/grain",
+    "#forge:ingots/emperorslime",
+    "#forge:ingots/soulgold",
+    "#forge:ingots/jazz",
+    "#forge:ingots/immersed_silver",
+    "#forge:ingots/inert_witherium",
+    "#forge:ingots/halleium",
+    "#forge:ingots/hothium",
+    "#forge:ingots/magiga",
+    "#forge:ingots/tonium",
+    "#forge:ingots/oraclium",
+    "#forge:ingots/steamium",
+    "#forge:ingots/stellarium",
+    "#forge:ingots/witherium"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_basin",
+  "fluid": {
+    "name": "tinkerscalibration:moltenlizanite",
+    "amount": 400
+  },
+  "result": "tinkerscalibration:lizanite_block",
+  "cooling_time": 275
+}

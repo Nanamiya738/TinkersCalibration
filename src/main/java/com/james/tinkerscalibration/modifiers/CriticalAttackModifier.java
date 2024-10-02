@@ -1,17 +1,17 @@
 package com.james.tinkerscalibration.modifiers;
 
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -21,7 +21,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import javax.annotation.Nonnull;
 
 public class CriticalAttackModifier extends Modifier implements ConditionalStatModifierHook {
-    @Override
+    /*@Override
     public float getEntityDamage(@Nonnull IToolStackView tool, int level, @Nonnull ToolAttackContext context, float baseDamage, float damage) {
         Level world = context.getAttacker().level;
         Player player = context.getPlayerAttacker();
@@ -38,25 +38,28 @@ public class CriticalAttackModifier extends Modifier implements ConditionalStatM
         }
         return damage;
     }
+
     @Override
     public int onDamageTool(IToolStackView tool, int level, int amount, LivingEntity holder) {
-        if(tool.getCurrentDurability() == 2)
-        {
+        if (tool.getCurrentDurability() == 2) {
             return 1;
         }
         return amount;
     }
     @Override
+    protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
+        hookBuilder.addHook(this, ModifierHooks.CONDITIONAL_STAT);
+    }
+    */
+    @Override
     public float modifyStat(IToolStackView tool, ModifierEntry modifier, LivingEntity living, FloatToolStat stat, float baseValue, float multiplier) {
         boolean harvest = tool.hasTag(TinkerTags.Items.HARVEST);
-        if(tool.getCurrentDurability() == 2 || tool.getCurrentDurability() == 1)
-        {
-            if(harvest) {
-                if (stat == ToolStats.USE_ITEM_SPEED) {
+        if (tool.getCurrentDurability() == 2 || tool.getCurrentDurability() == 1) {
+            if (harvest) {
+                if (stat == ToolStats.ATTACK_SPEED) {
                     return 0.01F;
                 }
-            }
-            else {
+            } else {
                 if (stat == ToolStats.DRAW_SPEED) {
                     return 0.01F;
                 }

@@ -19,6 +19,16 @@
         "name": "tinkerscalibration:darkness",
         "level": 1
       }
+    ],
+    "tconstruct:armor": [
+      {
+        "name": "tinkerscalibration:darkness_armor",
+        "level": 1
+      },
+      {
+        "name": "tinkerscalibration:twilit_armor",
+        "level": 1
+      }
     ]
   }
 }

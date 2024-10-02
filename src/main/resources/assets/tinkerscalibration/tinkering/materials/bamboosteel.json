@@ -1,12 +1,15 @@
 {
   "fallbacks": [
+    "wood",
     "metal"
   ],
-  "color": "2f4f4f",
+  "color": "5D8824",
   "luminosity": 0,
   "generator": {
     "transformer": {
-      "type": "tconstruct:grey_to_sprite",
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
         "palette": [
           {
             "grey": 0,
@@ -14,30 +17,27 @@
           },
           {
             "grey": 63,
-            "color": "FF2f8f0f",
-            "path": "tinkerscalibration:item/materials/generator/bamboosteel_dark"
+            "color": "FF3C591F"
           },
           {
             "grey": 102,
-            "path": "tinkerscalibration:item/materials/generator/bamboosteel_dark"
+            "color": "FF585858"
           },
           {
             "grey": 140,
-            "color": "FF669966",
-            "path": "tinkerscalibration:item/materials/generator/bamboosteel"
+            "color": "FF4F7416"
           },
           {
             "grey": 178,
-            "path": "tinkerscalibration:item/materials/generator/bamboosteel"
+            "color": "FF688E22"
           },
           {
             "grey": 216,
-            "color": "FFe1e1e1",
-            "path": "tinkerscalibration:item/materials/generator/bamboosteel_bright"
+            "color": "FF88AC5F"
           },
           {
             "grey": 255,
-            "path": "tinkerscalibration:item/materials/generator/bamboosteel_bright"
+            "color": "FFD6D6D6"
           }
         ]
       }
@@ -53,3 +53,4 @@
     ],
     "ignoreMaterialStats": false
   }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_basin",
+  "fluid": {
+    "name": "tinkerscalibration:moltenhalleium",
+    "amount": 810
+  },
+  "result": "tinkerscalibration:halleium_block",
+  "cooling_time": 275
+}

@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "item": "tinkerscalibration:titanium_ingot"
+    "tag": "forge:ingots/titanium"
   },
   "result": {
     "fluid": "tinkerscalibration:moltentitanium",

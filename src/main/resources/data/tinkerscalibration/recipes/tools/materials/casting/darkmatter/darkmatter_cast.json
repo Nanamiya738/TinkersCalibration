@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "modid": "projecte",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "fluid": {
+    "name": "tinkerscalibration:moltendarkmatter",
+    "amount": 90
+  },
+  "result": "projecte:dark_matter",
+  "cooling_time": 175
+}

@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:raw_materials/titanium",
+    "#forge:raw_materials/hothium",
+    "#forge:raw_materials/immersed_silver",
+    "#forge:raw_materials/inert_witherium",
+    "#forge:raw_materials/magiga",
+    "#forge:raw_materials/tonium",
+    "#forge:raw_materials/stellarium"
+  ]
+}

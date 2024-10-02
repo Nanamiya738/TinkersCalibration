@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "name": "tinkerscalibration:moltenvibratingcrystal",
+    "amount": 100
+  },
+  "temperature": 905,
+  "output": "tinkerscalibration:vibrating_crystal"
+}

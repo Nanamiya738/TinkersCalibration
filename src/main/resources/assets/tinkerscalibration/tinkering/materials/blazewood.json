@@ -12,31 +12,31 @@
         "palette": [
           {
             "grey": 0,
-            "color": "FF482333"
+            "color": "FF000000"
           },
           {
             "grey": 63,
-            "color": "FFff4500"
+            "color": "FF3F1E2D"
           },
           {
             "grey": 102,
-            "color": "FF321722"
+            "color": "FF5C3042"
           },
           {
             "grey": 140,
-            "color": "FF542C3C"
+            "color": "FFCF7600"
           },
           {
             "grey": 178,
-            "color": "FF73354E"
+            "color": "FFEB9600"
           },
           {
             "grey": 216,
-            "color": "FFffaa09"
+            "color": "FFB94D81"
           },
           {
             "grey": 255,
-            "color": "FFffa500"
+            "color": "FFFFBD01"
           }
         ]
       }

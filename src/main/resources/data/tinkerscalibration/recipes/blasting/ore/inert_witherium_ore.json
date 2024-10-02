@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "tag": "forge:ores/inert_witherium"
+  },
+  "result": "tinkerscalibration:inert_witherium_ingot",
+  "experience": 1.5,
+  "cookingtime": 100
+}

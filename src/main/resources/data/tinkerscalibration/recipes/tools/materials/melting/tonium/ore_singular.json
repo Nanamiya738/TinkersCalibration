@@ -1,0 +1,42 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "registry": "minecraft:item",
+      "base": "forge:ores/tonium",
+      "subtracted": [
+        "forge:ore_rates/sparse",
+        "forge:ore_rates/dense"
+      ],
+      "type": "tconstruct:tag_difference_present"
+    }
+  ],
+  "rate": "metal",
+  "ingredient": {
+    "type": "forge:difference",
+    "base": {
+      "tag": "forge:ores/tonium"
+    },
+    "subtracted": [
+      {
+        "tag": "forge:ore_rates/sparse"
+      },
+      {
+        "tag": "forge:ore_rates/dense"
+      }
+    ]
+  },
+  "result": {
+    "fluid": "tinkerscalibration:moltentonium",
+    "amount": 180
+  },
+  "temperature": 1220,
+  "byproducts": [
+    {
+      "fluid": "tinkerscalibration:moltenhalleium",
+      "amount": 180,
+      "rate": "metal"
+    }
+  ],
+  "time": 187
+}

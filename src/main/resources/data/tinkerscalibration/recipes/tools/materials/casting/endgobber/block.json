@@ -1,5 +1,11 @@
 {
   "type": "tconstruct:casting_basin",
+  "conditions": [
+    {
+      "modid": "gobber2",
+      "type": "forge:mod_loaded"
+    }
+  ],
   "fluid": {
     "name": "tinkerscalibration:moltenendgobber",
     "amount": 810

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "tag": "forge:ores/stellarium"
+  },
+  "result": "tinkerscalibration:stellarium_ingot",
+  "experience": 1.5,
+  "cookingtime": 100
+}

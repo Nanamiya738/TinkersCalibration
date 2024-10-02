@@ -5,9 +5,9 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "tag": "tinkerscalibration:dragonbreath",
+    "name": "tinkerscalibration:dragonbreath",
     "amount": 1000
   },
-  "result": "tconstruct:ichor_slime_bottle",
+  "result": "minecraft:dragon_breath",
   "cooling_time": 100
 }

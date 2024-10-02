@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/nugget"
+  },
+  "fluid": {
+    "name": "tinkerscalibration:moltenhothium",
+    "amount": 10
+  },
+  "result": "tinkerscalibration:hothium_nugget",
+  "cooling_time": 40
+}

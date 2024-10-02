@@ -11,6 +11,12 @@
         "name": "tinkerscalibration:bamboo_growing",
         "level": 1
       }
+    ],
+    "tconstruct:armor": [
+      {
+        "name": "tinkerscalibration:bamboo_growing_armor",
+        "level": 1
+      }
     ]
   }
 }

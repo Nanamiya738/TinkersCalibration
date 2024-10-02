@@ -27,6 +27,12 @@
         "name": "tconstruct:sharpweight",
         "level": 1
       }
+    ],
+    "tconstruct:armor": [
+      {
+        "name": "tinkerscalibration:bloodthirsty_armor",
+        "level": 1
+      }
     ]
   }
 }

@@ -1,5 +1,11 @@
 {
   "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "modid": "projecte",
+      "type": "forge:mod_loaded"
+    }
+  ],
   "ingredient": {
     "item": "projecte:red_matter"
   },

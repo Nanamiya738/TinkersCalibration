@@ -1,5 +1,11 @@
 {
   "type": "tconstruct:casting_table",
+  "conditions": [
+    {
+      "modid": "gobber2",
+      "type": "forge:mod_loaded"
+    }
+  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/ingot"
   },
@@ -7,6 +13,6 @@
     "name": "tinkerscalibration:moltennethergobber",
     "amount": 90
   },
-  "result": "tinkerscalibration:nethergobber_ingot",
+  "result": "gobber2:gobber2_ingot_nether",
   "cooling_time": 130
 }

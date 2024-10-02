@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_fluid",
+  "input": "tinkerscalibration:diamond",
+  "fluid": {
+    "name": "tinkerscalibration:moltenwitherite",
+    "amount": 90
+  },
+  "temperature": 1250,
+  "output": "tinkerscalibration:wnetherite"
+}

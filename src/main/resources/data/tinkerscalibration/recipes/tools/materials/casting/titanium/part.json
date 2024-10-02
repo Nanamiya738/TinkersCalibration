@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material_fluid",
   "fluid": {
-    "name": "tinkerscalibration:moltentitanium",
+    "tag": "forge:molten_titanium",
     "amount": 90
   },
   "temperature": 1350,

@@ -4,7 +4,7 @@
     "item": "tconstruct:ichor_bottle"
   },
   "result": {
-    "fluid": "tconstruct:molten_ichor",
+    "fluid": "tinkerscalibration:moltenichor",
     "amount": 1000
   },
   "temperature": 800,

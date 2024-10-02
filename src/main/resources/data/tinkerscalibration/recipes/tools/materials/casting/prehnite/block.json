@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_basin",
+  "fluid": {
+    "name": "tinkerscalibration:moltenprehnite",
+    "amount": 400
+  },
+  "result": "tinkerscalibration:prehnite_block",
+  "cooling_time": 275
+}

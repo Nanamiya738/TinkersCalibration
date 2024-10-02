@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_basin",
+  "fluid": {
+    "name": "tinkerscalibration:moltenhothium",
+    "amount": 810
+  },
+  "result": "tinkerscalibration:hothium_block",
+  "cooling_time": 275
+}

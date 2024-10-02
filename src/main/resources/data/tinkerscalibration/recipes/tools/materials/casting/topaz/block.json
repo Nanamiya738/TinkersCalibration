@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_basin",
+  "fluid": {
+    "name": "tinkerscalibration:moltentopaz",
+    "amount": 400
+  },
+  "result": "tinkerscalibration:topaz_block",
+  "cooling_time": 275
+}

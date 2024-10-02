@@ -19,6 +19,12 @@
         "name": "tinkerscalibration:laceratingtitanium",
         "level": 1
       }
+    ],
+    "tconstruct:armor": [
+      {
+        "name": "tinkerscalibration:compatible_armor",
+        "level": 1
+      }
     ]
   }
 }

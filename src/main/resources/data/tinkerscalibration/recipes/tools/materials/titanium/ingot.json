@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material",
   "ingredient": {
-    "item": "tinkerscalibration:titanium_ingot"
+    "tag": "forge:ingots/titanium"
   },
   "value": 1,
   "needed": 1,

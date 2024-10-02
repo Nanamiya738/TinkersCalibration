@@ -1,5 +1,11 @@
 {
   "type": "tconstruct:material_melting",
+  "conditions": [
+    {
+      "modid": "projecte",
+      "type": "forge:mod_loaded"
+    }
+  ],
   "input":"tinkerscalibration:redmatter",
   "result": {
     "fluid": "tinkerscalibration:moltenredmatter",

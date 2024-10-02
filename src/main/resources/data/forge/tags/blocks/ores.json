@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:ores/titanium",
+    "#forge:ores/immersed_silver",
+    "#forge:ores/inert_witherium",
+    "#forge:ores/hothium",
+    "#forge:ores/magiga",
+    "#forge:ores/stellarium",
+    "#forge:ores/tonium",
+    "#forge:ores/corundum",
+    "#forge:ores/nitre",
+    "#forge:ores/spinel",
+    "#forge:ores/talcum",
+    "#forge:ores/tourmaline",
+    "#forge:ores/vibrating_crystal"
+  ]
+}

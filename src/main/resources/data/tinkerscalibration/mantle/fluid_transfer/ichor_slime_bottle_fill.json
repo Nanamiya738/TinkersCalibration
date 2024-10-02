@@ -3,7 +3,7 @@
   "input": {
     "item": "minecraft:glass_bottle"
   },
-  "filled": "tconstruct:ichor_slime_bottle",
+  "filled": "tconstruct:ichor_bottle",
   "fluid": {
     "tag": "tinkerscalibration:moltenichor",
     "amount": 250

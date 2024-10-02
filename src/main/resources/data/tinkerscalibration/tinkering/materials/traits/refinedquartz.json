@@ -11,6 +11,12 @@
         "name": "tinkerscalibration:refined",
         "level": 1
       }
+    ],
+    "tconstruct:armor": [
+      {
+        "name": "tinkerscalibration:refined_armor",
+        "level": 1
+      }
     ]
   }
 }

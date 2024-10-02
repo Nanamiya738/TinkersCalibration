@@ -17,8 +17,8 @@ import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
@@ -28,10 +28,11 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 public class ShulkerModifier extends NoLevelsModifier {
-    @Override
+    /*@Override
     public boolean isSourceBlocked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount) {
         return source.isProjectile();
     }
+
     public ShulkerModifier() {
         MinecraftForge.EVENT_BUS.addListener(this::CrouchingImpact);
     }
@@ -49,7 +50,7 @@ public class ShulkerModifier extends NoLevelsModifier {
 
                     ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);
                     if (activeModifier != null) {
-                        GeneralInteractionModifierHook hook = activeModifier.getHook(TinkerHooks.CHARGEABLE_INTERACT);
+                        GeneralInteractionModifierHook hook = activeModifier.getHook(ModifierHooks.CHARGEABLE_INTERACT);
                         if (activeModifier.getLevel() >= 1 && living.isCrouching()) {
                             if (!RegistryHelper.contains(TinkerTags.EntityTypes.REFLECTING_PRESERVE_OWNER, projectile.getType())) {
                                 projectile.setOwner(living);
@@ -57,7 +58,7 @@ public class ShulkerModifier extends NoLevelsModifier {
 
                             Vec3 reboundAngle = living.getLookAngle();
                             float velocity = ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.VELOCITY) * 1.1f;
-                            projectile.shoot(reboundAngle.x, reboundAngle.y, reboundAngle.z, velocity, ModifierUtil.getInaccuracy(tool, living, (float)(velocity * projectile.getDeltaMovement().length())));
+                            projectile.shoot(reboundAngle.x, reboundAngle.y, reboundAngle.z, velocity, ModifierUtil.getInaccuracy(tool, living, (float) (velocity * projectile.getDeltaMovement().length())));
                             if (projectile instanceof AbstractHurtingProjectile hurting) {
                                 hurting.xPower = reboundAngle.x * 0.1;
                                 hurting.yPower = reboundAngle.y * 0.1;
@@ -71,4 +72,6 @@ public class ShulkerModifier extends NoLevelsModifier {
             }
         }
     }
+
+     */
 }

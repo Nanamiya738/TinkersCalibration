@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:nuggets/mangobberslime",
+    "#forge:nuggets/mandite",
+    "#forge:nuggets/moonsteel",
+    "#forge:nuggets/alumite",
+    "#forge:nuggets/gravity",
+    "#forge:nuggets/lindsteel",
+    "#forge:nuggets/fazelle",
+    "#forge:nuggets/emperorslime",
+    "#forge:nuggets/titanium",
+    "#forge:nuggets/jazz",
+    "#forge:nuggets/soulgold",
+    "#forge:nuggets/hymon_scrap",
+    "#forge:nuggets/altairium",
+    "#forge:nuggets/immersed_silver",
+    "#forge:nuggets/inert_witherium",
+    "#forge:nuggets/halleium",
+    "#forge:nuggets/hothium",
+    "#forge:nuggets/magiga",
+    "#forge:nuggets/tonium",
+    "#forge:nuggets/oraclium",
+    "#forge:nuggets/steamium",
+    "#forge:nuggets/stellarium",
+    "#forge:nuggets/witherium"
+  ]
+}

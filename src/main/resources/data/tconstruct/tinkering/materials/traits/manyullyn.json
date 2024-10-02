@@ -8,5 +8,13 @@
       "name": "tinkerscalibration:stone_cold",
       "level": 1
     }
+  ],
+  "perStat": {
+  "tconstruct:armor": [
+    {
+      "level": 1,
+      "name": "tconstruct:kinetic"
+    }
   ]
+}
 }

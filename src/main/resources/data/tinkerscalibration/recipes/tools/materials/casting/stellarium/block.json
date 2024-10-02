@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_basin",
+  "fluid": {
+    "name": "tinkerscalibration:moltenstellarium",
+    "amount": 810
+  },
+  "result": "tinkerscalibration:stellarium_block",
+  "cooling_time": 275
+}
