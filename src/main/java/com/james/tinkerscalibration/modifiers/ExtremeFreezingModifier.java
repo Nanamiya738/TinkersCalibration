@@ -6,13 +6,11 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -27,7 +25,6 @@ import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Random;
 
 
 public class ExtremeFreezingModifier extends Modifier implements MeleeHitModifierHook, InventoryTickModifierHook, ProjectileHitModifierHook {
@@ -41,7 +38,7 @@ public class ExtremeFreezingModifier extends Modifier implements MeleeHitModifie
     public static void freeze(LivingEntity center, int level) {
         float range = 5 + 3 * level;
         List<Mob> ens = center.level.getEntitiesOfClass(Mob.class, new AABB(center.getX() - range, center.getY() - range, center.getZ() - range, center.getX() + range, center.getY() + range, center.getZ() + range));
-        if (ens.size() > 0)
+        if (!ens.isEmpty())
             for (Mob en : ens) {
                 if (en == null) continue;
                 LivingEntity enlb = en;
@@ -55,11 +52,10 @@ public class ExtremeFreezingModifier extends Modifier implements MeleeHitModifie
     }
 
     public static void particle(LivingEntity entity) {
-        Random random = (Random) entity.level.random;
         entity.level.addParticle(ParticleTypes.SNOWFLAKE,
-                entity.getX() + random.nextDouble() - 0.5,
-                entity.getY() + random.nextDouble(),
-                entity.getZ() + random.nextDouble() - 0.5,
+                entity.getX() + RANDOM.nextDouble() - 0.5,
+                entity.getY() + RANDOM.nextDouble(),
+                entity.getZ() + RANDOM.nextDouble() - 0.5,
                 0.0D, 0.25D, 0.0D);
     }
 

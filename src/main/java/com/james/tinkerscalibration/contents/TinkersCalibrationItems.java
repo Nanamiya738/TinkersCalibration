@@ -3,6 +3,7 @@ package com.james.tinkerscalibration.contents;
 import com.james.tinkerscalibration.group.ModGroup;
 import com.james.tinkerscalibration.TinkersCalibration;
 import com.james.tinkerscalibration.TinkersCalibrationToolDefinition;
+import com.james.tinkerscalibration.item.SpaghettiItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -158,6 +159,7 @@ public class TinkersCalibrationItems {
     private static final Item.Properties ToolItem = new Item.Properties().stacksTo(1).tab(ModGroup.itemGroup);
     //public static final RegistryObject<ModifiableItem> GUN = ITEMS.register("gun", () -> new ModifiableItem(ToolItem, TinkersCalibrationToolDefinition.Gun));
     public static final RegistryObject<ModifiableItem> CUTLASS = ITEMS.register("cutlass", () -> new ModifiableItem(ToolItem, TinkersCalibrationToolDefinition.Cutlass));
+    public static final RegistryObject<SpaghettiItem> SPAGHETTI = ITEMS.register("moms_spaghetti", () -> new SpaghettiItem(ToolItem, TinkersCalibrationToolDefinition.Spaghetti));
 
     //
 

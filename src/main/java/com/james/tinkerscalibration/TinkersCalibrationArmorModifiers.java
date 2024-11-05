@@ -81,6 +81,7 @@ public class TinkersCalibrationArmorModifiers {
     public static StaticModifier<Modifier> circulation = MODIFIERS.register("circulation_armor", ArmorCirculationModifier::new);
     public static StaticModifier<Modifier> benthamism = MODIFIERS.register("benthamism_armor", ArmorBenthamismModifier::new);
     public static StaticModifier<Modifier> welltrained = MODIFIERS.register("welltrained_armor", ArmorWellTrainedModifier::new);
+    public static StaticModifier<Modifier> birefringent = MODIFIERS.register("birefringent_armor", ArmorBirefringentModifier::new);
     public static StaticModifier<Modifier> lifeinspire = MODIFIERS.register("lifeinspire_armor", ArmorLifeInspireModifier::new);
     public static StaticModifier<Modifier> hyper = MODIFIERS.register("hyper_armor", ArmorHyperModifier::new);
     public static StaticModifier<Modifier> dichroic = MODIFIERS.register("dichroic_armor", ArmorDichroicModifier::new);
@@ -93,5 +94,9 @@ public class TinkersCalibrationArmorModifiers {
     public static StaticModifier<Modifier> stamina_focusing = MODIFIERS.register("stamina_focusing_armor", ArmorStaminaFocusingModifier::new);
     public static StaticModifier<Modifier> maiming = MODIFIERS.register("maiming_armor", ArmorMaimingModifier::new);
     public static StaticModifier<Modifier> gorgeous = MODIFIERS.register("gorgeous_armor", ArmorGorgeousModifier::new);
+    public static StaticModifier<Modifier> chariot = MODIFIERS.register("chariot_armor", ArmorChariotModifier::new);
+    public static StaticModifier<Modifier> noble = MODIFIERS.register("noble_armor", ArmorNobleModifier::new);
+    public static StaticModifier<Modifier> dense = MODIFIERS.register("dense_armor", ArmorDenseModifier::new);
+    public static StaticModifier<Modifier> extremespeed = MODIFIERS.register("extremespeed_armor", ArmorExtremeSpeedModifier::new);
 
 }

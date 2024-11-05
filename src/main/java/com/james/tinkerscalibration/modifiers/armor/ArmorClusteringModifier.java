@@ -42,11 +42,11 @@ public class ArmorClusteringModifier extends Modifier implements InventoryTickMo
         if (isArmor(slot)) {
             float percent = tool.getPersistentData().getFloat(KEY);
             if (percent > 0.45) {
-                consumer.accept(Attributes.ARMOR, new AttributeModifier(UUID.fromString("7000a1df-3fe9-4867-9442-8e255d4be96f"), Attributes.ARMOR.getDescriptionId(), percent, AttributeModifier.Operation.MULTIPLY_BASE));
+                consumer.accept(Attributes.ARMOR, new AttributeModifier(UUID.fromString("7000a1df-3fe9-4867-9442-8e255d4be96f"), Attributes.ARMOR.getDescriptionId(), (percent - 0.45) * 0.4f, AttributeModifier.Operation.MULTIPLY_BASE));
             }
             else
             {
-                consumer.accept(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(UUID.fromString("030355b4-24e5-4d82-b5c4-bf0c7770f84e"), Attributes.ARMOR_TOUGHNESS.getDescriptionId(), 0.45 - percent, AttributeModifier.Operation.MULTIPLY_BASE));
+                consumer.accept(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(UUID.fromString("030355b4-24e5-4d82-b5c4-bf0c7770f84e"), Attributes.ARMOR_TOUGHNESS.getDescriptionId(), (0.45 - percent) * 0.4f, AttributeModifier.Operation.MULTIPLY_BASE));
             }
         }
     }

@@ -1,0 +1,9 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "tool": "tinkerscalibration:item/tool/moms_spaghetti",
+    "broken": "tinkerscalibration:item/tool/moms_spaghetti"
+  },
+  "modifier_roots": [ "tinkerscalibration:item/tool/moms_spaghetti/" ]
+}

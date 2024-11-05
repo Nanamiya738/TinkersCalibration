@@ -21,7 +21,7 @@ public class AccumulateModifier extends Modifier implements InventoryTickModifie
     @Override
     public void onInventoryTick(IToolStackView tool, ModifierEntry modifier, Level world, LivingEntity holder, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack stack) {
         if (!world.isClientSide && holder.tickCount % 200 == 0) {
-            if(RANDOM.nextFloat()<= modifier.getLevel() * 0.1f)
+            if(RANDOM.nextFloat() <= modifier.getLevel() * 0.1f)
             {
                 ItemStack item = new ItemStack(Items.COAL, 1);
                 if(holder instanceof ServerPlayer player)

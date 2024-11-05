@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "cookingtime": 100,
+  "experience": 1,
+  "ingredient": {
+    "item": "tinkerscalibration:dry_cold_noodles"
+  },
+  "result": "tinkerscalibration:moms_spaghetti"
+}

@@ -81,13 +81,9 @@ public class OvershieldModifier extends DurabilityShieldModifier implements Inve
     @Nullable
     @Override
     public Boolean showDurabilityBar(IToolStackView tool, ModifierEntry modifier) {
-        return null;
+        return getShield(tool) > 0;
     }
 
-    @Override
-    public int getDurabilityWidth(IToolStackView tool, ModifierEntry modifier) {
-        return 0;
-    }
 
     @Override
     public int getShieldCapacity(IToolStackView tool, ModifierEntry modifier) {

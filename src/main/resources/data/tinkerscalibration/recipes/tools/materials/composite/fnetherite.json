@@ -3,7 +3,7 @@
   "input": "tinkerscalibration:diamond",
   "fluid": {
     "name": "tinkerscalibration:moltenfeatherite",
-    "amount": 90
+    "amount": 30
   },
   "temperature": 1250,
   "output": "tinkerscalibration:fnetherite"

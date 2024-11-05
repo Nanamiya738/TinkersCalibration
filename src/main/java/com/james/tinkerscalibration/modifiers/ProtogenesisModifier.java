@@ -1,10 +1,9 @@
 package com.james.tinkerscalibration.modifiers;
 
+import com.james.tinkerscalibration.TinkersCalibration;
 import com.james.tinkerscalibration.integration.BlueSkiesIntegration;
-import com.legacy.blue_skies.capability.SkiesPlayer;
-import com.legacy.blue_skies.registries.SkiesDimensions;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -14,39 +13,31 @@ import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nonnull;
 
+import static com.legacy.blue_skies.items.util.IFalsiteItem.getMaxFalsiteUses;
+
 public class ProtogenesisModifier extends NoLevelsModifier implements InventoryTickModifierHook {
+    private final ResourceLocation KEY = new ResourceLocation(TinkersCalibration.MODID, "falsite");
+
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         hookBuilder.addHook(this, ModifierHooks.INVENTORY_TICK);
     }
     @Override
     public void onInventoryTick(@Nonnull IToolStackView tool, ModifierEntry modifier, @Nonnull Level world, @Nonnull LivingEntity holder, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack stack) {
-        int boriginal = 0, doriginal = 0;
-        boolean ischanged = false;
-        if (holder instanceof Player player) {
-            SkiesPlayer skiesPlayer = (SkiesPlayer) SkiesPlayer.get(player);
-            if (skiesPlayer != null) {
-                if (player.level.dimension().equals(SkiesDimensions.everbrightKey()) || player.level.dimension().equals(SkiesDimensions.everdawnKey())){
-                    if (!world.isClientSide && isSelected) {
-                        if(skiesPlayer.getDawnProgression() <= 3 || skiesPlayer.getBrightProgression() <= 3) {
-                            ischanged = true;
-                            boriginal = skiesPlayer.getBrightProgression();
-                            doriginal = skiesPlayer.getDawnProgression();
-                            skiesPlayer.setBrightProgression((byte) 4);
-                            skiesPlayer.setDawnProgression((byte) 4);
-                        }
-                    }
-                    if (!world.isClientSide && !isSelected) {
-                        if (ModifierUtil.getModifierLevel(holder.getMainHandItem(), BlueSkiesIntegration.protogenesis.getId()) == 0) {
-                            skiesPlayer.setBrightProgression((byte) boriginal);
-                            skiesPlayer.setDawnProgression((byte) doriginal);
-                        }
-                    }
-                }
+        if(!world.isClientSide && holder.tickCount % 10 == 0 && stack.getTag().contains("Falsite")) //it's very unlikely that an item doesn't have any tags, so just ignore the warning.
+        {
+            if(tool.getPersistentData().getInt(KEY) < stack.getTag().getInt("Falsite") || !tool.getPersistentData().contains(KEY, 3)) {
+                tool.getPersistentData().putInt(KEY, Math.min(stack.getTag().getInt("Falsite"), getMaxFalsiteUses(stack)));
+                stack.getTag().putInt("Falsite", 0);
+                ToolStack toolstack = ToolStack.from(stack);
+                if(ModifierUtil.getModifierLevel(stack, BlueSkiesIntegration.falsite.getId()) == 0)
+                    toolstack.addModifier(BlueSkiesIntegration.falsite.getId(), 1);
             }
         }
     }
+
 }

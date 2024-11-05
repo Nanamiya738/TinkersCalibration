@@ -18,5 +18,7 @@
   ],
   "allow_crystal": true,
   "result": "tinkerscalibration:scute",
-  "max_level": 1
+  "level": {
+    "max": 1
+  }
 }

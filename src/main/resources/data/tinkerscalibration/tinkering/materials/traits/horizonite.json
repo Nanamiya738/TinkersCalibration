@@ -19,6 +19,16 @@
         "name": "tinkerscalibration:accumulate",
         "level": 1
       }
+    ],
+    "tconstruct:armor": [
+      {
+        "level": 1,
+        "name": "tinkerscalibration:accumulate"
+      },
+      {
+        "level": 1,
+        "name": "tinkerscalibration:protogenesis"
+      }
     ]
   }
 }

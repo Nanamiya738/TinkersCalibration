@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:material",
   "ingredient": {
-    "item": "minecraft:purpur_block"
+    "item": "minecraft:nether_bricks"
   },
-  "value": 1,
+  "value": 9,
   "needed": 1,
-  "material": "tinkerscalibration:purpur"
+  "material": "tinkerscalibration:netherbrick",
+  "leftover": "minecraft:nether_brick"
 }

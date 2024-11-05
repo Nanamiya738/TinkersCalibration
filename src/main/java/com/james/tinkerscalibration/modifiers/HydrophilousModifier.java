@@ -29,14 +29,7 @@ public class HydrophilousModifier extends Modifier implements BreakSpeedModifier
         Player player = event.getEntity();
         if (player != null && player.isEyeInFluid(FluidTags.WATER)) {
             if (player.hasEffect(MobEffects.DIG_SLOWDOWN)) {
-                int amplifier = player.getEffect(MobEffects.DIG_SLOWDOWN).getAmplifier() + 1;
-                double scale;
-                if (amplifier <= 3) {
-                    scale = Math.pow(3, amplifier);
-                } else {
-                    scale = Math.pow(3, 4);
-                }
-                event.setNewSpeed((float) (event.getNewSpeed() * scale));
+                event.setNewSpeed(event.getNewSpeed()); //this part is done by mixin
             } else if (!EnchantmentHelper.hasAquaAffinity(player)) {
                 event.setNewSpeed(event.getNewSpeed() * 5);
             } else {

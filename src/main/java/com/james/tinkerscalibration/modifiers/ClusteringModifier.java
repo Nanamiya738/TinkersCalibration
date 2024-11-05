@@ -47,7 +47,7 @@ public class ClusteringModifier extends NoLevelsModifier implements MeleeDamageM
         Player player = event.getEntity();
         Inventory inv = player.getInventory();
         if (getPercentage(inv) <= 0.45) {
-            event.setNewSpeed(event.getNewSpeed() * (1 + 0.45f - getPercentage(inv)));
+            event.setNewSpeed(event.getNewSpeed() * (1 + (0.45f - getPercentage(inv)) * 0.4f));
         }
     }
 
@@ -58,7 +58,7 @@ public class ClusteringModifier extends NoLevelsModifier implements MeleeDamageM
             Inventory inv = player.getInventory();
             float percentage = getPercentage(inv);
             if (percentage > 0.45) {
-                return damage * (1 + percentage - 0.45f);
+                return damage * (1 + (percentage - 0.45f) * 0.4f);
             }
         }
         return damage;

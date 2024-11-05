@@ -1,6 +1,7 @@
 package com.james.tinkerscalibration;
 
 import com.james.tinkerscalibration.effect.*;
+import com.james.tinkerscalibration.library.SpaghettiModifierRecipe;
 import com.james.tinkerscalibration.modifiers.*;
 import com.james.tinkerscalibration.modifiers.rewrite.NecroticModifierRewrite;
 import com.james.tinkerscalibration.modifiers.rewrite.TastyModifierRewrite;
@@ -13,6 +14,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.registration.deferred.SynchronizedDeferredRegister;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
@@ -20,8 +22,12 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.util.DynamicModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierDeferredRegister;
 import slimeknights.tconstruct.library.modifiers.util.StaticModifier;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifierRecipe;
+import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
+import slimeknights.tconstruct.library.tools.stat.ToolStatId;
 import slimeknights.tconstruct.tools.modifiers.effect.NoMilkEffect;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.LaceratingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.MagneticModifier;
@@ -114,6 +120,7 @@ public class Utils extends TinkerModule {
     public static RegistryObject<TinkerEffect> criticalspeedEffect = MOB_EFFECTS.register("criticalspeed", MARKER_EFFECT.apply(0xD7CB77));
     public static RegistryObject<TinkerEffect> bloodblastEffect = MOB_EFFECTS.register("bloodblast", MARKER_EFFECT.apply(0x8b0000));
     public static RegistryObject<TinkerEffect> resistEffect = MOB_EFFECTS.register("resist", MARKER_EFFECT.apply(0x8b0000));
+    public static RegistryObject<TinkerEffect> witherSprintCooldownEffect = MOB_EFFECTS.register("wither_cooldown", MARKER_EFFECT.apply(0x8b0000));
     public static RegistryObject<DisequilibriumEffect> disequilibrium = MOB_EFFECTS.register("disequilibrium", DisequilibriumEffect::new);
     public static RegistryObject<EnviedEffect> envied = MOB_EFFECTS.register("envied", EnviedEffect::new);
     public static RegistryObject<EddyingEffect> eddyingEffect = MOB_EFFECTS.register("eddying", EddyingEffect::new);
@@ -228,6 +235,10 @@ public class Utils extends TinkerModule {
     public static StaticModifier<Modifier> overshield = MODIFIERS.register("overshield", OvershieldModifier::new);
     public static StaticModifier<Modifier> overmemory = MODIFIERS.register("overmemory", OverslimeMemoryModifier::new);
     public static StaticModifier<Modifier> globaltraveller = MODIFIERS.register("global_traveller", GlobalTravellerModifier::new);
+    public static StaticModifier<Modifier> spaghetti = MODIFIERS.register("spaghetti", SpaghettiModifier::new);
+    public static StaticModifier<Modifier> spaghetti2 = MODIFIERS.register("spaghetti2", Spaghetti2Modifier::new);
+    public static StaticModifier<Modifier> spaghetti3 = MODIFIERS.register("spaghetti3", Spaghetti3Modifier::new);
+    public static final RegistryObject<RecipeSerializer<SpaghettiModifierRecipe>> spaghettiSerializer;
     //public static StaticModifier<Modifier> continuingshoot = MODIFIERS.register("continuing_shoot", ContinuingShootModifier::new);
     public static final ModifierId ecological = id("ecological");
     public static final ModifierId scute = id("scute");
@@ -238,6 +249,11 @@ public class Utils extends TinkerModule {
     public static StaticModifier<Modifier> arbalist = MODIFIERS.register("arbalist", ArbalistModifier::new);
     private static IEventBus HymonArrow;
     //public static final RegistryObject<SimpleParticleType> birefringentParticle = PARTICLE_TYPES.register("birefringent", () -> new SimpleParticleType(false));
+    static{
+        spaghettiSerializer = RECIPE_SERIALIZERS.register("spaghetti_modifier", () -> {
+            return LoadableRecipeSerializer.of(SpaghettiModifierRecipe.LOADER);
+        });
+    }
     private static ModifierId id(String name) {
         return new ModifierId(TinkersCalibration.MODID, name);
     }

@@ -15,9 +15,5 @@ public class BloodThirstyEffect extends NoMilkEffect {
         super(MobEffectCategory.BENEFICIAL, 0x5A603E, true);
     }
 
-    @Override
-    public void applyEffectTick(LivingEntity target, int level) {
-        //if(ModifierUtil.getModifierLevel(target.getMainHandItem(), Utils.bloodthirsty.getId()) > 0)
-        addAttributeModifier(Attributes.ATTACK_SPEED, uuidAttackSpeed, 0.2f * level, AttributeModifier.Operation.MULTIPLY_BASE);
-    }
+
 }

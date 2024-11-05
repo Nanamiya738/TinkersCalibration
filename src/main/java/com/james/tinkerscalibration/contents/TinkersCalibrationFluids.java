@@ -61,6 +61,9 @@ public class TinkersCalibrationFluids {
     public static final FlowingFluidObject<ForgeFlowingFluid> moltencorundum = register("moltencorundum", 925);
     public static final FlowingFluidObject<ForgeFlowingFluid> moltenspinel = register("moltenspinel", 905);
     public static final FlowingFluidObject<ForgeFlowingFluid> moltenvibratingcrystal = register("moltenvibratingcrystal", 785);
+    public static final FlowingFluidObject<ForgeFlowingFluid> moltenventium = register("moltenventium", 800);
+    public static final FlowingFluidObject<ForgeFlowingFluid> moltencharoite = register("moltencharoite", 1400);
+    public static final FlowingFluidObject<ForgeFlowingFluid> moltendiopside = register("moltendiopside", 1400);
     //public static final FlowingFluidObject<ForgeFlowingFluid> moltenlavacrystal = register("moltenlavacrystal", 900);
     public static final FlowingFluidObject<ForgeFlowingFluid> dragonbreath = register("dragonbreath", 2000);
     private static FluidType.Properties hot(String name) {

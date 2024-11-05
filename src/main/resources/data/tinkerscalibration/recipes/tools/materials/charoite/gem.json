@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:material",
+  "conditions": [
+    {
+      "modid": "blue_skies",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "ingredient": {
+    "item": "blue_skies:charoite_gem"
+  },
+  "value": 1,
+  "needed": 1,
+  "material": "tinkerscalibration:charoite"
+}

@@ -114,9 +114,9 @@ public class ArmorIgneousModifier extends Modifier implements ToolDamageModifier
         if (isArmor(slot)) {
             float current = tool.getPersistentData().getFloat(KEY);
             if (current != 0) {
-                consumer.accept(Attributes.ARMOR, new AttributeModifier(UUID.fromString("115d9b72-da0c-4395-bfab-2f2287d6d1eb"), Attributes.ARMOR.getDescriptionId(), current * 0.1, AttributeModifier.Operation.MULTIPLY_BASE));
-                consumer.accept(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(UUID.fromString("93bdef84-fac5-4445-90b6-fed434adcdfe"), Attributes.ARMOR_TOUGHNESS.getDescriptionId(), current * 0.1, AttributeModifier.Operation.MULTIPLY_BASE));
-                consumer.accept(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.fromString("fdcd922f-7891-4d6f-bf61-226e85c1b174"), Attributes.KNOCKBACK_RESISTANCE.getDescriptionId(), current * 0.1, AttributeModifier.Operation.MULTIPLY_BASE));
+                consumer.accept(Attributes.ARMOR, new AttributeModifier(UUID.fromString("115d9b72-da0c-4395-bfab-2f2287d6d1eb"), Attributes.ARMOR.getDescriptionId(), current, AttributeModifier.Operation.ADDITION));
+                consumer.accept(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(UUID.fromString("93bdef84-fac5-4445-90b6-fed434adcdfe"), Attributes.ARMOR_TOUGHNESS.getDescriptionId(), current, AttributeModifier.Operation.ADDITION));
+                consumer.accept(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.fromString("fdcd922f-7891-4d6f-bf61-226e85c1b174"), Attributes.KNOCKBACK_RESISTANCE.getDescriptionId(), current, AttributeModifier.Operation.ADDITION));
             }
         }
     }

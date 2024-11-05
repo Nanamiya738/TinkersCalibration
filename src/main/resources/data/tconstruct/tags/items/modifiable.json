@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "tinkerscalibration:cutlass"
+    "tinkerscalibration:cutlass",
+    "tinkerscalibration:moms_spaghetti"
   ]
 }

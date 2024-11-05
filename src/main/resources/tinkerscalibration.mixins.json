@@ -1,9 +1,13 @@
 {
 	"required": true,
-	"package": "com.james.tinkerscalibration.mixin",
+	"package": "com.james.tinkerscalibration.mixins",
 	"compatibilityLevel": "JAVA_17",
 	"refmap": "tinkerscalibration.refmap.json",
 	"mixins": [
+		"BlueSkiesDamageNerfMixin",
+		"BlueSkiesMiningNerfMixin",
+		"BlueSkiesFalsiteMixin",
+		"BlueSkiesArmorNerfMixin"
 	],
 	"minVersion": "0.8"
 }

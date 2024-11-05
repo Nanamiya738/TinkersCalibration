@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "name": "tinkerscalibration:moltencharoite",
+    "amount": 100
+  },
+  "temperature": 1400,
+  "output": "tinkerscalibration:charoite"
+}

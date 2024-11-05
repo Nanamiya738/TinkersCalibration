@@ -2,14 +2,13 @@ package com.james.tinkerscalibration;
 
 import com.james.tinkerscalibration.contents.*;
 import com.james.tinkerscalibration.group.ModGroup;
+import com.james.tinkerscalibration.hud.RangedDrawHud;
 import com.james.tinkerscalibration.integration.BlueSkiesIntegration;
 import com.james.tinkerscalibration.integration.MNAIntegration;
-import com.james.tinkerscalibration.item.FiberGlass;
-import com.james.tinkerscalibration.item.HymonArrow;
-import com.james.tinkerscalibration.modifiers.OvershieldHudModifier;
+import com.james.tinkerscalibration.item.*;
+import com.james.tinkerscalibration.hud.OvershieldHud;
+import com.james.tinkerscalibration.library.TinkersCalibrationLootModifiers;
 import com.james.tinkerscalibration.tiers.*;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
@@ -21,7 +20,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -29,7 +27,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import slimeknights.tconstruct.common.registration.GeodeItemObject;
 
 import java.util.List;
 
@@ -51,7 +48,14 @@ public class TinkersCalibration {
         TinkersCalibrationWorldFeatures.CONFIGURED_FEATURES.register(bus);
         TinkersCalibrationWorldFeatures.PLACED_FEATURES.register(bus);
         TinkersCalibrationWorldFeatures.BLOCKS.register(bus);
+        if(ModList.get().isLoaded("tinkers_thinking")) {
+            TinkersCalibrationLootModifiers.init(bus);
+            logger.info("Found Tinkers' Thinking, spaghetti initializing……");
+        }
         FiberGlass.ItemRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        HardWheatRod.ItemRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        WetSoftNoodles.ItemRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        DryColdNoodles.ItemRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         HymonArrow.ItemRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         Utils.RECIPE_SERIALIZERS.register(bus);
         TinkersCalibrationArmorModifiers.Init();
@@ -59,7 +63,7 @@ public class TinkersCalibration {
     @SubscribeEvent
     public static void registerGUIOverlays(RegisterGuiOverlaysEvent event)
     {
-        event.registerAboveAll("shield", OvershieldHudModifier.HUD_SHIELD);
+        event.registerAboveAll("shield", OvershieldHud.HUD_SHIELD);
     }
     private void setup(final FMLCommonSetupEvent event) {
         boolean pe = ModList.get().isLoaded("projecte");
@@ -94,6 +98,8 @@ public class TinkersCalibration {
             TinkersCalibrationArmorModifiers.InitN();
             logger.info("Found Upgraded Netherite, armor integration initializing……");
         }
+
+        MinecraftForge.EVENT_BUS.register(new RangedDrawHud());
     }
     private static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "tinkerscalibration";
@@ -114,7 +120,6 @@ public class TinkersCalibration {
     }
 
     public static final DeferredRegister<Item> Items = DeferredRegister.create(ForgeRegistries.ITEMS, TinkersCalibration.MODID);
-    public static RegistryObject<Item> Fiberglass = Items.register("fiberglass", TinkersCalibration::register);
     public static RegistryObject<Item> Hymon_Arrow = Items.register("hymon_arrow", TinkersCalibration::register);
 
     public static Logger getLogger() {

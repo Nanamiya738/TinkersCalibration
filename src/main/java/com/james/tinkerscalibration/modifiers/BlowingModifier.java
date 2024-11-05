@@ -38,7 +38,6 @@ public class BlowingModifier extends Modifier implements MeleeHitModifierHook, P
         if (player == null || target == null) return knockback;
 
         if (target instanceof Player) return knockback;
-
         Level world = target.getCommandSenderWorld();
         if (!world.isClientSide && RANDOM.nextFloat() <= 0.2f * modifier.getLevel()) {
             ItemStack stack2drop;
