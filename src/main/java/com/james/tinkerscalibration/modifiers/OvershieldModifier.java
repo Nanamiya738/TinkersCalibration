@@ -3,6 +3,7 @@ package com.james.tinkerscalibration.modifiers;
 import com.james.tinkerscalibration.TinkersCalibration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.DamageBlockModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.ModifyDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.DurabilityShieldModifier;
@@ -24,7 +26,7 @@ import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
 import javax.annotation.Nonnull;
 
-public class OvershieldModifier extends DurabilityShieldModifier implements InventoryTickModifierHook, DurabilityDisplayModifierHook, DamageBlockModifierHook {
+public class OvershieldModifier extends DurabilityShieldModifier implements InventoryTickModifierHook, DurabilityDisplayModifierHook, ModifyDamageModifierHook {
     private final ResourceLocation KEY = new ResourceLocation(TinkersCalibration.MODID, "overshield_cooldown");
     @Override
     public int getPriority() {
@@ -36,32 +38,9 @@ public class OvershieldModifier extends DurabilityShieldModifier implements Inve
     }
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
-        hookBuilder.addHook(this, ModifierHooks.INVENTORY_TICK, ModifierHooks.DURABILITY_DISPLAY, ModifierHooks.DAMAGE_BLOCK);
+        hookBuilder.addHook(this, ModifierHooks.INVENTORY_TICK, ModifierHooks.DURABILITY_DISPLAY, ModifierHooks.MODIFY_DAMAGE);
     }
-    @Override
-    public boolean isDamageBlocked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount) {
-        if(context.getEntity() instanceof Player player && !player.isCreative()) {
-            int current = getShield(tool);
-            int level = modifier.getLevel();
-            int value = Math.round(amount);
-            if (current >= value && !source.isBypassInvul()) {
-                if (amount <= 40) {
-                    if(player.invulnerableTime == 0 || source.isFire() && fireImmune(player)) {
-                        addShield(tool, modifier, -value);
-                        player.invulnerableTime += 10;
-                    }
-                    return true;
-                } else {
-                    addShield(tool, modifier, -getShieldCapacity(tool, modifier));
-                    player.getCooldowns().addCooldown(tool.getItem(), 100);
-                    return false;
-                }
-            }
-            addShield(tool, modifier, -getShieldCapacity(tool, modifier));
-            player.getCooldowns().addCooldown(tool.getItem(), 100);
-        }
-        return false;
-    }
+
     public int getShieldCurrent(IToolStackView tool) {
         return getShield(tool);
     }
@@ -103,5 +82,31 @@ public class OvershieldModifier extends DurabilityShieldModifier implements Inve
             return 0xff0000;
         }
         return -1;
+    }
+
+    @Override
+    public float modifyDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slot, DamageSource source, float amount, boolean b) {
+        if(context.getEntity() instanceof Player player && !player.isCreative()) {
+            int current = getShield(tool);
+            int level = modifier.getLevel();
+            int value = Math.round(amount);
+            if (current >= value && !source.is(DamageTypes.FELL_OUT_OF_WORLD)) {
+                if (amount <= 40) {
+                    if(player.invulnerableTime == 0 || source.is(DamageTypes.ON_FIRE) && !fireImmune(player)) {
+                        addShield(tool, modifier, -value);
+                        player.invulnerableTime += 10;
+                    }
+                    return 0;
+                } else {
+                    addShield(tool, modifier, -getShieldCapacity(tool, modifier));
+                    player.getCooldowns().addCooldown(tool.getItem(), 100);
+                    return amount - 40;
+                }
+            }
+            addShield(tool, modifier, -getShieldCapacity(tool, modifier));
+            player.getCooldowns().addCooldown(tool.getItem(), 100);
+            return amount - current;
+        }
+        return amount;
     }
 }

@@ -35,13 +35,13 @@ public class ArmorHyperModifier extends Modifier{
         if (!living.isSpectator()) {
             EquipmentContext context = new EquipmentContext(living);
             if (context.hasModifiableArmor()) {
-                if (!living.level.isClientSide && living.isAlive() && living.tickCount % 10 == 0 && living.isSprinting()) {
+                if (!living.getCommandSenderWorld().isClientSide && living.isAlive() && living.tickCount % 10 == 0 && living.isSprinting()) {
                     AttributeInstance attributeInstance = living.getAttribute(Attributes.MOVEMENT_SPEED);
                     if (attributeInstance != null) {
                         living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent((holder) -> {
                             int levels = holder.get(HYPER, 0);
                             if (levels > 0) {
-                                 List<LivingEntity> mobs = living.getLevel().getEntitiesOfClass(LivingEntity.class, living.getBoundingBox().inflate(5.0D + levels, 5.0D + levels, 5.0D + levels));
+                                 List<LivingEntity> mobs = living.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, living.getBoundingBox().inflate(5.0D + levels, 5.0D + levels, 5.0D + levels));
                                  int sum = 0;
                                  for(LivingEntity mob : mobs)
                                      if(mob instanceof Enemy) sum++;

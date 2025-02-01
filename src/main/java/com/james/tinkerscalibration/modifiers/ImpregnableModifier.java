@@ -23,7 +23,7 @@ import slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierH
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.mantle.client.TooltipKey;
 
@@ -66,7 +66,7 @@ public class ImpregnableModifier extends Modifier implements TooltipModifierHook
     }
 
     @Override
-    public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData, boolean primary) {
+    public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
         if (primary && (arrow == null || arrow.isCritArrow())) {
             // 16 arrows gets you to max
             int effectLevel = Math.min(15, Utils.impregnableEffect.get().getLevel(shooter) + 1);

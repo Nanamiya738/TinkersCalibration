@@ -4,18 +4,19 @@ import com.james.tinkerscalibration.TinkersCalibration;
 import com.james.tinkerscalibration.Utils;
 import com.james.tinkerscalibration.contents.TinkersCalibrationItems;
 import com.james.tinkerscalibration.modifiers.SpaghettiModifier;
-import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.util.RegistryHelper;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -26,9 +27,8 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifi
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
+import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -65,8 +65,9 @@ public class SpaghettiModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     return IncrementalModifierRecipe.containsOnlyIngredient(inv, ingredient);
   }
 
+
   @Override
-  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
+  public @NotNull RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
     ToolStack tool = inv.getTinkerable();
     SpaghettiModifier spaghetti = (SpaghettiModifier) Utils.spaghetti.get();
     ModifierId spaghettiId = Utils.spaghetti.getId();
@@ -108,30 +109,24 @@ public class SpaghettiModifierRecipe implements ITinkerStationRecipe, IDisplayMo
       }
       tool.getPersistentData().putInt(KEY, Math.min(available + spaghetti.getUses(tool), 100));
     }
-    return RecipeResult.success(tool.createStack(Math.min(inv.getTinkerableStack().getCount(), shrinkToolSlotBy())));
+    return ITinkerStationRecipe.success(tool, inv);
   }
 
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
+  public void updateInputs(LazyToolStack result, IMutableTinkerStationContainer inv, boolean isServer) {
     ToolStack tool = inv.getTinkerable();
     int current = 0;
     SpaghettiModifier spaghetti = (SpaghettiModifier) Utils.spaghetti.get();
     if (tool.getModifierLevel(spaghetti) != 0) {
       current = spaghetti.getUses(tool);
     }
-    if(ToolStack.from(result).getModifierLevel(spaghetti.getId()) > tool.getModifierLevel(spaghetti)) {
+    if(result.getTool().getModifierLevel(spaghetti.getId()) > tool.getModifierLevel(spaghetti)) {
       IncrementalModifierRecipe.updateInputs(inv, ingredient, 1, restoreAmount, ItemStack.EMPTY);
     }
-    int maxNeeded = spaghetti.getUses(ToolStack.from(result)) - current;
+    int maxNeeded = spaghetti.getUses(result.getTool()) - current;
     IncrementalModifierRecipe.updateInputs(inv, ingredient, maxNeeded, restoreAmount, ItemStack.EMPTY);
   }
 
-  /** @deprecated use {@link #assemble(ITinkerStationContainer)} */
-  @Deprecated
-  @Override
-  public ItemStack getResultItem() {
-    return ItemStack.EMPTY;
-  }
 
   @Override
   public ResourceLocation getId() {
@@ -162,7 +157,7 @@ public class SpaghettiModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   @Override
   public List<ItemStack> getToolWithoutModifier() {
     if (toolWithoutModifier == null) {
-      toolWithoutModifier = RegistryHelper.getTagValueStream(Registry.ITEM, TinkerTags.Items.DURABILITY).map(MAP_TOOL_FOR_RENDERING).toList();
+      toolWithoutModifier = RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, TinkerTags.Items.DURABILITY).map(MAP_TOOL_FOR_RENDERING).toList();
     }
     return toolWithoutModifier;
   }
@@ -171,7 +166,7 @@ public class SpaghettiModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   public List<ItemStack> getToolWithModifier() {
     if (toolWithModifier == null) {
       List<ModifierEntry> result = List.of(RESULT);
-      toolWithModifier = RegistryHelper.getTagValueStream(Registry.ITEM, TinkerTags.Items.DURABILITY)
+      toolWithModifier = RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, TinkerTags.Items.DURABILITY)
                                        .map(MAP_TOOL_FOR_RENDERING)
                                        .map(stack -> withModifiers(stack, result, data -> data.putInt(KEY, restoreAmount)))
                                        .toList();

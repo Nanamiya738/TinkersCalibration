@@ -1,7 +1,6 @@
 package com.james.tinkerscalibration.modifiers.armor;
 
 
-import com.rolfmao.upgradednetherite.config.UpgradedNetheriteConfig;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffects;
@@ -22,7 +21,8 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 
 public class ArmorFeatheriteModifier extends Modifier {
     private static final TinkerDataCapability.TinkerDataKey<Integer> FEATHER = TConstruct.createKey("featherite_armor");
-
+}
+/*
     public ArmorFeatheriteModifier() {
         super();
         MinecraftForge.EVENT_BUS.addListener(ArmorFeatheriteModifier::onApplyEffect);
@@ -58,7 +58,7 @@ public class ArmorFeatheriteModifier extends Modifier {
                         int level = holder.get(FEATHER, 0);
                         if (level > 0 && living instanceof Player player && UpgradedNetheriteConfig.EnableWaterLavaWalking)
                         {
-                            Level world = player.getLevel();
+                            Level world = player.getCommandSenderWorld();
                             if(world.getFluidState(player.getOnPos()).is(FluidTags.LAVA) && !player.isCrouching()|| world.getFluidState(player.getOnPos()).is(FluidTags.WATER) && !player.isCrouching() && !player.isSwimming())
                             {
                                 if(player.getDeltaMovement().y() < 0 && !player.isInLava() && !player.isInWater())
@@ -92,4 +92,4 @@ public class ArmorFeatheriteModifier extends Modifier {
         });
     }
 
-}
+}*/

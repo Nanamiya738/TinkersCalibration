@@ -22,11 +22,12 @@ public class MetalInlayModifier extends Modifier implements BlockInteractionModi
 
     @Override
     public InteractionResult afterBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
-        if (source == InteractionSource.RIGHT_CLICK && tool.getCurrentDurability() >= 10) {
-            Player player = context.getPlayer();
+        Player player = context.getPlayer();
+        if (source == InteractionSource.RIGHT_CLICK && tool.getCurrentDurability() >= 10 && player != null) {
+
             Level world = player.getCommandSenderWorld();
             BlockPos pos = context.getClickedPos();
-            return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
+            return InteractionResult.sidedSuccess(player.getCommandSenderWorld().isClientSide);
         }
         return InteractionResult.PASS;
     }

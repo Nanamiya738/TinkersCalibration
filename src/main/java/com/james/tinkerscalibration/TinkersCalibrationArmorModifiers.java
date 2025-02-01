@@ -18,7 +18,6 @@ import java.util.function.Supplier;
 public class TinkersCalibrationArmorModifiers {
     private static final ItemDeferredRegisterExtension ITEM = new ItemDeferredRegisterExtension(TinkersCalibration.MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TinkersCalibration.MODID);
-    private static final Supplier<Item.Properties> ARMOR = () -> (new Item.Properties()).tab(TinkerTools.TAB_TOOLS);
     public static void Init() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         ITEMS.register(bus);
@@ -35,7 +34,6 @@ public class TinkersCalibrationArmorModifiers {
     }
     public TinkersCalibrationArmorModifiers() {
     }
-    private static final Item.Properties ToolItem = new Item.Properties().stacksTo(1).tab(TinkerToolParts.TAB_TOOL_PARTS);
     public static ModifierDeferredRegister MODIFIERS = ModifierDeferredRegister.create(TinkersCalibration.MODID);
     public static ModifierDeferredRegister MODIFIERST = ModifierDeferredRegister.create(TinkersCalibration.MODID);
     public static ModifierDeferredRegister MODIFIERSN = ModifierDeferredRegister.create(TinkersCalibration.MODID);
@@ -84,14 +82,12 @@ public class TinkersCalibrationArmorModifiers {
     public static StaticModifier<Modifier> birefringent = MODIFIERS.register("birefringent_armor", ArmorBirefringentModifier::new);
     public static StaticModifier<Modifier> lifeinspire = MODIFIERS.register("lifeinspire_armor", ArmorLifeInspireModifier::new);
     public static StaticModifier<Modifier> hyper = MODIFIERS.register("hyper_armor", ArmorHyperModifier::new);
-    public static StaticModifier<Modifier> dichroic = MODIFIERS.register("dichroic_armor", ArmorDichroicModifier::new);
     public static StaticModifier<Modifier> vibrating = MODIFIERS.register("vibrating_armor", ArmorVibratingModifier::new);
     public static StaticModifier<Modifier> soluble = MODIFIERS.register("soluble_armor", ArmorSolubleModifier::new);
     public static StaticModifier<Modifier> shaking = MODIFIERS.register("shaking_armor", ArmorShakingModifier::new);
     public static StaticModifier<Modifier> clustering = MODIFIERS.register("clustering_armor", ArmorClusteringModifier::new);
     public static StaticModifier<Modifier> peace_energetic = MODIFIERS.register("peace_energetic_armor", ArmorPeaceEnergeticModifier::new);
     public static StaticModifier<Modifier> pyro_electric = MODIFIERS.register("pyro_electric_armor", ArmorPyroElectricModifier::new);
-    public static StaticModifier<Modifier> stamina_focusing = MODIFIERS.register("stamina_focusing_armor", ArmorStaminaFocusingModifier::new);
     public static StaticModifier<Modifier> maiming = MODIFIERS.register("maiming_armor", ArmorMaimingModifier::new);
     public static StaticModifier<Modifier> gorgeous = MODIFIERS.register("gorgeous_armor", ArmorGorgeousModifier::new);
     public static StaticModifier<Modifier> chariot = MODIFIERS.register("chariot_armor", ArmorChariotModifier::new);

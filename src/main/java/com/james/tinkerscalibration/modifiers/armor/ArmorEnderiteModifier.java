@@ -1,7 +1,6 @@
 package com.james.tinkerscalibration.modifiers.armor;
 
 
-import com.rolfmao.upgradednetherite.utils.EntityDataUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
@@ -28,7 +27,8 @@ import java.util.List;
 
 public class ArmorEnderiteModifier extends Modifier {
     private static final TinkerDataCapability.TinkerDataKey<Integer> ENDERITE = TConstruct.createKey("enderite_armor");
-
+}
+/*
     public ArmorEnderiteModifier() {
         super();
         MinecraftForge.EVENT_BUS.addListener(ArmorEnderiteModifier::onUpdateApply);
@@ -43,17 +43,17 @@ public class ArmorEnderiteModifier extends Modifier {
         if (!living.isSpectator()) {
             EquipmentContext context = new EquipmentContext(living);
             if (context.hasModifiableArmor()) {
-                if (!living.level.isClientSide && living.isAlive()) {
+                if (!living.getCommandSenderWorld().isClientSide && living.isAlive()) {
                     living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent((holder) -> {
                         int level = holder.get(ENDERITE, 0);
                         if (level > 0 && living instanceof Player player && !EntityDataUtil.hasEnderTeleportCooldown(player)){
-                            Level world = player.getLevel();
+                            Level world = player.getCommandSenderWorld();
                             BlockPos onPos = player.getOnPos();
                             BlockPos belowPos = player.getOnPos().below();
                             BlockState state = world.getBlockState(belowPos);
                             if(state.getMaterial().blocksMotion())
                                 EntityDataUtil.setAbilityEnderPos(player, true);
-                            if(player.getLevel().dimension() == Level.OVERWORLD && player.getY() < -128.0 || player.getY() < -64.0)
+                            if(player.getCommandSenderWorld().dimension() == Level.OVERWORLD && player.getY() < -128.0 || player.getY() < -64.0)
                             {
                                 BlockPos pos = EntityDataUtil.getAbilityEnderPos(player);
                                 if(pos == null)
@@ -66,12 +66,12 @@ public class ArmorEnderiteModifier extends Modifier {
                                     player.teleportTo(onPos.getX(), onPos.getY() + 67, onPos.getZ());
                                     player.getPersistentData().putInt("upgraded_netherite_ender_teleport_cd", 20);
                                     SoundEvent soundevent = SoundEvents.ENDERMAN_TELEPORT;
-                                    player.level.playSound(null, onPos.getX(), onPos.getY() + 65, onPos.getZ(), soundevent, SoundSource.PLAYERS, 1.0F, 1.0F);
+                                    player.getCommandSenderWorld().playSound(null, onPos.getX(), onPos.getY() + 65, onPos.getZ(), soundevent, SoundSource.PLAYERS, 1.0F, 1.0F);
                                     player.playSound(soundevent, 1.0F, 1.0F);
                                     return;
                                 }
                                 List<BlockPos> validTpList = new ArrayList<>();
-                                if (world.getBlockState(pos.below()).getMaterial().blocksMotion() && (player.level.getFluidState(pos).isEmpty() || world.getBlockState(pos).is(Blocks.BUBBLE_COLUMN)) && world.getBlockState(pos).isPathfindable(world, pos, PathComputationType.LAND) && (world.getFluidState(pos.above()).isEmpty() || world.getBlockState(pos.above()).is(Blocks.BUBBLE_COLUMN)) && world.getBlockState(pos.above()).isPathfindable(world, pos.above(), PathComputationType.LAND)) {
+                                if (world.getBlockState(pos.below()).getMaterial().blocksMotion() && (player.getCommandSenderWorld().getFluidState(pos).isEmpty() || world.getBlockState(pos).is(Blocks.BUBBLE_COLUMN)) && world.getBlockState(pos).isPathfindable(world, pos, PathComputationType.LAND) && (world.getFluidState(pos.above()).isEmpty() || world.getBlockState(pos.above()).is(Blocks.BUBBLE_COLUMN)) && world.getBlockState(pos.above()).isPathfindable(world, pos.above(), PathComputationType.LAND)) {
                                     validTpList.add(pos.immutable());
                                 }
 
@@ -95,7 +95,7 @@ public class ArmorEnderiteModifier extends Modifier {
                                             } while(!world.getBlockState(blockpos1).isPathfindable(world, blockpos1, PathComputationType.LAND));
                                         } while(!world.getFluidState(blockpos1.above()).isEmpty() && !world.getBlockState(blockpos1.above()).is(Blocks.BUBBLE_COLUMN));
 
-                                        if (world.getBlockState(blockpos1.above()).isPathfindable(player.level, blockpos1.above(), PathComputationType.LAND)) {
+                                        if (world.getBlockState(blockpos1.above()).isPathfindable(player.getCommandSenderWorld(), blockpos1.above(), PathComputationType.LAND)) {
                                             validTpList.add(blockpos1.immutable());
                                         }
                                     }
@@ -112,7 +112,7 @@ public class ArmorEnderiteModifier extends Modifier {
                                     player.playSound(soundevent, 1.0F, 1.0F);
 
                                     for(int i = 0; i < 32; ++i) {
-                                        player.level.addParticle(ParticleTypes.PORTAL, (double) validTpList.get(IRNG).getX() + 0.5, (double) validTpList.get(IRNG).getY() + player.getRandom().nextDouble() * 2.0, (double) validTpList.get(IRNG).getZ() + 0.5, player.getRandom().nextGaussian(), 0.0, player.getRandom().nextGaussian());
+                                        player.getCommandSenderWorld().addParticle(ParticleTypes.PORTAL, (double) validTpList.get(IRNG).getX() + 0.5, (double) validTpList.get(IRNG).getY() + player.getRandom().nextDouble() * 2.0, (double) validTpList.get(IRNG).getZ() + 0.5, player.getRandom().nextGaussian(), 0.0, player.getRandom().nextGaussian());
                                     }
 
                                 }
@@ -127,4 +127,5 @@ public class ArmorEnderiteModifier extends Modifier {
     }
 }
 }
+ */
 

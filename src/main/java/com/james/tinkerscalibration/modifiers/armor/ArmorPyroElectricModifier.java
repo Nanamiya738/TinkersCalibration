@@ -2,7 +2,9 @@ package com.james.tinkerscalibration.modifiers.armor;
 
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
@@ -36,7 +38,7 @@ public class ArmorPyroElectricModifier extends Modifier {
             if (level > 0) {
                 if (event.getAmount() != 0) { 
                     BlockPos pos = living.getOnPos();
-                    Level world = living.getLevel();
+                    Level world = living.getCommandSenderWorld();
                     float temp = world.getBiome(pos).value().getBaseTemperature();
                     if (living.isOnFire()) temp += 0.3f; // new flavor
 
@@ -50,7 +52,7 @@ public class ArmorPyroElectricModifier extends Modifier {
                         for (Mob en : list) {
                             if (en == living) continue;
                             en.invulnerableTime = 0;
-                            en.hurt(DamageSource.LIGHTNING_BOLT, damage);
+                            en.hurt(new DamageSource(living.getCommandSenderWorld().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.LIGHTNING_BOLT)), damage);
                         }
                     }
                 }

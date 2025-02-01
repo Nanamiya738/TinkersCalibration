@@ -42,7 +42,7 @@ public class ArmorVibratingModifier extends Modifier implements OnAttackedModifi
     public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
         LivingEntity user = context.getEntity();
         Entity attacker = source.getEntity();
-        if (isDirectDamage && !user.level.isClientSide && attacker instanceof LivingEntity livingAttacker) {
+        if (isDirectDamage && !user.getCommandSenderWorld().isClientSide && attacker instanceof LivingEntity livingAttacker) {
             context.getTinkerData().ifPresent(data -> {
                 int effectLevel = Math.min(7, Utils.vibratingArmorEffect.get().getLevel(user) + 1);
                 Utils.vibratingArmorEffect.get().apply(user, 5 * 20, effectLevel, true);

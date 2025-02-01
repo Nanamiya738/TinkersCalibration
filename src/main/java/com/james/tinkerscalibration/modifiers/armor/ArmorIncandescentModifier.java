@@ -2,7 +2,9 @@ package com.james.tinkerscalibration.modifiers.armor;
 
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -41,7 +43,7 @@ public class ArmorIncandescentModifier extends Modifier {
             int level = holder.get(INCANDESCENT, 0);
             if(level > 0 && attacker != null) {
                 attacker.setSecondsOnFire((int) (event.getAmount()));
-                attacker.hurt(DamageSource.ON_FIRE, event.getAmount() * 0.1f * level);
+                attacker.hurt(new DamageSource(event.getEntity().getCommandSenderWorld().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.ON_FIRE)), event.getAmount() * 0.1f * level);
             }
         });
     }
@@ -51,19 +53,19 @@ public class ArmorIncandescentModifier extends Modifier {
         if (!living.isSpectator()) {
             EquipmentContext context = new EquipmentContext(living);
             if (context.hasModifiableArmor()) {
-                if (!living.level.isClientSide && living.isAlive() && living.tickCount % 80 == 0) {
+                if (!living.getCommandSenderWorld().isClientSide && living.isAlive() && living.tickCount % 80 == 0) {
                     living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent((holder) -> {
                         int level = holder.get(INCANDESCENT, 0);
                         if (level > 0) {
                             float range = 5 + 3 * level;
-                            List<Mob> ens = living.level.getEntitiesOfClass(Mob.class, new AABB(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range));
+                            List<Mob> ens = living.getCommandSenderWorld().getEntitiesOfClass(Mob.class, new AABB(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range));
                             if (!ens.isEmpty())
                                 for (Mob en : ens) {
                                     if (en == null) continue;
                                     en.setSecondsOnFire(2 * level);
                                 }
 
-                            living.level.addParticle(ParticleTypes.FLAME,
+                            living.getCommandSenderWorld().addParticle(ParticleTypes.FLAME,
                                     living.getX() + RANDOM.nextDouble() - 0.5,
                                     living.getY() + RANDOM.nextDouble(),
                                     living.getZ() + RANDOM.nextDouble() - 0.5,

@@ -32,7 +32,7 @@ public class ChimeriteModifier extends Modifier implements ProjectileHitModifier
     }
 
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target){
         Entity targetEntity = hit.getEntity();
         if (!targetEntity.isAlive() && attacker != null && target.getKillCredit() == attacker) {
             float distance = targetEntity.distanceTo(attacker);

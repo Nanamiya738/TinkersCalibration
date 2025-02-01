@@ -37,7 +37,7 @@ public class SweetHeartModifier extends Modifier implements GeneralInteractionMo
     public void onFinishUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity) {
         if (!tool.isBroken() && entity instanceof Player player && player.canEat(false)) {
             int level = modifier.getLevel();
-            Level world = entity.getLevel();
+            Level world = entity.getCommandSenderWorld();
             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_EAT, SoundSource.NEUTRAL, 1.0F, 1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F);
             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_BURP, SoundSource.NEUTRAL, 0.5F, world.random.nextFloat() * 0.1F + 0.9F);
             ToolDamageUtil.repair(tool, RANDOM.nextInt(5) * level);

@@ -1,6 +1,8 @@
 package com.james.tinkerscalibration.modifiers;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -15,7 +17,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
-import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nullable;
 
@@ -25,7 +27,7 @@ public class OverNaturalModifier extends Modifier implements MeleeHitModifierHoo
         LivingEntity target = context.getLivingTarget();
         if(target != null) {
             target.invulnerableTime = 0;
-            target.hurt(DamageSource.MAGIC, damageDealt * 0.1f * modifier.getLevel());
+            target.hurt(new DamageSource(target.getCommandSenderWorld().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.MAGIC)), damageDealt * 0.1f * modifier.getLevel());
         }
     }
     @Override
@@ -33,10 +35,10 @@ public class OverNaturalModifier extends Modifier implements MeleeHitModifierHoo
         hookBuilder.addHook(this, ModifierHooks.MELEE_HIT, ModifierHooks.PROJECTILE_HIT);
     }
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target){
         if (target != null && projectile instanceof AbstractArrow arrow) {
             target.invulnerableTime = 0;
-            target.hurt(DamageSource.MAGIC, (float) (arrow.getBaseDamage() * modifier.getLevel()));
+            target.hurt(new DamageSource(target.getCommandSenderWorld().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.MAGIC)), (float) (arrow.getBaseDamage() * modifier.getLevel()));
         }
         return false;
     }

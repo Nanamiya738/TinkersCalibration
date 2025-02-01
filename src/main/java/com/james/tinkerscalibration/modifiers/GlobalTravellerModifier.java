@@ -5,12 +5,15 @@ import com.james.tinkerscalibration.TinkersCalibration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -40,6 +43,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -69,9 +73,9 @@ public class GlobalTravellerModifier extends Modifier implements TooltipModifier
 
     @Override
     public @NotNull InteractionResult afterBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
-        if (source == InteractionSource.RIGHT_CLICK && tool.getCurrentDurability() >= 10 && context.getPlayer() != null && context.getPlayer().isCrouching() || tool.hasTag(TinkerTags.Items.RANGED) && source == InteractionSource.LEFT_CLICK && tool.getCurrentDurability() >= 10 && context.getPlayer() != null && context.getPlayer().isCrouching()) {
+        if (source == InteractionSource.RIGHT_CLICK && tool.getCurrentDurability() >= 10 && context.getPlayer() != null && context.getPlayer().isCrouching() || tool.hasTag(TinkerTags.Items.RANGED) && source == InteractionSource.LEFT_CLICK && tool.getCurrentDurability() >= 10 && context.getPlayer() != null && context.getPlayer().isCrouching() || tool.getItem().toString().equals(TinkerTools.warPick.get().toString()) && source == InteractionSource.LEFT_CLICK && tool.getCurrentDurability() >= 10 && context.getPlayer() != null && context.getPlayer().isCrouching()) {
             Player player = context.getPlayer();
-            if (!context.getLevel().isClientSide && player != null) {
+            if (!player.getCommandSenderWorld().isClientSide) {
                 Level world = context.getLevel();
                 BlockPos pos = context.getClickedPos();
                 BlockEntity block = world.getBlockEntity(pos);
@@ -100,7 +104,7 @@ public class GlobalTravellerModifier extends Modifier implements TooltipModifier
                     }
                     player.getCooldowns().addCooldown(tool.getItem(), 40);
                     ToolDamageUtil.damageAnimated(tool, 5, player);
-                    return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
+                    return InteractionResult.sidedSuccess(player.getCommandSenderWorld().isClientSide);
                 }
             }
 
@@ -113,7 +117,7 @@ public class GlobalTravellerModifier extends Modifier implements TooltipModifier
         ModDataNBT persistentData = tool.getPersistentData();
         if (persistentData.contains(X, 3) && persistentData.contains(Y, 3) && persistentData.contains(Z, 3) && persistentData.contains(WORLD, 8)) {
             BlockPos pos = new BlockPos(persistentData.getInt(X), persistentData.getInt(Y), persistentData.getInt(Z));
-            ServerLevel level = context.getLevel().getServer().getLevel(ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(persistentData.getString(WORLD))));
+            ServerLevel level = context.getLevel().getServer().getLevel(ResourceKey.create(Registries.DIMENSION, new ResourceLocation(persistentData.getString(WORLD))));
             if (level != null) {
                 BlockEntity block = level.getBlockEntity(pos);
                 if (block != null) {
@@ -138,7 +142,7 @@ public class GlobalTravellerModifier extends Modifier implements TooltipModifier
         if (player != null) {
             if (persistentData.contains(X, 3) && persistentData.contains(Y, 3) && persistentData.contains(Z, 3)) {
                 BlockPos pos = new BlockPos(persistentData.getInt(X), persistentData.getInt(Y), persistentData.getInt(Z));
-                Level world = player.getLevel();
+                Level world = player.getCommandSenderWorld();
                 tooltip.add(Component.translatable(MoreObjects.toStringHelper("").add("X", pos.getX()).add(" Y", pos.getY()).add(" Z", pos.getZ()).toString()).append(" ").append(persistentData.getString(WORLD)).append(" ").append(GLOBAL_POS).withStyle(style -> style.withColor(TextColor.fromRgb(0xE29AEC))));
                 if(world.dimension().location().getPath().equals(persistentData.getString(WORLD))) {
                     BlockEntity block = world.getBlockEntity(pos);

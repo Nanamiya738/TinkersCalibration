@@ -99,8 +99,8 @@
   "item.tinkerscalibration.cutlass.description": "The Cutlass is a fast weapon, whose melee speed will be faster and faster in a continuous attack.",
   "item.tinkerscalibration.moms_spaghetti": "Mom's Spaghetti",
   "item.tinkerscalibration.moms_spaghetti.description": "Delicious!",
-  "item.tinkerscalibration.wheat_rod": "Impossibly Hard Wheat Sticks",
-  "item.tinkerscalibration.wheat_rod.tooltip": "Completely inedible like that. They need to be softened up, even your sweaty palms aren't enough for that. They should probably soak in some water for a while.",
+  "item.tinkerscalibration.hard_wheat_rod": "Impossibly Hard Wheat Sticks",
+  "item.tinkerscalibration.hard_wheat_rod.tooltip": "Completely inedible like that. They need to be softened up, even your sweaty palms aren't enough for that. They should probably soak in some water for a while.",
   "item.tinkerscalibration.wet_soft_noodles": "Soggy Noodles",
   "item.tinkerscalibration.wet_soft_noodles.tooltip": "Now they're all wet, even your spaghetti arms can bend them now. Let's hang them up and get them dry.",
   "item.tinkerscalibration.dry_cold_noodles": "Cold Dried Noodles",
@@ -739,6 +739,7 @@
   "modifier.tinkerscalibration.spaghetti.food_level": "Food Level: ",
   "modifier.tinkerscalibration.spaghetti.saturation_level": "Saturation Level: ",
   "modifier.tinkerscalibration.spaghetti.sauce": "With sauce",
+  "modifier.tinkerscalibration.spaghetti.upgrades": "Upgrades: ",
   "modifier.tinkerscalibration.spaghetti.meat": "With meat soup",
   "stat.tconstruct.harvest_tier.gobber2.overworld_gobber": "Gobber",
   "stat.tconstruct.harvest_tier.gobber2.nether_gobber": "Nether Gobber",
@@ -1178,7 +1179,7 @@
   "block.tinkerscalibration.deepslate_spinel_ore": "Deepslate Spinel Ore",
   "block.tinkerscalibration.tourmaline_ore": "Tourmaline Ore",
   "block.tinkerscalibration.deepslate_tourmaline_ore": "Deepslate Tourmaline Ore",
-  "itemGroup.TinkersCalibrationGroup": "Tinkers Calibration",
-  "death.attack.tconstruct.fiberglass_prick": "%1$s was pierced by shards of glass",
-  "death.attack.tconstruct.fiberglass_prick.player": "%1$s was pierced by shards of glass while fighting against %2$s"
+  "itemGroup.tconstruct.tinkerscalibration": "Tinkers Calibration",
+  "death.attack.tinkerscalibration.fiberglass_prick": "%1$s was pierced by shards of glass",
+  "death.attack.tinkerscalibration.fiberglass_prick.player": "%1$s was pierced by shards of glass while fighting against %2$s"
 }

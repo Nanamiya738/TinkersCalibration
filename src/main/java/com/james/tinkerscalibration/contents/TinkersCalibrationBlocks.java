@@ -5,18 +5,17 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DropExperienceBlock;
-import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class TinkersCalibrationBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, TinkersCalibration.MODID);
-    private static final BlockBehaviour.Properties ORE = DropExperienceBlock.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(2.5F, 5f).sound(SoundType.STONE);
-    private static final BlockBehaviour.Properties METAL = Block.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(5F, 1200f).sound(SoundType.METAL);
+    private static final BlockBehaviour.Properties ORE = DropExperienceBlock.Properties.of().requiresCorrectToolForDrops().strength(2.5F, 5f).sound(SoundType.STONE);
+    private static final BlockBehaviour.Properties METAL = Block.Properties.of().requiresCorrectToolForDrops().strength(5F, 1200f).sound(SoundType.METAL);
     public static RegistryObject<Block> lindsteel_block = BLOCKS.register("lindsteel_block", () -> new Block(METAL));
     public static RegistryObject<Block> emperorslime_block = BLOCKS.register("emperorslime_block", () -> new Block(METAL));
     public static RegistryObject<Block> fazelle_block = BLOCKS.register("fazelle_block", () -> new Block(METAL));

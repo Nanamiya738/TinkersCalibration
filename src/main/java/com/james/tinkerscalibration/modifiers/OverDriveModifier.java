@@ -32,7 +32,7 @@ import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
@@ -49,17 +49,17 @@ public class OverDriveModifier extends Modifier implements BlockBreakModifierHoo
         if(context.isEffective() && RANDOM.nextFloat() <= 0.3f * modifier.getLevel()) {
             persistentData.putInt(KEY, persistentData.getInt(KEY) + 1);
             LivingEntity holder = context.getLiving();
-            Level world = holder.level;
+            Level world = holder.getCommandSenderWorld();
             world.addParticle(ParticleTypes.SMOKE, holder.getX(), holder.getY(), holder.getZ(), 0, 0, 0);
         }
     }
 
     @Override
-    public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData, boolean primary) {
+    public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
         ModDataNBT tp = tool.getPersistentData();
         if(primary && arrow != null && arrow.isCritArrow() && RANDOM.nextFloat() <= 0.3f * modifier.getLevel()) {
             tp.putInt(KEY, tp.getInt(KEY) + 1);
-            Level world = shooter.level;
+            Level world = shooter.getCommandSenderWorld();
             world.addParticle(ParticleTypes.SMOKE, shooter.getX(), shooter.getY(), shooter.getZ(), 0, 0, 0);
         }
     }
@@ -70,7 +70,7 @@ public class OverDriveModifier extends Modifier implements BlockBreakModifierHoo
         if(context.isFullyCharged() && RANDOM.nextFloat() <= 0.3f * modifier.getLevel()) {
             persistentData.putInt(KEY, persistentData.getInt(KEY) + 1);
             LivingEntity holder = context.getAttacker();
-            Level world = holder.level;
+            Level world = holder.getCommandSenderWorld();
             world.addParticle(ParticleTypes.SMOKE, holder.getX(), holder.getY(), holder.getZ(), 0, 0, 0);
         }
     }

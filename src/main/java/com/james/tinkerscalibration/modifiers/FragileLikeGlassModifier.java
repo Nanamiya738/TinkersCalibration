@@ -1,8 +1,11 @@
 package com.james.tinkerscalibration.modifiers;
 
+import com.james.tinkerscalibration.contents.TinkersCalibrationDamageTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,7 +24,6 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class FragileLikeGlassModifier extends Modifier implements ToolDamageModifierHook {
-    private static final DamageSource FIBERGLASS_PRICK = (new DamageSource(TConstruct.prefix("fiberglass_prick"))).bypassArmor();
     @Override
     protected void registerHooks(ModuleHookMap.Builder hookBuilder) {
         hookBuilder.addHook(this, ModifierHooks.TOOL_DAMAGE);
@@ -36,7 +38,7 @@ public class FragileLikeGlassModifier extends Modifier implements ToolDamageModi
                     ToolDamageUtil.directDamage(tool, 5 * modifier.getLevel(), player, player.getUseItem());
                     player.broadcastBreakEvent(player.getUsedItemHand());
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GLASS_BREAK, SoundSource.NEUTRAL, 0.5F, world.random.nextFloat() * 0.1F + 0.9F);
-                    holder.hurt(FIBERGLASS_PRICK, 2 * modifier.getLevel());
+                    holder.hurt(new DamageSource(holder.getCommandSenderWorld().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(TinkersCalibrationDamageTypes.FIBERGLASS_PRICK)), 2 * modifier.getLevel());
                     holder.addEffect(new MobEffectInstance(TinkerModifiers.bleeding.get(), 40));
                 }
             }

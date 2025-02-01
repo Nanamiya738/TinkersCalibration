@@ -26,7 +26,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
-import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -47,7 +47,7 @@ public class PhanteriteModifier extends Modifier implements InventoryTickModifie
     }
 
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target){
         if (target instanceof Phantom) {
             if (projectile instanceof AbstractArrow arrow) {
                 arrow.setBaseDamage(arrow.getBaseDamage() * (1 + 0.3f * modifier.getLevel()));
@@ -67,7 +67,7 @@ public class PhanteriteModifier extends Modifier implements InventoryTickModifie
         double y = entity.getY();
         double z = entity.getZ();
         float range = minRange + amplifier * 5;
-        List<Mob> targets = entity.level.getEntitiesOfClass(targetClass, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
+        List<Mob> targets = entity.getCommandSenderWorld().getEntitiesOfClass(targetClass, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
         for (Mob target : targets) {
             if (target instanceof Monster)
                 target.addEffect(new MobEffectInstance(MobEffects.GLOWING, 50));

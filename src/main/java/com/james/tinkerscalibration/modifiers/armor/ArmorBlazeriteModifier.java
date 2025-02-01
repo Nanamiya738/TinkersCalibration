@@ -1,7 +1,6 @@
 package com.james.tinkerscalibration.modifiers.armor;
 
 
-import com.rolfmao.upgradednetherite.config.UpgradedNetheriteConfig;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
@@ -37,9 +36,9 @@ public class ArmorBlazeriteModifier extends Modifier {
                         int level = holder.get(BLAZERITE, 0);
                         if (level > 0 && living instanceof Player player) {
                             player.clearFire();
-                            if (UpgradedNetheriteConfig.EnableLavaSpeed && player.isInLava() && !player.getAbilities().flying) {
-                                player.setDeltaMovement(player.getDeltaMovement().multiply(1.659999966621399, 1.0, 1.659999966621399));
-                            }
+                            //if (UpgradedNetheriteConfig.EnableLavaSpeed && player.isInLava() && !player.getAbilities().flying) {
+                            //    player.setDeltaMovement(player.getDeltaMovement().multiply(1.659999966621399, 1.0, 1.659999966621399));
+                            //}
                         }
                     });
                 }
@@ -57,14 +56,14 @@ public class ArmorBlazeriteModifier extends Modifier {
                     living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent((holder) -> {
                         int level = holder.get(BLAZERITE, 0);
                         if (level > 0 && living instanceof Player player) {
-                            if (event.getSource().isFire()) {
-                                if (UpgradedNetheriteConfig.EnableFireImmune) {
-                                    if (event.isCancelable()) {
-                                        event.setCanceled(true);
-                                    }
-                                    player.clearFire();
-                                }
-                            }
+                            //if (event.getSource().isFire()) {
+                                //if (UpgradedNetheriteConfig.EnableFireImmune) {
+                                //    if (event.isCancelable()) {
+                                //        event.setCanceled(true);
+                                //    }
+                                //    player.clearFire();
+                                //}
+                            //}
                         }
                     });
                 }

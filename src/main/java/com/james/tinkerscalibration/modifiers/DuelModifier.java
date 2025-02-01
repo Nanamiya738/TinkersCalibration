@@ -24,7 +24,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
-import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
@@ -64,7 +64,7 @@ public class DuelModifier extends Modifier implements MeleeHitModifierHook, Mele
         double x = player.getX();
         double y = player.getY();
         double z = player.getZ();
-        List<Mob> targets = player.level.getEntitiesOfClass(Mob.class, new AABB(x - 10, y - 10, z - 10, x + 10, y + 10, z + 10));
+        List<Mob> targets = player.getCommandSenderWorld().getEntitiesOfClass(Mob.class, new AABB(x - 10, y - 10, z - 10, x + 10, y + 10, z + 10));
         int sum = 0;
         for (Mob target : targets) {
             if (target instanceof Monster) {
@@ -91,7 +91,7 @@ public class DuelModifier extends Modifier implements MeleeHitModifierHook, Mele
     }
 
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target){
         if(attacker instanceof Player player && projectile instanceof AbstractArrow arrow)
         {
             if(getAnger(player) <= 5)

@@ -34,7 +34,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
@@ -84,7 +84,7 @@ public class BloodThirstyModifier extends Modifier implements MeleeHitModifierHo
         return stat == ToolStats.VELOCITY ? baseValue * (1 + getBonus(living, Utils.bloodthirstyEffect, modifier.getLevel(), 16.0F) * tool.getMultiplier(ToolStats.VELOCITY)) : baseValue;
     }
     @Override
-    public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData, boolean primary) {
+    public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
         if (primary && (arrow == null || arrow.isCritArrow())) {
             // 16 arrows gets you to max
             int effectLevel = Math.min(15, Utils.bloodthirstyEffect.get().getLevel(shooter) + 1);

@@ -21,7 +21,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
-import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -60,9 +60,9 @@ public class BlowingModifier extends Modifier implements MeleeHitModifierHook, P
     }
 
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target){
         if (target != null && attacker != null && projectile instanceof AbstractArrow) {
-            if (!attacker.getLevel().isClientSide && RANDOM.nextFloat() <= 0.2f * modifier.getLevel()) {
+            if (!attacker.getCommandSenderWorld().isClientSide && RANDOM.nextFloat() <= 0.2f * modifier.getLevel()) {
                 ItemStack stack2drop;
                 stack2drop = target.getMainHandItem();
                 if (stack2drop.isEmpty()) // 主手没找到
@@ -75,8 +75,8 @@ public class BlowingModifier extends Modifier implements MeleeHitModifierHook, P
                 } else { // 都没找到
                     return false;
                 }
-                ItemEntity item = new ItemEntity(attacker.getLevel(), target.getX(), target.getY(), target.getZ(), stack2drop);
-                attacker.getLevel().addFreshEntity(item);
+                ItemEntity item = new ItemEntity(attacker.getCommandSenderWorld(), target.getX(), target.getY(), target.getZ(), stack2drop);
+                attacker.getCommandSenderWorld().addFreshEntity(item);
             }
         }
         return false;

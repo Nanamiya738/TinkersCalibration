@@ -34,7 +34,7 @@ public class ArmorSolubleModifier extends Modifier {
         if (!living.isSpectator()) {
             EquipmentContext context = new EquipmentContext(living);
             if (context.hasModifiableArmor()) {
-                if (!living.level.isClientSide && living.isAlive() && living.tickCount % 10 == 0) {
+                if (!living.getCommandSenderWorld().isClientSide && living.isAlive() && living.tickCount % 10 == 0) {
                     living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent((holder) -> {
                         int level = holder.get(SOLUBLE, 0);
                         if (level > 0) {

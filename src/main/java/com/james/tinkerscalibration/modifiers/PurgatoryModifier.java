@@ -31,7 +31,7 @@ import static slimeknights.tconstruct.library.tools.stat.ToolStats.DRAW_SPEED;
 
 public class PurgatoryModifier extends Modifier implements TooltipModifierHook, BreakSpeedModifierHook, MeleeDamageModifierHook, ConditionalStatModifierHook {
     public boolean isNetherDimension(Entity entity) {
-        return entity != null && isNetherDimension(entity.level);
+        return entity != null && isNetherDimension(entity.getCommandSenderWorld());
     }
 
     public boolean isNetherDimension(Level level) {
@@ -42,7 +42,7 @@ public class PurgatoryModifier extends Modifier implements TooltipModifierHook, 
     public float getMeleeDamage(@Nonnull IToolStackView tool, ModifierEntry modifier, @Nonnull ToolAttackContext context, float baseDamage, float damage) {
         if (context.getLivingTarget() != null) {
             LivingEntity target = context.getLivingTarget();
-            if (isNetherDimension(target.level)) {
+            if (isNetherDimension(target.getCommandSenderWorld())) {
                 return damage * (1 + modifier.getLevel() * 0.08f);
             }
         }

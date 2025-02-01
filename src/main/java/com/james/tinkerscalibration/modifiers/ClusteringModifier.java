@@ -74,11 +74,11 @@ public class ClusteringModifier extends NoLevelsModifier implements MeleeDamageM
         float percentage = getPercentage(inv);
         if (percentage > 0.45) {
             if (stat == ToolStats.PROJECTILE_DAMAGE) {
-                return baseValue * (1 + percentage);
+                return baseValue * (1 + (percentage - 0.45f) * 0.4f);
             }
         } else {
             if (stat == ToolStats.DRAW_SPEED) {
-                return baseValue * (1 + 0.45f - percentage);
+                return baseValue * (1 + (0.45f - getPercentage(inv)) * 0.4f);
             }
         }
         return baseValue;
@@ -94,15 +94,15 @@ public class ClusteringModifier extends NoLevelsModifier implements MeleeDamageM
                     float percentage = getPercentage(inv);
                     if (harvest) {
                         if (percentage > 0.45) {
-                            TooltipModifierHook.addPercentBoost(modifier.getModifier(), Component.translatable("modifier.tinkerscalibration.clustering.attack_damage"), percentage - 0.45f, tooltip);
+                            TooltipModifierHook.addPercentBoost(modifier.getModifier(), Component.translatable("modifier.tinkerscalibration.clustering.attack_damage"), (percentage - 0.45f) * 0.4f, tooltip);
                         } else {
-                            TooltipModifierHook.addPercentBoost(modifier.getModifier(), Component.translatable("modifier.tinkerscalibration.clustering.mining_speed"), 0.45 - percentage, tooltip);
+                            TooltipModifierHook.addPercentBoost(modifier.getModifier(), Component.translatable("modifier.tinkerscalibration.clustering.mining_speed"), (0.45f - percentage) * 0.4f, tooltip);
                         }
                     } else {
                         if (percentage > 0.45) {
-                            TooltipModifierHook.addPercentBoost(modifier.getModifier(), Component.translatable("modifier.tinkerscalibration.clustering.projectile_damage"), percentage, tooltip);
+                            TooltipModifierHook.addPercentBoost(modifier.getModifier(), Component.translatable("modifier.tinkerscalibration.clustering.projectile_damage"), (percentage - 0.45f) * 0.4f, tooltip);
                         } else {
-                            TooltipModifierHook.addPercentBoost(modifier.getModifier(), Component.translatable("modifier.tinkerscalibration.clustering.draw_speed"), 0.45 - percentage, tooltip);
+                            TooltipModifierHook.addPercentBoost(modifier.getModifier(), Component.translatable("modifier.tinkerscalibration.clustering.draw_speed"), (0.45f - percentage) * 0.4f, tooltip);
                         }
                     }
                 }

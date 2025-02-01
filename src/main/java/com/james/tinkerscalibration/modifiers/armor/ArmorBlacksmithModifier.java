@@ -1,6 +1,7 @@
 package com.james.tinkerscalibration.modifiers.armor;
 
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.TConstruct;
@@ -21,7 +22,7 @@ import javax.annotation.Nonnull;
 
 public class ArmorBlacksmithModifier extends Modifier implements ToolStatsModifierHook, ProtectionModifierHook {
     public float getProtectionModifier(@Nonnull IToolStackView tool, ModifierEntry modifier, @Nonnull EquipmentContext context, @Nonnull EquipmentSlot slotType, DamageSource source, float modifierValue) {
-        if (!source.isBypassInvul()) {
+        if (!source.is(DamageTypes.FELL_OUT_OF_WORLD)) {
             LivingEntity living = context.getEntity();
             if (living.getY() <= 64 && living.getY() >= 0) {
                 modifierValue *= 1 + (float)(64 - living.getY()) * 0.01f;

@@ -1,7 +1,9 @@
 package com.james.tinkerscalibration.modifiers;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -21,7 +23,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
-import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -41,7 +43,7 @@ public class WarModifier extends Modifier implements MeleeHitModifierHook, Proje
         Level world = player.getCommandSenderWorld();
 
         if (damageDealt > 0 && !world.isClientSide && RANDOM.nextFloat() <= 0.3f * modifier.getLevel()) {
-            world.explode(target, target.getX(), target.getY(), target.getZ(), damageDealt / 10 + 1, Explosion.BlockInteraction.NONE);
+            world.explode(target, target.getX(), target.getY(), target.getZ(), damageDealt / 10 + 1, Level.ExplosionInteraction.NONE);
             AreaEffectCloud cloud = new AreaEffectCloud(world, target.getX(), target.getY(), target.getZ());
             cloud.setParticle(ParticleTypes.SMOKE);
             cloud.setRadius(damageDealt / 10);
@@ -55,14 +57,14 @@ public class WarModifier extends Modifier implements MeleeHitModifierHook, Proje
     }
 
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target){
         if (target != null && attacker != null && projectile instanceof AbstractArrow arrow) {
             float damageDealt = (float) ((float) arrow.getBaseDamage() * arrow.getDeltaMovement().length());
-            if (damageDealt > 0 && !attacker.getLevel().isClientSide && target.isAlive() && RANDOM.nextFloat() <= 0.3f * modifier.getLevel()) {
+            if (damageDealt > 0 && !attacker.getCommandSenderWorld().isClientSide && target.isAlive() && RANDOM.nextFloat() <= 0.3f * modifier.getLevel()) {
                 target.invulnerableTime = 0;
-                target.hurt(DamageSource.mobAttack(attacker), damageDealt);
-                Random random = (Random) target.level.random;
-                //target.level.addParticle(Utils.birefringentParticle.get(),
+                target.hurt(new DamageSource(attacker.getCommandSenderWorld().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.ARROW)), damageDealt);
+                Random random = (Random) target.getCommandSenderWorld().random;
+                //target.getCommandSenderWorld().addParticle(Utils.birefringentParticle.get(),
                 //        target.getX() + random.nextDouble() - 0.5,
                 //        target.getY() + random.nextDouble(),
                 //        target.getZ() + random.nextDouble() - 0.5,

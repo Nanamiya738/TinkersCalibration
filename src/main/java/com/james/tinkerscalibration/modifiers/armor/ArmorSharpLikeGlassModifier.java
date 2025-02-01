@@ -1,9 +1,12 @@
 package com.james.tinkerscalibration.modifiers.armor;
 
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -32,11 +35,12 @@ public class ArmorSharpLikeGlassModifier extends Modifier {
         living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent((holder) -> {
             int level = holder.get(SHARP, 0);
             if(level > 0)
-                if (living instanceof Player player && attacker != null) {
+                if (living instanceof Player player && attacker != null && !(attacker instanceof Guardian)) {
+                    if(event.getSource().is(DamageTypes.THORNS)) return;
                     float amount = event.getAmount();
                     int ram = RANDOM.nextInt(9);
                     if (ram <= 5) {
-                        attacker.hurt(DamageSource.playerAttack(player), amount * 1.5f);
+                        attacker.hurt(new DamageSource(player.getCommandSenderWorld().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.PLAYER_ATTACK)), amount * 1.5f);
                     }
                     if (ram == 6 || ram == 7) {
                         event.setAmount(amount * 1.2f);

@@ -54,12 +54,12 @@ public class ArmorExtremeFreezingModifier extends Modifier {
         if (!living.isSpectator()) {
             EquipmentContext context = new EquipmentContext(living);
             if (context.hasModifiableArmor()) {
-                if (!living.level.isClientSide && living.isAlive() && living.tickCount % 80 == 0) {
+                if (!living.getCommandSenderWorld().isClientSide && living.isAlive() && living.tickCount % 80 == 0) {
                     living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent((holder) -> {
                         int level = holder.get(FREEZING, 0);
                         if (level > 0) {
                             float range = 5 + 3 * level;
-                            List<Mob> ens = living.level.getEntitiesOfClass(Mob.class, new AABB(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range));
+                            List<Mob> ens = living.getCommandSenderWorld().getEntitiesOfClass(Mob.class, new AABB(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range));
                             if (!ens.isEmpty())
                                 for (Mob en : ens) {
                                     if (en == null) continue;
@@ -67,7 +67,7 @@ public class ArmorExtremeFreezingModifier extends Modifier {
                                     en.setTicksFrozen(140 + 60 * level);
                                 }
 
-                            living.level.addParticle(ParticleTypes.SNOWFLAKE,
+                            living.getCommandSenderWorld().addParticle(ParticleTypes.SNOWFLAKE,
                                     living.getX() + RANDOM.nextDouble() - 0.5,
                                     living.getY() + RANDOM.nextDouble(),
                                     living.getZ() + RANDOM.nextDouble() - 0.5,

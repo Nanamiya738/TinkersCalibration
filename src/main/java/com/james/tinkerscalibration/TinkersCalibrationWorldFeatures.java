@@ -1,89 +1,81 @@
 package com.james.tinkerscalibration;
 
-import com.james.tinkerscalibration.contents.TinkersCalibrationBlocks;
-import net.minecraft.data.worldgen.features.OreFeatures;
-import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.GeodeCrackSettings;
-import net.minecraft.world.level.levelgen.GeodeLayerSettings;
-import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.GeodeConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.*;
-import net.minecraft.world.level.material.MaterialColor;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraftforge.common.world.BiomeModifier;
+import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.registration.BlockDeferredRegisterExtension;
-import slimeknights.tconstruct.common.registration.ConfiguredFeatureDeferredRegister;
 import slimeknights.tconstruct.common.registration.GeodeItemObject;
-import slimeknights.tconstruct.common.registration.PlacedFeatureDeferredRegister;
 
-import java.util.List;
-import java.util.function.Supplier;
 
-import static slimeknights.tconstruct.world.TinkerWorld.TAB_WORLD;
+public class TinkersCalibrationWorldFeatures extends TinkersCalibrationModule{
 
-@Mod.EventBusSubscriber(modid = TinkersCalibration.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class TinkersCalibrationWorldFeatures {
-    public static Supplier<List<OreConfiguration.TargetBlockState>> titReplace = () -> List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, TinkersCalibrationBlocks.titanium_ore.get().defaultBlockState()), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, TinkersCalibrationBlocks.deepslate_titanium_ore.get().defaultBlockState()));
-    public static Supplier<List<OreConfiguration.TargetBlockState>> hotReplace = () -> List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, TinkersCalibrationBlocks.hothium_ore.get().defaultBlockState()), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, TinkersCalibrationBlocks.deepslate_hothium_ore.get().defaultBlockState()));
-    public static Supplier<List<OreConfiguration.TargetBlockState>> immReplace = () -> List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, TinkersCalibrationBlocks.immersed_silver_ore.get().defaultBlockState()), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, TinkersCalibrationBlocks.deepslate_immersed_silver_ore.get().defaultBlockState()));
-    public static Supplier<List<OreConfiguration.TargetBlockState>> magReplace = () -> List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, TinkersCalibrationBlocks.magiga_ore.get().defaultBlockState()), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, TinkersCalibrationBlocks.deepslate_magiga_ore.get().defaultBlockState()));
-    public static Supplier<List<OreConfiguration.TargetBlockState>> stlReplace = () -> List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, TinkersCalibrationBlocks.stellarium_ore.get().defaultBlockState()), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, TinkersCalibrationBlocks.deepslate_stellarium_ore.get().defaultBlockState()));
-    public static Supplier<List<OreConfiguration.TargetBlockState>> tonReplace = () -> List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, TinkersCalibrationBlocks.tonium_ore.get().defaultBlockState()), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, TinkersCalibrationBlocks.deepslate_tonium_ore.get().defaultBlockState()));
-    public static Supplier<List<OreConfiguration.TargetBlockState>> corReplace = () -> List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, TinkersCalibrationBlocks.corundum_ore.get().defaultBlockState()), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, TinkersCalibrationBlocks.deepslate_corundum_ore.get().defaultBlockState()));
-    public static Supplier<List<OreConfiguration.TargetBlockState>> vibReplace = () -> List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, TinkersCalibrationBlocks.vibrating_crystal_ore.get().defaultBlockState()), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, TinkersCalibrationBlocks.deepslate_vibrating_crystal_ore.get().defaultBlockState()));
-    public static Supplier<List<OreConfiguration.TargetBlockState>> spiReplace = () -> List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, TinkersCalibrationBlocks.spinel_ore.get().defaultBlockState()), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, TinkersCalibrationBlocks.deepslate_spinel_ore.get().defaultBlockState()));
-    public static Supplier<List<OreConfiguration.TargetBlockState>> touReplace = () -> List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, TinkersCalibrationBlocks.tourmaline_ore.get().defaultBlockState()), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, TinkersCalibrationBlocks.deepslate_tourmaline_ore.get().defaultBlockState()));
-    public static Supplier<List<OreConfiguration.TargetBlockState>> talReplace = () -> List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, TinkersCalibrationBlocks.talcum_ore.get().defaultBlockState()), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, TinkersCalibrationBlocks.deepslate_talcum_ore.get().defaultBlockState()));
-    public static Supplier<List<OreConfiguration.TargetBlockState>> nitReplace = () -> List.of(OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, TinkersCalibrationBlocks.nitre_ore.get().defaultBlockState()), OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, TinkersCalibrationBlocks.deepslate_nitre_ore.get().defaultBlockState()));
-    public static Supplier<List<OreConfiguration.TargetBlockState>> ineReplace = () -> List.of(OreConfiguration.target(OreFeatures.NETHER_ORE_REPLACEABLES, TinkersCalibrationBlocks.inert_witherium_ore.get().defaultBlockState()));
-    public static final ConfiguredFeatureDeferredRegister CONFIGURED_FEATURES = new ConfiguredFeatureDeferredRegister(TinkersCalibration.MODID);
-    public static final PlacedFeatureDeferredRegister PLACED_FEATURES = new PlacedFeatureDeferredRegister(TinkersCalibration.MODID);
-    public static RegistryObject<ConfiguredFeature<OreConfiguration, Feature<OreConfiguration>>> TITANIUM_ORE = CONFIGURED_FEATURES.registerSupplier("titanium_ore", () -> Feature.ORE, () -> new OreConfiguration(titReplace.get(), TinkersCalibrationConfig.COMMON.titaniumOre.getSize()));
-    public static RegistryObject<PlacedFeature> placedTitaniumOre = PLACED_FEATURES.register("titanium_ore", TITANIUM_ORE, CountPlacement.of(TinkersCalibrationConfig.COMMON.titaniumOre.getCount()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.titaniumOre.getMinY()), VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.titaniumOre.getMaxY())));
-    public static RegistryObject<ConfiguredFeature<OreConfiguration, Feature<OreConfiguration>>> HOTHIUM_ORE = CONFIGURED_FEATURES.registerSupplier("hothium_ore", () -> Feature.ORE, () -> new OreConfiguration(hotReplace.get(), TinkersCalibrationConfig.COMMON.hothiumOre.getSize()));
-    public static RegistryObject<PlacedFeature> placedHothiumOre = PLACED_FEATURES.register("hothium_ore", HOTHIUM_ORE, CountPlacement.of(TinkersCalibrationConfig.COMMON.hothiumOre.getCount()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.hothiumOre.getMinY()), VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.hothiumOre.getMaxY())));
-    public static RegistryObject<ConfiguredFeature<OreConfiguration, Feature<OreConfiguration>>> IMMERSED_SILVER_ORE = CONFIGURED_FEATURES.registerSupplier("immersed_silver_ore", () -> Feature.ORE, () -> new OreConfiguration(immReplace.get(), TinkersCalibrationConfig.COMMON.immersedsilverOre.getSize()));
-    public static RegistryObject<PlacedFeature> placedSilverOre = PLACED_FEATURES.register("immersed_silver_ore", IMMERSED_SILVER_ORE, CountPlacement.of(TinkersCalibrationConfig.COMMON.immersedsilverOre.getCount()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.immersedsilverOre.getMinY()), VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.immersedsilverOre.getMaxY())));
-    public static RegistryObject<ConfiguredFeature<OreConfiguration, Feature<OreConfiguration>>> MAGIGA_ORE = CONFIGURED_FEATURES.registerSupplier("magiga_ore", () -> Feature.ORE, () -> new OreConfiguration(magReplace.get(), TinkersCalibrationConfig.COMMON.magigaOre.getSize()));
-    public static RegistryObject<PlacedFeature> placedMagigaOre = PLACED_FEATURES.register("magiga_ore", MAGIGA_ORE, CountPlacement.of(TinkersCalibrationConfig.COMMON.magigaOre.getCount()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.magigaOre.getMinY()), VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.magigaOre.getMaxY())));
-    public static RegistryObject<ConfiguredFeature<OreConfiguration, Feature<OreConfiguration>>> STELLARIUM_ORE = CONFIGURED_FEATURES.registerSupplier("stellarium_ore", () -> Feature.ORE, () -> new OreConfiguration(stlReplace.get(), TinkersCalibrationConfig.COMMON.stellariumOre.getSize()));
-    public static RegistryObject<PlacedFeature> placedStellariumOre = PLACED_FEATURES.register("stellarium_ore", STELLARIUM_ORE, CountPlacement.of(TinkersCalibrationConfig.COMMON.stellariumOre.getCount()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.stellariumOre.getMinY()), VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.stellariumOre.getMaxY())));
-    public static RegistryObject<ConfiguredFeature<OreConfiguration, Feature<OreConfiguration>>> WITHERIUM_ORE = CONFIGURED_FEATURES.registerSupplier("inert_witherium_ore", () -> Feature.ORE, () -> new OreConfiguration(ineReplace.get(), TinkersCalibrationConfig.COMMON.inertwitheriumOre.getSize()));
-    public static RegistryObject<PlacedFeature> placedInertwitheriumOre = PLACED_FEATURES.register("inert_witherium_ore", WITHERIUM_ORE, CountPlacement.of(TinkersCalibrationConfig.COMMON.inertwitheriumOre.getCount()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.inertwitheriumOre.getMinY()), VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.inertwitheriumOre.getMaxY())));
-    public static RegistryObject<ConfiguredFeature<OreConfiguration, Feature<OreConfiguration>>> TONIUM_ORE = CONFIGURED_FEATURES.registerSupplier("tonium_ore", () -> Feature.ORE, () -> new OreConfiguration(tonReplace.get(), TinkersCalibrationConfig.COMMON.toniumOre.getSize()));
-    public static RegistryObject<PlacedFeature> placedToniumOre = PLACED_FEATURES.register("tonium_ore", TONIUM_ORE, CountPlacement.of(TinkersCalibrationConfig.COMMON.toniumOre.getCount()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.toniumOre.getMinY()), VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.toniumOre.getMaxY())));
-    public static RegistryObject<ConfiguredFeature<OreConfiguration, Feature<OreConfiguration>>> CORUNDUM_ORE = CONFIGURED_FEATURES.registerSupplier("corundum_ore", () -> Feature.ORE, () -> new OreConfiguration(corReplace.get(), TinkersCalibrationConfig.COMMON.corundumOre.getSize()));
-    public static RegistryObject<PlacedFeature> placedCorundumOre = PLACED_FEATURES.register("corundum_ore", CORUNDUM_ORE, CountPlacement.of(TinkersCalibrationConfig.COMMON.corundumOre.getCount()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.corundumOre.getMinY()), VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.corundumOre.getMaxY())));
-    public static RegistryObject<ConfiguredFeature<OreConfiguration, Feature<OreConfiguration>>> VIBRATING_ORE = CONFIGURED_FEATURES.registerSupplier("vibrating_crystal_ore", () -> Feature.ORE, () -> new OreConfiguration(vibReplace.get(), TinkersCalibrationConfig.COMMON.vibratingcrystalOre.getSize()));
-    public static RegistryObject<PlacedFeature> placedVibratingOre = PLACED_FEATURES.register("vibrating_crystal_ore", VIBRATING_ORE, CountPlacement.of(TinkersCalibrationConfig.COMMON.vibratingcrystalOre.getCount()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.vibratingcrystalOre.getMinY()), VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.vibratingcrystalOre.getMaxY())));
-    public static RegistryObject<ConfiguredFeature<OreConfiguration, Feature<OreConfiguration>>> SPINEL_ORE = CONFIGURED_FEATURES.registerSupplier("spinel_ore", () -> Feature.ORE, () -> new OreConfiguration(spiReplace.get(), TinkersCalibrationConfig.COMMON.spinelOre.getSize()));
-    public static RegistryObject<PlacedFeature> placedSpinelOre = PLACED_FEATURES.register("spinel_ore", SPINEL_ORE, CountPlacement.of(TinkersCalibrationConfig.COMMON.spinelOre.getCount()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.spinelOre.getMinY()), VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.spinelOre.getMaxY())));
-    public static RegistryObject<ConfiguredFeature<OreConfiguration, Feature<OreConfiguration>>> TOURMALINE_ORE = CONFIGURED_FEATURES.registerSupplier("tourmaline_ore", () -> Feature.ORE, () -> new OreConfiguration(touReplace.get(), TinkersCalibrationConfig.COMMON.tourmalineOre.getSize()));
-    public static RegistryObject<PlacedFeature> placedTourmalineOre = PLACED_FEATURES.register("tourmaline_ore", TOURMALINE_ORE, CountPlacement.of(TinkersCalibrationConfig.COMMON.tourmalineOre.getCount()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.tourmalineOre.getMinY()), VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.tourmalineOre.getMaxY())));
-    public static RegistryObject<ConfiguredFeature<OreConfiguration, Feature<OreConfiguration>>> NITRE_ORE = CONFIGURED_FEATURES.registerSupplier("nitre_ore", () -> Feature.ORE, () -> new OreConfiguration(spiReplace.get(), TinkersCalibrationConfig.COMMON.nitreOre.getSize()));
-    public static RegistryObject<PlacedFeature> placedNitreOre = PLACED_FEATURES.register("nitre_ore", NITRE_ORE, CountPlacement.of(TinkersCalibrationConfig.COMMON.nitreOre.getCount()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.nitreOre.getMinY()), VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.nitreOre.getMaxY())));
-    public static RegistryObject<ConfiguredFeature<OreConfiguration, Feature<OreConfiguration>>> TALCUM_ORE = CONFIGURED_FEATURES.registerSupplier("talcum_ore", () -> Feature.ORE, () -> new OreConfiguration(touReplace.get(), TinkersCalibrationConfig.COMMON.talcumOre.getSize()));
-    public static RegistryObject<PlacedFeature> placedTalcumOre = PLACED_FEATURES.register("talcum_ore", TALCUM_ORE, CountPlacement.of(TinkersCalibrationConfig.COMMON.talcumOre.getCount()), InSquarePlacement.spread(), BiomeFilter.biome(), HeightRangePlacement.uniform(VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.talcumOre.getMinY()), VerticalAnchor.absolute(TinkersCalibrationConfig.COMMON.talcumOre.getMaxY())));
+    protected static final Item.Properties ITEM_PROPS = new Item.Properties();
+    public static ResourceKey<BiomeModifier> spawnTitaniumOre = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "titanium_ore");
+    public static ResourceKey<ConfiguredFeature<?,?>> configuredTitaniumOre = key(Registries.CONFIGURED_FEATURE, "titanium_ore");
+    public static ResourceKey<PlacedFeature> placedTitaniumOre = key(Registries.PLACED_FEATURE, "titanium_ore");
 
-    protected static final BlockDeferredRegisterExtension BLOCKS = new BlockDeferredRegisterExtension(TinkersCalibration.MODID);
-    private static final Item.Properties WORLD_PROPS = new Item.Properties().tab(TAB_WORLD);
-    public static final GeodeItemObject icelandGeode = BLOCKS.registerGeode("iceland_spar_crystal", MaterialColor.COLOR_LIGHT_BLUE, Sounds.EARTH_CRYSTAL, Sounds.EARTH_CRYSTAL_CHIME.getSound(), Sounds.EARTH_CRYSTAL_CLUSTER,  3, WORLD_PROPS);
-    public static final RegistryObject<ConfiguredFeature<GeodeConfiguration,Feature<GeodeConfiguration>>> configuredIcelandSparGeode = CONFIGURED_FEATURES.registerGeode(
-            "iceland_spar_geode", icelandGeode, BlockStateProvider.simple(Blocks.BLUE_ICE), BlockStateProvider.simple(Blocks.SNOW_BLOCK),
-            new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 5.2D), new GeodeCrackSettings(0.95D, 2.0D, 2), UniformInt.of(6, 9), UniformInt.of(3, 4), UniformInt.of(1, 2), 16, 1);
-    public static final RegistryObject<PlacedFeature> placedIcelandSparGeode = PLACED_FEATURES.registerGeode("iceland_spar_geode", configuredIcelandSparGeode, RarityFilter.onAverageOnceEvery(128), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6), VerticalAnchor.aboveBottom(54)));
-    public static final GeodeItemObject topazGeode = BLOCKS.registerGeode("topaz_crystal", MaterialColor.COLOR_BLUE, Sounds.EARTH_CRYSTAL, Sounds.EARTH_CRYSTAL_CHIME.getSound(), Sounds.EARTH_CRYSTAL_CLUSTER,  3, WORLD_PROPS);
-    public static final RegistryObject<ConfiguredFeature<GeodeConfiguration,Feature<GeodeConfiguration>>> configuredtopazGeode = CONFIGURED_FEATURES.registerGeode(
-            "topaz_geode", topazGeode, BlockStateProvider.simple(Blocks.LIGHT_BLUE_TERRACOTTA), BlockStateProvider.simple(Blocks.GRANITE),
-            new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 5.2D), new GeodeCrackSettings(0.95D, 2.0D, 2), UniformInt.of(6, 9), UniformInt.of(3, 4), UniformInt.of(1, 2), 16, 1);
-    public static final RegistryObject<PlacedFeature> placedTopazGeode = PLACED_FEATURES.registerGeode("topaz_geode", configuredtopazGeode, RarityFilter.onAverageOnceEvery(128), HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(54)));
+    public static ResourceKey<BiomeModifier> spawnHothiumOre = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "hothium_ore");
+    public static ResourceKey<ConfiguredFeature<?,?>> configuredHothiumOre = key(Registries.CONFIGURED_FEATURE, "hothium_ore");
+    public static ResourceKey<PlacedFeature> placedHothiumOre = key(Registries.PLACED_FEATURE, "hothium_ore");
 
+    public static ResourceKey<BiomeModifier> spawnImmersedSilverOre = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "immersed_silver_ore");
+    public static ResourceKey<ConfiguredFeature<?,?>> configuredImmersedSilverOre = key(Registries.CONFIGURED_FEATURE, "immersed_silver_ore");
+    public static ResourceKey<PlacedFeature> placedImmersedSilverOre = key(Registries.PLACED_FEATURE, "immersed_silver_ore");
+
+    public static ResourceKey<BiomeModifier> spawnMagigaOre = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "magiga_ore");
+    public static ResourceKey<ConfiguredFeature<?,?>> configuredMagigaOre = key(Registries.CONFIGURED_FEATURE, "magiga_ore");
+    public static ResourceKey<PlacedFeature> placedMagigaOre = key(Registries.PLACED_FEATURE, "magiga_ore");
+
+    public static ResourceKey<BiomeModifier> spawnStellariumOre = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "stellarium_ore");
+    public static ResourceKey<ConfiguredFeature<?,?>> configuredStellariumOre = key(Registries.CONFIGURED_FEATURE, "stellarium_ore");
+    public static ResourceKey<PlacedFeature> placedStellariumOre = key(Registries.PLACED_FEATURE, "stellarium_ore");
+
+    public static ResourceKey<BiomeModifier> spawnInertwitheriumOre = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "inert_witherium_ore");
+    public static ResourceKey<ConfiguredFeature<?,?>> configuredInertwitheriumOre = key(Registries.CONFIGURED_FEATURE, "inert_witherium_ore");
+    public static ResourceKey<PlacedFeature> placedInertwitheriumOre = key(Registries.PLACED_FEATURE, "inert_witherium_ore");
+
+    public static ResourceKey<BiomeModifier> spawnToniumOre = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "tonium_ore");
+    public static ResourceKey<ConfiguredFeature<?,?>> configuredToniumOre = key(Registries.CONFIGURED_FEATURE, "tonium_ore");
+    public static ResourceKey<PlacedFeature> placedToniumOre = key(Registries.PLACED_FEATURE, "tonium_ore");
+
+    public static ResourceKey<BiomeModifier> spawnCorundumOre = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "corundum_ore");
+    public static ResourceKey<ConfiguredFeature<?,?>> configuredCorundumOre = key(Registries.CONFIGURED_FEATURE, "corundum_ore");
+    public static ResourceKey<PlacedFeature> placedCorundumOre = key(Registries.PLACED_FEATURE, "corundum_ore");
+
+    public static ResourceKey<BiomeModifier> spawnVibratingOre = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "vibrating_crystal_ore");
+    public static ResourceKey<ConfiguredFeature<?,?>> configuredVibratingOre = key(Registries.CONFIGURED_FEATURE, "vibrating_crystal_ore");
+    public static ResourceKey<PlacedFeature> placedVibratingOre = key(Registries.PLACED_FEATURE, "vibrating_crystal_ore");
+
+    public static ResourceKey<BiomeModifier> spawnSpinelOre = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "spinel_ore");
+    public static ResourceKey<ConfiguredFeature<?,?>> configuredSpinelOre = key(Registries.CONFIGURED_FEATURE, "spinel_ore");
+    public static ResourceKey<PlacedFeature> placedSpinelOre = key(Registries.PLACED_FEATURE, "spinel_ore");
+
+    public static ResourceKey<BiomeModifier> spawnTourmalineOre = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "tourmaline_ore");
+    public static ResourceKey<ConfiguredFeature<?,?>> configuredTourmalineOre = key(Registries.CONFIGURED_FEATURE, "tourmaline_ore");
+    public static ResourceKey<PlacedFeature> placedTourmalineOre = key(Registries.PLACED_FEATURE, "tourmaline_ore");
+
+    public static final GeodeItemObject icelandGeode = BLOCKS.registerGeode("iceland_spar_crystal", MapColor.COLOR_LIGHT_BLUE, Sounds.EARTH_CRYSTAL, Sounds.EARTH_CRYSTAL_CHIME.getSound(), Sounds.EARTH_CRYSTAL_CLUSTER,  3, ITEM_PROPS);
+    public static final ResourceKey<ConfiguredFeature<?,?>> configuredIcelandGeode = key(Registries.CONFIGURED_FEATURE, "iceland_spar_geode");
+    public static final ResourceKey<PlacedFeature> placedIcelandGeode = key(Registries.PLACED_FEATURE, "iceland_spar_geode");
+    public static ResourceKey<BiomeModifier> spawnIcelandGeode = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "iceland_spar_geode");
+
+    public static final GeodeItemObject topazGeode = BLOCKS.registerGeode("topaz_crystal", MapColor.COLOR_BLUE, Sounds.EARTH_CRYSTAL, Sounds.EARTH_CRYSTAL_CHIME.getSound(), Sounds.EARTH_CRYSTAL_CLUSTER,  3, ITEM_PROPS);
+    public static final ResourceKey<ConfiguredFeature<?,?>> configuredTopazGeode = key(Registries.CONFIGURED_FEATURE, "topaz_geode");
+    public static final ResourceKey<PlacedFeature> placedTopazGeode = key(Registries.PLACED_FEATURE, "topaz_geode");
+    public static ResourceKey<BiomeModifier> spawnTopazGeode = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "topaz_geode");
+    public TinkersCalibrationWorldFeatures()
+    {
+
+    }
 }

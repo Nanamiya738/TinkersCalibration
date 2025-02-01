@@ -36,7 +36,7 @@ public class ArmorLifeInspireModifier extends Modifier {
         if (!living.isSpectator()) {
             EquipmentContext context = new EquipmentContext(living);
             if (context.hasModifiableArmor()) {
-                if (!living.level.isClientSide && living instanceof Player player && player.totalExperience >= 1 && player.getHealth() <= 4 && player.isAlive()) {
+                if (!living.getCommandSenderWorld().isClientSide && living instanceof Player player && player.totalExperience >= 1 && player.getHealth() <= 4 && player.isAlive()) {
                     living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent((holder) -> {
                         int level = holder.get(LIFE, 0);
                         if (level > 0) {

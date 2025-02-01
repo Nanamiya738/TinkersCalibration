@@ -30,7 +30,7 @@ public class ArmorDashModifier extends Modifier{
         if (!living.isSpectator()) {
             EquipmentContext context = new EquipmentContext(living);
             if (context.hasModifiableArmor()) {
-                if (!living.level.isClientSide && living.isAlive() && living.tickCount % 10 == 0 && living.isSprinting()) {
+                if (!living.getCommandSenderWorld().isClientSide && living.isAlive() && living.tickCount % 10 == 0 && living.isSprinting()) {
                     AttributeInstance attributeInstance = living.getAttribute(Attributes.MOVEMENT_SPEED);
                     if (attributeInstance != null) {
                         living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent((holder) -> {

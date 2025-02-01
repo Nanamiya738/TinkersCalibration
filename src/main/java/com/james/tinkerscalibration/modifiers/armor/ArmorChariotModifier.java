@@ -5,9 +5,11 @@ import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.james.tinkerscalibration.TinkersCalibration;
 import com.james.tinkerscalibration.Utils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -41,14 +43,14 @@ public class ArmorChariotModifier extends Modifier implements ArmorWalkModifierH
     public void onWalk(IToolStackView tool, ModifierEntry modifier, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
         if(living.isSprinting() && living instanceof Player player)
         {
-            List<LivingEntity> entities = player.level.getEntitiesOfClass(LivingEntity.class, new AABB(newPos).inflate(1D));
+            List<LivingEntity> entities = player.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, new AABB(newPos).inflate(1D));
             for(LivingEntity entity : entities)
             {
                 if(entity != player)
                 {
                     Vec3 vec = player.getDeltaMovement();
                     entity.setDeltaMovement(entity.getDeltaMovement().add(living.getDeltaMovement().add(vec.x * 2, 1D, vec.z * 2)));
-                    entity.hurt(DamageSource.playerAttack(player), (float) (player.getDeltaMovement().length() * 10));
+                    entity.hurt(new DamageSource(player.getCommandSenderWorld().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.PLAYER_ATTACK)), (float) (player.getDeltaMovement().length() * 10));
                     entity.addEffect(new MobEffectInstance(ModEffect.EFFECTSTUN.get(), 40, 0));
                     ToolDamageUtil.damageAnimated(tool, RANDOM.nextInt(4), living);
                     player.playSound(ModSounds.HARBINGER_CHARGE.get(), 1.0f, 0.5f);

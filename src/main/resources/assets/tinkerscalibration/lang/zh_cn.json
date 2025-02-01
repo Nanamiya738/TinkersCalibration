@@ -99,8 +99,8 @@
   "item.tinkerscalibration.cutlass.description": "海盗短弯刀是一种高攻速的武器，其攻击速度会在一次连续的战斗中越来越快。",
   "item.tinkerscalibration.moms_spaghetti": "妈妈做的意大利面",
   "item.tinkerscalibration.moms_spaghetti.description": "美味！",
-  "item.tinkerscalibration.wheat_rod": "硬得难以置信的小麦面棍",
-  "item.tinkerscalibration.wheat_rod.tooltip": "根本不能吃。你即便累得手掌满是汗也没办法让这面条软下来。也许应该直接泡水里一段时间。",
+  "item.tinkerscalibration.hard_wheat_rod": "硬得难以置信的小麦面棍",
+  "item.tinkerscalibration.hard_wheat_rod.tooltip": "根本不能吃。你即便累得手掌满是汗也没办法让这面条软下来。也许应该直接泡水里一段时间。",
   "item.tinkerscalibration.wet_soft_noodles": "湿软面条",
   "item.tinkerscalibration.wet_soft_noodles.tooltip": "现在这面湿透了，你那已经累成意面的手也能掰弯这面条了。挂起来晾干吧。",
   "item.tinkerscalibration.dry_cold_noodles": "干冷面条",
@@ -738,6 +738,7 @@
   "modifier.tconstruct.spaghetti3": "现在这意面就是妈妈的味道。",
   "modifier.tinkerscalibration.spaghetti.food_level": "饥饿值：",
   "modifier.tinkerscalibration.spaghetti.saturation_level": "饱和度：",
+  "modifier.tinkerscalibration.spaghetti.upgrades": "升级槽：",
   "modifier.tinkerscalibration.spaghetti.sauce": "附带酱料",
   "modifier.tinkerscalibration.spaghetti.meat": "附带肉汤",
   "stat.tconstruct.harvest_tier.gobber2.overworld_gobber": "戈伯",
@@ -1178,7 +1179,7 @@
   "block.tinkerscalibration.deepslate_spinel_ore": "深层尖晶石矿石",
   "block.tinkerscalibration.tourmaline_ore": "电气石矿石",
   "block.tinkerscalibration.deepslate_tourmaline_ore": "深层电气石矿石",
-  "itemGroup.TinkersCalibrationGroup": "匠魂校准",
-  "death.attack.tconstruct.fiberglass_prick": "%1$s被碎玻璃扎穿了",
-  "death.attack.tconstruct.fiberglass_prick.player": "%1$s在与%2$s战斗时被碎玻璃扎穿了"
-}
+  "itemGroup.tconstruct.tinkerscalibration": "匠魂校准",
+  "death.attack.tinkerscalibration.fiberglass_prick": "%1$s被碎玻璃扎穿了",
+  "death.attack.tinkerscalibration.fiberglass_prick.player": "%1$s在与%2$s战斗时被碎玻璃扎穿了"
+  }

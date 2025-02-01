@@ -1,8 +1,6 @@
 package com.james.tinkerscalibration.modifiers.armor;
 
 
-import com.rolfmao.upgradednetherite.config.UpgradedNetheriteConfig;
-import com.rolfmao.upgradednetherite.handlers.PlayerFallDistanceUpdateHandler;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -36,7 +34,7 @@ public class ArmorSpideriteModifier extends Modifier {
                 if (living.isAlive()) {
                     living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent((holder) -> {
                         int level = holder.get(SPIDERITE, 0);
-                        if (level > 0 && living instanceof Player player && UpgradedNetheriteConfig.EnableClimbWall)
+                        if (level > 0 && living instanceof Player player)// && UpgradedNetheriteConfig.EnableClimbWall)
                         {
                             if (!player.isCrouching() && getAbilityClimbwall(player)) {
                                 if (player.getDeltaMovement().y() < 0.0) {
@@ -63,15 +61,15 @@ public class ArmorSpideriteModifier extends Modifier {
                                     LookAt = -0.1;
                                 }
 
-                                if (player.level.isClientSide && player instanceof LocalPlayer && ((LocalPlayer)player).input.forwardImpulse < 0.0F) {
+                                if (player.getCommandSenderWorld().isClientSide && player instanceof LocalPlayer && ((LocalPlayer)player).input.forwardImpulse < 0.0F) {
                                     LookAt = LookAt * -1.0;
                                 }
 
                                 player.setDeltaMovement(player.getDeltaMovement().add(-player.getDeltaMovement().x() / 5.0, LookAt - player.getDeltaMovement().y, -player.getDeltaMovement().z() / 5.0));
                                 setAbilityClimbwall(player, true);
                                 player.fallDistance = 0.0F;
-                                if (player.level.isClientSide) {
-                                    PlayerFallDistanceUpdateHandler.PlayerFallDistanceUpdate(player.getUUID(), player.fallDistance);
+                                if (player.getCommandSenderWorld().isClientSide) {
+                                    //PlayerFallDistanceUpdateHandler.PlayerFallDistanceUpdate(player.getUUID(), player.fallDistance);
                                 }
                             }
                         }

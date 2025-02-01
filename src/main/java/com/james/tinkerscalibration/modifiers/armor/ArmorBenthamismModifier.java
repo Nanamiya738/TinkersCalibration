@@ -2,6 +2,7 @@ package com.james.tinkerscalibration.modifiers.armor;
 
 
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -17,7 +18,7 @@ import javax.annotation.Nonnull;
 
 public class ArmorBenthamismModifier extends Modifier implements ProtectionModifierHook {
     public float getProtectionModifier(@Nonnull IToolStackView tool, ModifierEntry modifier, @Nonnull EquipmentContext context, @Nonnull EquipmentSlot slotType, DamageSource source, float modifierValue) {
-        if (!source.isBypassInvul()) {
+        if (!source.is(DamageTypes.FELL_OUT_OF_WORLD)) {
             int percent = RANDOM.nextInt(0,5 * modifier.getLevel());
             modifierValue *= 1 + percent / 10f;
             ToolDamageUtil.damageAnimated(tool, percent, context.getEntity());

@@ -1,6 +1,7 @@
 package com.james.tinkerscalibration.modifiers;
 
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -23,10 +24,10 @@ public class BeeKeeperModifier extends NoLevelsModifier implements DamageBlockMo
     public boolean isDamageBlocked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount) {
         Entity attacker = source.getEntity();
         LivingEntity target = context.getEntity();
-        if (source == DamageSource.CACTUS) {
+        if (source.is(DamageTypes.CACTUS)) {
             return true;
         }
-        if (attacker != null && source.getEntity().getType() == EntityType.BEE) {
+        if (attacker != null && attacker.getType() == EntityType.BEE) {
             target.removeEffect(MobEffects.POISON);
             return true;
         }

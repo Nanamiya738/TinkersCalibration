@@ -43,7 +43,7 @@ public class GravityDisequilibriumModifier extends Modifier implements BlockInte
                 if(!target.canBeAffected(new MobEffectInstance(Utils.disequilibrium.get())))
                 {
                     Vec3 motion = target.getDeltaMovement();
-                    if (!target.isOnGround()) {
+                    if (!target.onGround()) {
                         target.setDeltaMovement(motion.x,
                                 motion.y - 0.8f * level,
                                 motion.z);
@@ -52,7 +52,7 @@ public class GravityDisequilibriumModifier extends Modifier implements BlockInte
             }
             ToolDamageUtil.damageAnimated(tool, 3 * targets.size(), entity);
             entity.getCooldowns().addCooldown(tool.getItem(), 100 + 20 * level);
-            return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
+            return InteractionResult.sidedSuccess(entity.getCommandSenderWorld().isClientSide);
         }
         return InteractionResult.PASS;
     }

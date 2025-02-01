@@ -4,6 +4,7 @@ import com.github.L_Ender.cataclysm.init.ModSounds;
 import com.james.tinkerscalibration.TinkersCalibration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -45,7 +46,7 @@ public class ArmorEmergencyModifier extends Modifier implements OnAttackedModifi
         }
     }
     public float getProtectionModifier(@Nonnull IToolStackView tool, ModifierEntry modifier, @Nonnull EquipmentContext context, @Nonnull EquipmentSlot slotType, DamageSource source, float modifierValue) {
-        if (!source.isBypassInvul()) {
+        if (!source.is(DamageTypes.FELL_OUT_OF_WORLD)) {
             ModDataNBT persistentData = tool.getPersistentData();
             if(persistentData.contains(KEY, 3))
             {
@@ -95,7 +96,7 @@ public class ArmorEmergencyModifier extends Modifier implements OnAttackedModifi
     public boolean isDamageBlocked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount) {
         ModDataNBT persistentData = tool.getPersistentData();
         if(persistentData.contains(KEY, 3)) {
-            return source.isProjectile();
+            return source.is(DamageTypes.ARROW);
         }
         return false;
     }

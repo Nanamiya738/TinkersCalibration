@@ -19,6 +19,6 @@ public class NobleModifier extends NoLevelsModifier implements ModifierTraitHook
 
     @Override
     public void addTraits(IToolContext iToolContext, ModifierEntry modifierEntry, TraitBuilder traitBuilder, boolean b) {
-        traitBuilder.addEntry(new ModifierEntry(BlueSkiesIntegration.noble_real.getId(), 1));
+        traitBuilder.add(new ModifierEntry(BlueSkiesIntegration.noble_real.getId(), 1));
     }
 }

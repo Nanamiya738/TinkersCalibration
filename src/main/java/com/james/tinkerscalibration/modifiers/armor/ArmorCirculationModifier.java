@@ -29,11 +29,11 @@ public class ArmorCirculationModifier extends Modifier implements OnAttackedModi
         if (isDirectDamage) {
             LivingEntity attacker = context.getEntity();
             int level = modifier.getLevel();
-            if (isOverworld(attacker.getLevel()) && RANDOM.nextFloat() <= 0.2f * level)
+            if (isOverworld(attacker.getCommandSenderWorld()) && RANDOM.nextFloat() <= 0.2f * level)
             {
                 attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60 * level, Math.min(level - 1, 2)));
             }
-            else if (!isOverworld(attacker.getLevel()) && RANDOM.nextFloat() <= 0.2f * level)
+            else if (!isOverworld(attacker.getCommandSenderWorld()) && RANDOM.nextFloat() <= 0.2f * level)
             {
                 attacker.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 60 * level, Math.min(level - 1, 2)));
             }
@@ -45,11 +45,11 @@ public class ArmorCirculationModifier extends Modifier implements OnAttackedModi
         int level = modifier.getLevel();
         if (isDirectDamage && entity instanceof LivingEntity attacker)
         {
-            if (isOverworld(attacker.getLevel()) && RANDOM.nextFloat() <= 0.2f * level)
+            if (isOverworld(attacker.getCommandSenderWorld()) && RANDOM.nextFloat() <= 0.2f * level)
             {
                 attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60 * level, Math.min(level - 1, 2)));
             }
-            else if (!isOverworld(attacker.getLevel()) && RANDOM.nextFloat() <= 0.2f * level)
+            else if (!isOverworld(attacker.getCommandSenderWorld()) && RANDOM.nextFloat() <= 0.2f * level)
             {
                 attacker.setSecondsOnFire(3 * level);
             }

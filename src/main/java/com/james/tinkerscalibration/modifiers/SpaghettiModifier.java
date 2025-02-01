@@ -67,7 +67,7 @@ public class SpaghettiModifier extends NoLevelsModifier implements GeneralIntera
     private void eat(IToolStackView tool, ModifierEntry modifier, LivingEntity entity) {
         int level = modifier.getLevel();
         if (level > 0 && entity instanceof Player player) {
-            Level world = entity.getLevel();
+            Level world = entity.getCommandSenderWorld();
             ModifierUtil.foodConsumer.onConsume(player, BREAD.get(), level, 0.6f);
             switch (level) {
                 case 1:
@@ -130,7 +130,7 @@ public class SpaghettiModifier extends NoLevelsModifier implements GeneralIntera
     @Override
     public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> tooltip, slimeknights.mantle.client.TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
         int level = modifier.getLevel();
-        if (player != null) {
+        if (player == null) {
             tooltip.add(Component.literal("").append(SPAGHETTI).append(TooltipBuilder.formatPartialAmount(tool.getPersistentData().getInt(KEY), 100)));
             tooltip.add(Component.translatable("modifier.tinkerscalibration.spaghetti.food_level").append(Component.literal(Util.COMMA_FORMAT.format((long)level < 3 ? 3 : 5)).withStyle((style) -> style.withColor(-2661276))));
             tooltip.add(Component.translatable("modifier.tinkerscalibration.spaghetti.saturation_level").append(Component.literal(Util.COMMA_FORMAT.format((long)level < 3 ? level * 1.2f + 1.2f: 6)).withStyle(style -> style.withColor(-8871731))));

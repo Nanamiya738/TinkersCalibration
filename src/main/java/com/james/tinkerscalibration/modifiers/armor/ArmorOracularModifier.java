@@ -47,7 +47,7 @@ public class ArmorOracularModifier extends Modifier {
                                 MobEffect ei = effect.getEffect();
                                 if (ei.isBeneficial()) {
                                     attackerl.removeEffect(ei);
-                                    attackerl.level.addParticle(
+                                    attackerl.getCommandSenderWorld().addParticle(
                                             ParticleTypes.HAPPY_VILLAGER,
                                             attacker.getX() + RANDOM.nextDouble() - 0.5,
                                             attacker.getY() + 1,
@@ -66,7 +66,7 @@ public class ArmorOracularModifier extends Modifier {
                             MobEffect ei = effect.getEffect();
                             if (ei.getCategory() == MobEffectCategory.HARMFUL) {
                                 living.removeEffect(ei);
-                                living.level.addParticle(
+                                living.getCommandSenderWorld().addParticle(
                                         ParticleTypes.HAPPY_VILLAGER,
                                         living.getX() + RANDOM.nextDouble() - 0.5,
                                         living.getY() + 1,

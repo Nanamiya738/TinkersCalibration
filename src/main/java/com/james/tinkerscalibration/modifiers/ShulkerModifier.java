@@ -39,7 +39,7 @@ public class ShulkerModifier extends NoLevelsModifier {
 
     private void CrouchingImpact(ProjectileImpactEvent event) {
         Entity entity = event.getEntity();
-        if (!entity.level.isClientSide) {
+        if (!entity.getCommandSenderWorld().isClientSide) {
             Projectile projectile = event.getProjectile();
             HitResult hit = event.getRayTraceResult();
             if (!RegistryHelper.contains(TinkerTags.EntityTypes.REFLECTING_BLACKLIST, projectile.getType())
@@ -64,7 +64,7 @@ public class ShulkerModifier extends NoLevelsModifier {
                                 hurting.yPower = reboundAngle.y * 0.1;
                                 hurting.zPower = reboundAngle.z * 0.1;
                             }
-                            living.level.playSound(null, living.blockPosition(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 1.0F, 1.5F + living.level.random.nextFloat() * 0.4F);
+                            living.getCommandSenderWorld().playSound(null, living.blockPosition(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 1.0F, 1.5F + living.getCommandSenderWorld().random.nextFloat() * 0.4F);
                             event.setCanceled(true);
                         }
                     }

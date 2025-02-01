@@ -1,32 +1,30 @@
 package com.james.tinkerscalibration;
 
 import com.james.tinkerscalibration.contents.*;
-import com.james.tinkerscalibration.group.ModGroup;
 import com.james.tinkerscalibration.hud.RangedDrawHud;
 import com.james.tinkerscalibration.integration.BlueSkiesIntegration;
 import com.james.tinkerscalibration.integration.MNAIntegration;
-import com.james.tinkerscalibration.item.*;
 import com.james.tinkerscalibration.hud.OvershieldHud;
 import com.james.tinkerscalibration.library.TinkersCalibrationLootModifiers;
 import com.james.tinkerscalibration.tiers.*;
+import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.TierSortingRegistry;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import slimeknights.tconstruct.world.data.WorldgenProvider;
 
 import java.util.List;
 
@@ -37,26 +35,20 @@ public class TinkersCalibration {
     public TinkersCalibration() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.addListener(TinkersCalibration::registerGUIOverlays);
         bus.addListener(this::setup);
+        bus.addListener(this::clientSetup);
+        TinkersCalibrationModule.initRegisters();
         TinkersCalibrationFluids.FLUIDS.register(bus);
         TinkersCalibrationBlocks.BLOCKS.register(bus);
         TinkersCalibrationItems.ITEMS.register(bus);
-        TinkersCalibrationConfig.init();
+        TinkersCalibrationItems.CREATIVE_TABS.register(bus);
+        bus.register(new TinkersCalibrationWorldFeatures());
         Utils.MODIFIERS.register(bus);
         Utils.PARTICLE_TYPES.register(bus);
-        TinkersCalibrationWorldFeatures.CONFIGURED_FEATURES.register(bus);
-        TinkersCalibrationWorldFeatures.PLACED_FEATURES.register(bus);
-        TinkersCalibrationWorldFeatures.BLOCKS.register(bus);
         if(ModList.get().isLoaded("tinkers_thinking")) {
             TinkersCalibrationLootModifiers.init(bus);
             logger.info("Found Tinkers' Thinking, spaghetti initializing……");
         }
-        FiberGlass.ItemRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        HardWheatRod.ItemRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        WetSoftNoodles.ItemRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        DryColdNoodles.ItemRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        HymonArrow.ItemRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         Utils.RECIPE_SERIALIZERS.register(bus);
         TinkersCalibrationArmorModifiers.Init();
     }
@@ -98,7 +90,15 @@ public class TinkersCalibration {
             TinkersCalibrationArmorModifiers.InitN();
             logger.info("Found Upgraded Netherite, armor integration initializing……");
         }
+    }
+    @SubscribeEvent
+    static void gatherData(final GatherDataEvent event) {
+        RegistrySetBuilder registrySetBuilder = new RegistrySetBuilder();
+        TinkersCalibrationWorldFeaturesProvider.register(registrySetBuilder);
+    }
 
+    private void clientSetup(final FMLClientSetupEvent event)
+    {
         MinecraftForge.EVENT_BUS.register(new RangedDrawHud());
     }
     private static final Logger LOGGER = LogManager.getLogger();
@@ -114,13 +114,6 @@ public class TinkersCalibration {
             }
         }
     }
-
-    public static Item register() {
-        return new Item(new Item.Properties().tab(ModGroup.itemGroup));
-    }
-
-    public static final DeferredRegister<Item> Items = DeferredRegister.create(ForgeRegistries.ITEMS, TinkersCalibration.MODID);
-    public static RegistryObject<Item> Hymon_Arrow = Items.register("hymon_arrow", TinkersCalibration::register);
 
     public static Logger getLogger() {
         return LOGGER;

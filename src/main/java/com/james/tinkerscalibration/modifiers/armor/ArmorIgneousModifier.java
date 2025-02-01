@@ -44,7 +44,7 @@ public class ArmorIgneousModifier extends Modifier implements ToolDamageModifier
         if (!living.isSpectator()) {
             EquipmentContext context = new EquipmentContext(living);
             if (context.hasModifiableArmor()) {
-                if (!living.level.isClientSide && living.isAlive()) {
+                if (!living.getCommandSenderWorld().isClientSide && living.isAlive()) {
                     living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent((holder) -> {
                         ModDataNBT persistentData;
                         if(context.getToolInSlot(EquipmentSlot.LEGS) instanceof ToolStack tool)

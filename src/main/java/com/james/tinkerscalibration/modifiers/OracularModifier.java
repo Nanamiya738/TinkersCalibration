@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
-import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -36,7 +36,7 @@ public class OracularModifier extends Modifier implements MeleeHitModifierHook, 
                 MobEffect ei = effect.getEffect();
                 if (ei.isBeneficial()) {
                     target.removeEffect(ei);
-                    target.level.addParticle(
+                    target.getCommandSenderWorld().addParticle(
                             ParticleTypes.HAPPY_VILLAGER,
                             target.getX() + RANDOM.nextDouble() - 0.5,
                             target.getY() + 1,
@@ -50,7 +50,7 @@ public class OracularModifier extends Modifier implements MeleeHitModifierHook, 
             MobEffect ei = effect.getEffect();
             if (ei.getCategory() == MobEffectCategory.HARMFUL) {
                 holder.removeEffect(ei);
-                holder.level.addParticle(
+                holder.getCommandSenderWorld().addParticle(
                         ParticleTypes.HAPPY_VILLAGER,
                         holder.getX() + RANDOM.nextDouble() - 0.5,
                         holder.getY() + 1,
@@ -64,14 +64,14 @@ public class OracularModifier extends Modifier implements MeleeHitModifierHook, 
         hookBuilder.addHook(this, ModifierHooks.MELEE_HIT, ModifierHooks.PROJECTILE_HIT);
     }
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target){
         if(target != null) {
             Collection<MobEffectInstance> listEffect1 = target.getActiveEffects();
             for (MobEffectInstance effect : listEffect1) {
                 MobEffect ei = effect.getEffect();
                 if (ei.isBeneficial()) {
                     target.removeEffect(ei);
-                    target.level.addParticle(
+                    target.getCommandSenderWorld().addParticle(
                             ParticleTypes.HAPPY_VILLAGER,
                             target.getX() + RANDOM.nextDouble() - 0.5,
                             target.getY() + 1,
@@ -86,7 +86,7 @@ public class OracularModifier extends Modifier implements MeleeHitModifierHook, 
                 MobEffect ei = effect.getEffect();
                 if (ei.getCategory() == MobEffectCategory.HARMFUL) {
                     attacker.removeEffect(ei);
-                    attacker.level.addParticle(
+                    attacker.getCommandSenderWorld().addParticle(
                             ParticleTypes.HAPPY_VILLAGER,
                             attacker.getX() + RANDOM.nextDouble() - 0.5,
                             attacker.getY() + 1,

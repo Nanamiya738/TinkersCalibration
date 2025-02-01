@@ -2,6 +2,7 @@ package com.james.tinkerscalibration.modifiers.armor;
 
 
 import net.minecraft.world.damagesource.CombatRules;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -34,9 +35,7 @@ public class ArmorBirefringentModifier extends Modifier {
             int level = holder.get(BIRE, 0);
             if(level > 0)
                 if (living instanceof Player player && attacker != null && RANDOM.nextFloat() <= 0.5f * level) {
-                    if (!event.getSource().isBypassArmor()) {
-                        event.setAmount(CombatRules.getDamageAfterAbsorb(event.getAmount(), (float)player.getArmorValue(), (float)player.getAttributeValue(Attributes.ARMOR_TOUGHNESS)));
-                    }
+                    event.setAmount(CombatRules.getDamageAfterAbsorb(event.getAmount(), (float)player.getArmorValue(), (float)player.getAttributeValue(Attributes.ARMOR_TOUGHNESS)));
                 }
         });
     }

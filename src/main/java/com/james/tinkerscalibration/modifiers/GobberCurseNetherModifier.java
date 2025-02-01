@@ -12,6 +12,7 @@ import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.ToolDataNBT;
 
 public class GobberCurseNetherModifier extends NoLevelsModifier implements VolatileDataModifierHook{
     @Override
@@ -20,22 +21,21 @@ public class GobberCurseNetherModifier extends NoLevelsModifier implements Volat
     }
 
     private final ResourceLocation KEY = new ResourceLocation(TinkersCalibration.MODID, "gobber_curse");
+
     @Override
-    public void addVolatileData(IToolContext context, ModifierEntry modifier, ModDataNBT volatileData) {
+    public void addVolatileData(IToolContext context, ModifierEntry modifier, ToolDataNBT toolDataNBT) {
         IModDataView persistentData = context.getPersistentData();
-        int number = volatileData.getSlots(SlotType.UPGRADE);
+        int number = toolDataNBT.getSlots(SlotType.UPGRADE);
         if (number >= 2) {
-            volatileData.addSlots(SlotType.UPGRADE, -number);
+            toolDataNBT.addSlots(SlotType.UPGRADE, -number);
         } else {
-            volatileData.addSlots(SlotType.UPGRADE, -2);
+            toolDataNBT.addSlots(SlotType.UPGRADE, -2);
         }
-        int numbera = volatileData.getSlots(SlotType.ABILITY);
-        volatileData.addSlots(SlotType.ABILITY, -numbera);
+        int numbera = toolDataNBT.getSlots(SlotType.ABILITY);
+        toolDataNBT.addSlots(SlotType.ABILITY, -numbera);
         if (context.hasTag(TinkerTags.Items.ARMOR)) {
-            int numberd = volatileData.getSlots(SlotType.DEFENSE);
-            volatileData.addSlots(SlotType.DEFENSE, -numberd);
+            int numberd = toolDataNBT.getSlots(SlotType.DEFENSE);
+            toolDataNBT.addSlots(SlotType.DEFENSE, -numberd);
         }
-
-
     }
 }

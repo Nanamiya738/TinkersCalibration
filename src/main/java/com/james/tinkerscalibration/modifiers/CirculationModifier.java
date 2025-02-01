@@ -58,7 +58,7 @@ public class CirculationModifier extends Modifier implements TooltipModifierHook
 
     @Override
     public float modifyStat(IToolStackView tool, ModifierEntry modifier, LivingEntity living, FloatToolStat stat, float baseValue, float multiplier) {
-        Level world = living.getLevel();
+        Level world = living.getCommandSenderWorld();
         int level = modifier.getLevel();
         if (isOverworld(world)) {
             if (stat == ToolStats.DRAW_SPEED) {
@@ -77,7 +77,7 @@ public class CirculationModifier extends Modifier implements TooltipModifierHook
         boolean harvest = tool.hasTag(TinkerTags.Items.HARVEST);
         if (player != null) {
             if (harvest || tool.hasTag(TinkerTags.Items.RANGED)) {
-                Level world = player.getLevel();
+                Level world = player.getCommandSenderWorld();
                 if (tooltipKey == TooltipKey.SHIFT) {
                     if (harvest) {
                         if (isOverworld(world)) {

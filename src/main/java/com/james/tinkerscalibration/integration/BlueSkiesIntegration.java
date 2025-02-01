@@ -17,7 +17,7 @@ import static com.james.tinkerscalibration.Utils.createMaterial;
 public class BlueSkiesIntegration {
     public static ModifierDeferredRegister MODIFIERS = ModifierDeferredRegister.create(TinkersCalibration.MODID);
     public static StaticModifier<Modifier> noble = MODIFIERS.register("noble", NobleModifier::new);
-    public static DynamicModifier<Modifier> noble_real = MODIFIERS.registerDynamic("noble_real", Modifier.class);
+    public static DynamicModifier noble_real = MODIFIERS.registerDynamic("noble_real");
     public static StaticModifier<Modifier> accumulate = MODIFIERS.register("accumulate", AccumulateModifier::new);
     public static StaticModifier<Modifier> protogenesis = MODIFIERS.register("protogenesis", ProtogenesisModifier::new);
     public static StaticModifier<Modifier> grind = MODIFIERS.register("grind", GrindModifier::new);

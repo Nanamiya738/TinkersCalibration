@@ -1,6 +1,5 @@
 package com.james.tinkerscalibration.modifiers.armor;
 
-import com.rolfmao.upgradednetherite.config.UpgradedNetheriteConfig;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -26,7 +25,7 @@ import java.util.function.BiConsumer;
 
 public class ArmorPrismariteModifier extends Modifier implements AttributesModifierHook {
     private static final TinkerDataCapability.TinkerDataKey<Integer> WATER = TConstruct.createKey("prismarite_armor");
-
+/*
     public ArmorPrismariteModifier() {
         super();
         MinecraftForge.EVENT_BUS.addListener(ArmorPrismariteModifier::onUpdateApply);
@@ -37,7 +36,7 @@ public class ArmorPrismariteModifier extends Modifier implements AttributesModif
         if (!living.isSpectator()) {
             EquipmentContext context = new EquipmentContext(living);
             if (context.hasModifiableArmor()) {
-                if (!living.level.isClientSide) {
+                if (!living.getCommandSenderWorld().isClientSide) {
                     living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent((holder) -> {
                         int levels = holder.get(WATER, 0);
                         if (levels > 0) {
@@ -53,6 +52,7 @@ public class ArmorPrismariteModifier extends Modifier implements AttributesModif
             }
         }
     }
+    */
     private static final String ATTRIBUTE_BONUS = "7a722435-9301-4e45-8f47-e18c1bb97990";
 
     @Override

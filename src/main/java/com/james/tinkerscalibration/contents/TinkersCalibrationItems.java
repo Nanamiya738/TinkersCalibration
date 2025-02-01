@@ -1,28 +1,47 @@
 package com.james.tinkerscalibration.contents;
 
-import com.james.tinkerscalibration.group.ModGroup;
 import com.james.tinkerscalibration.TinkersCalibration;
 import com.james.tinkerscalibration.TinkersCalibrationToolDefinition;
 import com.james.tinkerscalibration.item.SpaghettiItem;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import slimeknights.mantle.item.TooltipItem;
+import slimeknights.mantle.registration.deferred.SynchronizedDeferredRegister;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registration.ItemDeferredRegisterExtension;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
+import slimeknights.tconstruct.library.tools.part.PartCastItem;
 import slimeknights.tconstruct.library.tools.part.ToolPartItem;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
+
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class TinkersCalibrationItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TinkersCalibration.MODID);
     private static final ItemDeferredRegisterExtension ITEME = new ItemDeferredRegisterExtension(TinkersCalibration.MODID);
-    public static BlockItem registerItemBlock(Block block) {
-        return new BlockItem(block, new Item.Properties().tab(ModGroup.itemGroup));
-    }
 
+    public static BlockItem registerItemBlock(Block block) {
+        return new BlockItem(block, new Item.Properties());
+    }
+    private static final Item.Properties ToolItem = new Item.Properties().stacksTo(1);
+    private static final Item.Properties CastItem = new Item.Properties().stacksTo(64);
+    private static final Item.Properties Item = new Item.Properties().stacksTo(64);
+
+    public static RegistryObject<Item> fiberglass = ITEMS.register("fiberglass", TinkersCalibrationItems::register);
     public static RegistryObject<Item> mangobberslime_ingot = ITEMS.register("mangobberslime_ingot", TinkersCalibrationItems::register);
     public static RegistryObject<Item> lindsteel_ingot = ITEMS.register("lindsteel_ingot", TinkersCalibrationItems::register);
     public static RegistryObject<Item> fazelle_ingot = ITEMS.register("fazelle_ingot", TinkersCalibrationItems::register);
@@ -156,26 +175,167 @@ public class TinkersCalibrationItems {
     //public static RegistryObject<Item> deepslate_moonstone_ore = ITEMS.register("deepslate_moonstone_ore", () -> registerItemBlock(TinkersCalibrationBlocks.deepslate_moonstone_ore.get()));
     public static RegistryObject<Item> deepslate_vibrating_crystal_ore = ITEMS.register("deepslate_vibrating_crystal_ore", () -> registerItemBlock(TinkersCalibrationBlocks.deepslate_vibrating_crystal_ore.get()));
 
-    private static final Item.Properties ToolItem = new Item.Properties().stacksTo(1).tab(ModGroup.itemGroup);
-    //public static final RegistryObject<ModifiableItem> GUN = ITEMS.register("gun", () -> new ModifiableItem(ToolItem, TinkersCalibrationToolDefinition.Gun));
     public static final RegistryObject<ModifiableItem> CUTLASS = ITEMS.register("cutlass", () -> new ModifiableItem(ToolItem, TinkersCalibrationToolDefinition.Cutlass));
     public static final RegistryObject<SpaghettiItem> SPAGHETTI = ITEMS.register("moms_spaghetti", () -> new SpaghettiItem(ToolItem, TinkersCalibrationToolDefinition.Spaghetti));
-
-    //
-
-    // public static final RegistryObject<ToolPartItem> BARREL = ITEMS.register("barrel", () -> new ToolPartItem(ToolItem, GripMaterialStats.ID));
-    // public static final RegistryObject<ToolPartItem> GUNSTOCK = ITEMS.register("gun_stock", () -> new ToolPartItem(ToolItem, GripMaterialStats.ID));
-    //public static final RegistryObject<ToolPartItem> GUNGRIP = ITEMS.register("gun_grip", () -> new ToolPartItem(ToolItem, LimbMaterialStats.ID));
-    //  public static final RegistryObject<ToolPartItem> GUNSIGHT = ITEMS.register("gun_sight", () -> new ToolPartItem(ToolItem, ExtraMaterialStats.ID));
     public static final RegistryObject<ToolPartItem> BENT_BLADE = ITEMS.register("bent_blade", () -> new ToolPartItem(ToolItem, HeadMaterialStats.ID));
-    //
-    public static RegistryObject<Item> bent_blade_cast = ITEMS.register("bent_blade_cast", TinkersCalibrationItems::register);
-    public static RegistryObject<Item> bent_blade_red_sand_cast = ITEMS.register("bent_blade_red_sand_cast", TinkersCalibrationItems::register);
-    public static RegistryObject<Item> bent_blade_sand_cast = ITEMS.register("bent_blade_sand_cast", TinkersCalibrationItems::register);
+    public static final RegistryObject<TooltipItem> DRY_COLD_NOODLES = ITEMS.register("dry_cold_noodles", () -> new TooltipItem(ToolItem));
+    public static final RegistryObject<TooltipItem> WET_SOFT_NOODLES = ITEMS.register("wet_soft_noodles", () -> new TooltipItem(ToolItem));
+    public static final RegistryObject<TooltipItem> HARD_WHEAT_ROD = ITEMS.register("hard_wheat_rod", () -> new TooltipItem(ToolItem));
+    public static final RegistryObject<PartCastItem> bent_blade_cast = ITEMS.register("bent_blade_cast", () -> new PartCastItem(CastItem, BENT_BLADE));
+    public static final RegistryObject<PartCastItem> bent_blade_red_sand_cast = ITEMS.register("bent_blade_red_sand_cast", () -> new PartCastItem(CastItem, BENT_BLADE));
+    public static final RegistryObject<PartCastItem> bent_blade_sand_cast = ITEMS.register("bent_blade_sand_cast", () -> new PartCastItem(CastItem, BENT_BLADE));
     public static RegistryObject<Item> queens_slime_reinforcement = ITEMS.register("queens_slime_reinforcement", TinkersCalibrationItems::register);
 
     public static Item register() {
-        return new Item(new Item.Properties().tab(ModGroup.itemGroup));
+        return new Item(new Item.Properties());
     }
 
+    public static final SynchronizedDeferredRegister<CreativeModeTab> CREATIVE_TABS = SynchronizedDeferredRegister.create(Registries.CREATIVE_MODE_TAB, TConstruct.MOD_ID);
+
+    public static final RegistryObject<CreativeModeTab> tab = CREATIVE_TABS.register(
+            "tinkerscalibration", () -> CreativeModeTab.builder().title(TConstruct.makeTranslation("itemGroup", "tinkerscalibration"))
+                    .icon(() -> new ItemStack(TinkerSmeltery.smelteryController))
+                    .displayItems(TinkersCalibrationItems::addTabItems)
+                    .withTabsBefore(TinkerToolParts.tabToolParts.getId())
+                    .build());
+
+    private static void addTabItems(CreativeModeTab.ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output output) {
+        output.accept(mangobberslime_ingot.get());
+        output.accept(lindsteel_ingot.get());
+        output.accept(fazelle_ingot.get());
+        output.accept(titanium_ingot.get());
+        output.accept(mandite_ingot.get());
+        output.accept(soulgold_ingot.get());
+        output.accept(emperorslime_ingot.get());
+        output.accept(jazz_ingot.get());
+        output.accept(stellarium_ingot.get());
+        output.accept(immersed_silver_ingot.get());
+        output.accept(inert_witherium_ingot.get());
+        output.accept(witherium_ingot.get());
+        output.accept(halleium_ingot.get());
+        output.accept(hothium_ingot.get());
+        output.accept(oraclium_ingot.get());
+        output.accept(steamium_ingot.get());
+        output.accept(grain_ingot.get());
+        output.accept(magiga_ingot.get());
+        output.accept(tonium_ingot.get());
+        output.accept(gravity_ingot.get());
+        output.accept(alumite_ingot.get());
+        output.accept(moonsteel_ingot.get());
+        output.accept(corundum.get());
+        output.accept(nitre.get());
+        output.accept(spinel.get());
+        output.accept(lizanite.get());
+        output.accept(tourmaline.get());
+        output.accept(talcum.get());
+        output.accept(vibrating_crystal.get());
+        output.accept(stellarium_nugget.get());
+        output.accept(gravity_nugget.get());
+        output.accept(immersed_silver_nugget.get());
+        output.accept(inert_witherium_nugget.get());
+        output.accept(witherium_nugget.get());
+        output.accept(halleium_nugget.get());
+        output.accept(alumite_nugget.get());
+        output.accept(hothium_nugget.get());
+        output.accept(oraclium_nugget.get());
+        output.accept(steamium_nugget.get());
+        output.accept(magiga_nugget.get());
+        output.accept(tonium_nugget.get());
+        output.accept(hymon.get());
+        output.accept(mangobberslime_nugget.get());
+        output.accept(lindsteel_nugget.get());
+        output.accept(fazelle_nugget.get());
+        output.accept(titanium_nugget.get());
+        output.accept(mandite_nugget.get());
+        output.accept(soulgold_nugget.get());
+        output.accept(emperorslime_nugget.get());
+        output.accept(jazz_nugget.get());
+        output.accept(moonsteel_nugget.get());
+        output.accept(glass_silk.get());
+        output.accept(hymon_scrap.get());
+        output.accept(ocean_compound.get());
+        output.accept(bamboo_steel.get());
+        output.accept(raw_titanium.get());
+        output.accept(raw_stellarium.get());
+        output.accept(raw_immersed_silver.get());
+        output.accept(raw_inert_witherium.get());
+        output.accept(raw_hothium.get());
+        output.accept(raw_magiga.get());
+        output.accept(raw_tonium.get());
+        output.accept(refined_quartz.get());
+        output.accept(mending_moss.get());
+        output.accept(moss_ball.get());
+        output.accept(breashell.get());
+        output.accept(emperorslime_block.get());
+        output.accept(lindsteel_block.get());
+        output.accept(fazelle_block.get());
+        output.accept(titanium_block.get());
+        output.accept(jazz_block.get());
+        output.accept(mandite_block.get());
+        output.accept(titanium_ore.get());
+        output.accept(deepslate_titanium_ore.get());
+        output.accept(inert_witherium_ore.get());
+        output.accept(stellarium_ore.get());
+        output.accept(immersed_silver_ore.get());
+        output.accept(hothium_ore.get());
+        output.accept(magiga_ore.get());
+        output.accept(tonium_ore.get());
+        output.accept(deepslate_stellarium_ore.get());
+        output.accept(deepslate_immersed_silver_ore.get());
+        output.accept(deepslate_hothium_ore.get());
+        output.accept(deepslate_magiga_ore.get());
+        output.accept(deepslate_tonium_ore.get());
+        output.accept(stellarium_block.get());
+        output.accept(immersed_silver_block.get());
+        output.accept(inert_witherium_block.get());
+        output.accept(halleium_block.get());
+        output.accept(hothium_block.get());
+        output.accept(steamium_block.get());
+        output.accept(magiga_block.get());
+        output.accept(tonium_block.get());
+        output.accept(oraclium_block.get());
+        output.accept(witherium_block.get());
+        output.accept(alumite_block.get());
+        output.accept(corundum_block.get());
+        output.accept(nitre_block.get());
+        output.accept(spinel_block.get());
+        output.accept(talcum_block.get());
+        output.accept(tourmaline_block.get());
+        output.accept(vibrating_crystal_block.get());
+        output.accept(iceland_spar_block.get());
+        output.accept(topaz_block.get());
+        output.accept(lizanite_block.get());
+        output.accept(prehnite_block.get());
+        output.accept(corundum_ore.get());
+        output.accept(nitre_ore.get());
+        output.accept(spinel_ore.get());
+        output.accept(talcum_ore.get());
+        output.accept(tourmaline_ore.get());
+        output.accept(vibrating_crystal_ore.get());
+        output.accept(deepslate_corundum_ore.get());
+        output.accept(deepslate_nitre_ore.get());
+        output.accept(deepslate_spinel_ore.get());
+        output.accept(deepslate_talcum_ore.get());
+        output.accept(deepslate_tourmaline_ore.get());
+        output.accept(deepslate_vibrating_crystal_ore.get());
+        Consumer<ItemStack> outputTool = output::accept;
+        Consumer<ItemStack> outputPart = output::accept;
+        acceptTool(outputTool, CUTLASS);
+        acceptTool(outputTool, SPAGHETTI);
+        acceptPart(outputPart, BENT_BLADE);
+        output.accept(DRY_COLD_NOODLES.get());
+        output.accept(WET_SOFT_NOODLES.get());
+        output.accept(HARD_WHEAT_ROD.get());
+        output.accept(bent_blade_cast.get());
+        output.accept(bent_blade_red_sand_cast.get());
+        output.accept(bent_blade_sand_cast.get());
+        output.accept(queens_slime_reinforcement.get());
+        output.accept(fiberglass.get());
+    }
+    private static void acceptTool(Consumer<ItemStack> output, Supplier<? extends IModifiable> tool) {
+        ToolBuildHandler.addVariants(output, tool.get(), "");
+    }
+    private static void acceptPart(Consumer<ItemStack> output, Supplier<? extends IMaterialItem> item) {
+        item.get().addVariants(output, "");
+    }
 }

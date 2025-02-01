@@ -1,9 +1,12 @@
 package com.james.tinkerscalibration.modifiers.armor;
 
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -32,8 +35,9 @@ public class ArmorVengeanceModifier extends Modifier {
         living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent((holder) -> {
             int level = holder.get(VEN, 0);
             if(level > 0)
-                if (living instanceof Player player && attacker != null && living.getLastHurtByMob() != null && attacker.getType() == player.getLastHurtByMob().getType() && RANDOM.nextFloat() <= level * 0.3f) {
-                    attacker.hurt(DamageSource.playerAttack(player), event.getAmount() * 1.5f);
+                if (living instanceof Player player && attacker != null && living.getLastHurtByMob() != null && attacker.getType() == player.getLastHurtByMob().getType() && RANDOM.nextFloat() <= level * 0.3f && !(attacker instanceof Guardian)) {
+                    if(event.getSource().is(DamageTypes.THORNS)) return;
+                    attacker.hurt(new DamageSource(player.getCommandSenderWorld().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.THORNS)), event.getAmount() * 1.5f);
                 }
         });
     }

@@ -31,11 +31,11 @@ public class ArmorDarknessModifier extends Modifier{
         if (!living.isSpectator()) {
             EquipmentContext context = new EquipmentContext(living);
             if (context.hasModifiableArmor()) {
-                if (!living.level.isClientSide) {
+                if (!living.getCommandSenderWorld().isClientSide) {
                     living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent((holder) -> {
                         int levels = holder.get(DARKNESS, 0);
                         if (levels > 0) {
-                            int light = getLight(living.getLevel(), living.blockPosition());
+                            int light = getLight(living.getCommandSenderWorld(), living.blockPosition());
                             if(light <= 9) {
                                 if(living.hasEffect(MobEffects.DAMAGE_RESISTANCE) && living.getEffect(MobEffects.DAMAGE_RESISTANCE).getDuration() <= 100 || !living.hasEffect(MobEffects.DAMAGE_RESISTANCE))
                                     living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200));

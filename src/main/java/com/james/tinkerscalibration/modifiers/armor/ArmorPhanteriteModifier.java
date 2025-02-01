@@ -1,6 +1,7 @@
 package com.james.tinkerscalibration.modifiers.armor;
 
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -20,7 +21,7 @@ import java.util.function.BiConsumer;
 public class ArmorPhanteriteModifier extends Modifier implements DamageBlockModifierHook, AttributesModifierHook {
     @Override
     public boolean isDamageBlocked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount) {
-        return source.isFall();
+        return source.is(DamageTypes.FALL);
     }
     private static final String ATTRIBUTE_BONUS = "f70cc791-82fd-4b37-ad1e-358cb59cd3e6";
 

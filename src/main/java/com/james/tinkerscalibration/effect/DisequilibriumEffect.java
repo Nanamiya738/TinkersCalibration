@@ -21,7 +21,7 @@ public class DisequilibriumEffect extends NoMilkEffect {
     @Override
     public void applyEffectTick(LivingEntity target, int level) {
         Vec3 motion = target.getDeltaMovement();
-        if (!target.isOnGround()) {
+        if (!target.onGround()) {
             target.setDeltaMovement(motion.x,
                     motion.y - 0.8f * level,
                     motion.z);

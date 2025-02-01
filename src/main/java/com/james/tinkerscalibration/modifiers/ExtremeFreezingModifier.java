@@ -21,7 +21,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
-import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -37,7 +37,7 @@ public class ExtremeFreezingModifier extends Modifier implements MeleeHitModifie
     }
     public static void freeze(LivingEntity center, int level) {
         float range = 5 + 3 * level;
-        List<Mob> ens = center.level.getEntitiesOfClass(Mob.class, new AABB(center.getX() - range, center.getY() - range, center.getZ() - range, center.getX() + range, center.getY() + range, center.getZ() + range));
+        List<Mob> ens = center.getCommandSenderWorld().getEntitiesOfClass(Mob.class, new AABB(center.getX() - range, center.getY() - range, center.getZ() - range, center.getX() + range, center.getY() + range, center.getZ() + range));
         if (!ens.isEmpty())
             for (Mob en : ens) {
                 if (en == null) continue;
@@ -52,7 +52,7 @@ public class ExtremeFreezingModifier extends Modifier implements MeleeHitModifie
     }
 
     public static void particle(LivingEntity entity) {
-        entity.level.addParticle(ParticleTypes.SNOWFLAKE,
+        entity.getCommandSenderWorld().addParticle(ParticleTypes.SNOWFLAKE,
                 entity.getX() + RANDOM.nextDouble() - 0.5,
                 entity.getY() + RANDOM.nextDouble(),
                 entity.getZ() + RANDOM.nextDouble() - 0.5,
@@ -76,7 +76,7 @@ public class ExtremeFreezingModifier extends Modifier implements MeleeHitModifie
         }
     }
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target){
         if (target != null && !target.getCommandSenderWorld().isClientSide && target.isAlive()) {
             target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2));
             target.setTicksFrozen(target.getTicksRequiredToFreeze() + 40 * modifier.getLevel());

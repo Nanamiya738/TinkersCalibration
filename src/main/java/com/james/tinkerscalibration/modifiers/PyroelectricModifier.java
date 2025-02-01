@@ -1,7 +1,9 @@
 package com.james.tinkerscalibration.modifiers;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -18,7 +20,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
-import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -31,7 +33,7 @@ public class PyroelectricModifier extends Modifier implements MeleeHitModifierHo
         if (target == null) return;
 
         BlockPos pos = target.getOnPos();
-        Level world = target.getLevel();
+        Level world = target.getCommandSenderWorld();
         float temp = world.getBiome(pos).value().getBaseTemperature();
         if (target.isOnFire()) temp += 0.3f; // new flavor
 
@@ -45,7 +47,7 @@ public class PyroelectricModifier extends Modifier implements MeleeHitModifierHo
             for (Mob en : list) {
                 if (en == holder) continue;
                 en.invulnerableTime = 0;
-                en.hurt(DamageSource.LIGHTNING_BOLT, damage);
+                en.hurt(new DamageSource(holder.getCommandSenderWorld().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.LIGHTNING_BOLT)), damage);
             }
         }
     }
@@ -54,7 +56,7 @@ public class PyroelectricModifier extends Modifier implements MeleeHitModifierHo
         hookBuilder.addHook(this, ModifierHooks.MELEE_HIT, ModifierHooks.PROJECTILE_HIT);
     }
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target){
         if (target == null) return false;
 
         BlockPos pos = target.getOnPos();
@@ -67,12 +69,12 @@ public class PyroelectricModifier extends Modifier implements MeleeHitModifierHo
         final float damage = temp * 0.5f;
         int level = modifier.getLevel();
         List<Mob> list = world.getEntitiesOfClass(Mob.class, new AABB(target.getX() - 5 * level, target.getY() - 5 * level, target.getZ() - 5 * level, target.getX() + 5 * level, target.getX() + 5 * level, target.getX() + 5 * level));
-        if (!world.isClientSide) // server - deal damage
+        if (!world.isClientSide && attacker != null) // server - deal damage
         {
             for (Mob en : list) {
                 if (en == attacker) continue;
                 en.invulnerableTime = 0;
-                en.hurt(DamageSource.LIGHTNING_BOLT, damage);
+                en.hurt(new DamageSource(attacker.getCommandSenderWorld().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.LIGHTNING_BOLT)), damage);
             }
         }
         return false;

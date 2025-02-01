@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.ranged.ModifiableCrossbowItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -30,16 +30,16 @@ public class ContinuingShootModifier extends Modifier implements ProjectileLaunc
         hookBuilder.addHook(this, ModifierHooks.PROJECTILE_LAUNCH);
     }
     @Override
-    public void onProjectileLaunch(IToolStackView iToolStackView, ModifierEntry modifierEntry, LivingEntity livingEntity, Projectile projectile, @Nullable AbstractArrow abstractArrow, NamespacedNBT namespacedNBT, boolean b) {
-        int level = modifierEntry.getLevel();
-        if(!b && projectile instanceof AbstractArrow arrow)
+    public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
+        int level = modifier.getLevel();
+        if(!primary && arrow != null)
         {
             projectile.discard();
-            float angle = (float)(arrow.getBaseDamage() - 2.0 + (double) iToolStackView.getStats().get(ToolStats.PROJECTILE_DAMAGE));
+            float angle = (float)(arrow.getBaseDamage() - 2.0 + (double) tool.getStats().get(ToolStats.PROJECTILE_DAMAGE));
 
             for(int i = 0; i < level * 2; i++) {
-                livingEntity.level.addFreshEntity(projectile);
-                livingEntity.level.playSound((Player) null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1.0F, getRandomShotPitch(angle, livingEntity.getRandom()));
+                shooter.getCommandSenderWorld().addFreshEntity(projectile);
+                shooter.getCommandSenderWorld().playSound((Player) null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1.0F, getRandomShotPitch(angle, shooter.getRandom()));
                 try {
                     TimeUnit.MILLISECONDS.sleep(100);
                 } catch (InterruptedException e) {

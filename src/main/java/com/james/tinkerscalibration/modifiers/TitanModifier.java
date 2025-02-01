@@ -58,7 +58,7 @@ public class TitanModifier extends Modifier{
     @Override
     public float modifyStat(IToolStackView tool, ModifierEntry modifier, LivingEntity living, FloatToolStat stat, float baseValue, float multiplier) {
         if (stat == ToolStats.VELOCITY) {
-            return getBoost(living.level, (float) living.getY(), modifier.getLevel(), baseValue, multiplier, VELOCITY_BONUS);
+            return getBoost(living.getCommandSenderWorld(), (float) living.getY(), modifier.getLevel(), baseValue, multiplier, VELOCITY_BONUS);
         }
         return baseValue;
     }

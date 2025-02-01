@@ -1,7 +1,9 @@
 package com.james.tinkerscalibration.modifiers.armor;
 
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.MinecraftForge;
@@ -33,7 +35,7 @@ public class ArmorOverNaturalModifier extends Modifier {
             if(level > 0) {
                 living.invulnerableTime += 5;
                 if (RANDOM.nextFloat() <= 0.2f * level && attacker != null) {
-                    attacker.hurt(DamageSource.MAGIC, event.getAmount() * 0.1f * level);
+                    attacker.hurt(new DamageSource(living.getCommandSenderWorld().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.MAGIC)), event.getAmount() * 0.1f * level);
                 }
             }
         });

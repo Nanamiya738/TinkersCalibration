@@ -1,6 +1,8 @@
 package com.james.tinkerscalibration.modifiers;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -17,7 +19,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
-import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -38,9 +40,9 @@ public class BirefringentModifier extends Modifier implements MeleeHitModifierHo
 
         if (damageDealt > 0 && !world.isClientSide && target.isAlive() && RANDOM.nextFloat() <= 0.3f * modifier.getLevel()) {
             target.invulnerableTime = 0;
-            target.hurt(DamageSource.mobAttack(player), damageDealt);
-            Random random = (Random) target.level.random;
-            //target.level.addParticle(Utils.birefringentParticle.get(),
+            target.hurt(new DamageSource(player.getCommandSenderWorld().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.PLAYER_ATTACK)), damageDealt);
+            Random random = (Random) target.getCommandSenderWorld().random;
+            //target.getCommandSenderWorld().addParticle(Utils.birefringentParticle.get(),
             //        target.getX() + random.nextDouble() - 0.5,
             //        target.getY() + random.nextDouble(),
             //        target.getZ() + random.nextDouble() - 0.5,
@@ -50,14 +52,14 @@ public class BirefringentModifier extends Modifier implements MeleeHitModifierHo
     }
 
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target){
         if (target != null && attacker != null && projectile instanceof AbstractArrow arrow) {
             float damageDealt = (float) ((float) arrow.getBaseDamage() * arrow.getDeltaMovement().length());
-            if (damageDealt > 0 && !attacker.getLevel().isClientSide && target.isAlive() && RANDOM.nextFloat() <= 0.3f * modifier.getLevel()) {
+            if (damageDealt > 0 && !attacker.getCommandSenderWorld().isClientSide && target.isAlive() && RANDOM.nextFloat() <= 0.3f * modifier.getLevel()) {
                 target.invulnerableTime = 0;
-                target.hurt(DamageSource.mobAttack(attacker), damageDealt);
-                Random random = (Random) target.level.random;
-                //target.level.addParticle(Utils.birefringentParticle.get(),
+                target.hurt(new DamageSource(attacker.getCommandSenderWorld().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.PLAYER_ATTACK)), damageDealt);
+                Random random = (Random) target.getCommandSenderWorld().random;
+                //target.getCommandSenderWorld().addParticle(Utils.birefringentParticle.get(),
                 //        target.getX() + random.nextDouble() - 0.5,
                 //        target.getY() + random.nextDouble(),
                 //        target.getZ() + random.nextDouble() - 0.5,

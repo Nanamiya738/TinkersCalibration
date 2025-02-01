@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
-import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -32,11 +32,11 @@ public class IncandescentModifier extends Modifier implements MeleeHitModifierHo
             double y = player.getY();
             double z = player.getZ();
             double range = 5 + modifier.getLevel() * 5;
-            List<Mob> targets = player.level.getEntitiesOfClass(Mob.class, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
+            List<Mob> targets = player.getCommandSenderWorld().getEntitiesOfClass(Mob.class, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
             for (Mob target : targets) {
                 if (target != null) {
                     target.setSecondsOnFire(modifier.getLevel() * 5);
-                    player.level.addParticle(
+                    player.getCommandSenderWorld().addParticle(
                             ParticleTypes.FLAME,
                             target.getX() + RANDOM.nextDouble() - 0.5,
                             target.getY() + 1,
@@ -51,18 +51,18 @@ public class IncandescentModifier extends Modifier implements MeleeHitModifierHo
         hookBuilder.addHook(this, ModifierHooks.MELEE_HIT, ModifierHooks.PROJECTILE_HIT);
     }
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target){
         if (target != null && attacker != null && (!(projectile instanceof AbstractArrow arrow) || arrow.isCritArrow())) {
             int level = modifier.getLevel();
             double x = target.getX();
             double y = target.getY();
             double z = target.getZ();
             double range = 5 + level * 5;
-            List<Mob> targets = target.level.getEntitiesOfClass(Mob.class, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
+            List<Mob> targets = target.getCommandSenderWorld().getEntitiesOfClass(Mob.class, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
             for (Mob target1 : targets) {
                 if (target1 != null) {
                     target1.setSecondsOnFire(level * 5);
-                    attacker.level.addParticle(
+                    attacker.getCommandSenderWorld().addParticle(
                             ParticleTypes.FLAME,
                             target.getX() + RANDOM.nextDouble() - 0.5,
                             target.getY() + 1,

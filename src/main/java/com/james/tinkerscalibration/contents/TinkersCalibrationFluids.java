@@ -2,7 +2,7 @@ package com.james.tinkerscalibration.contents;
 
 import com.james.tinkerscalibration.TinkersCalibration;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.SoundActions;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
@@ -83,6 +83,6 @@ public class TinkersCalibrationFluids {
                 .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY);
     }
     private static FlowingFluidObject<ForgeFlowingFluid> register(String name, int temp) {
-        return FLUIDS.register(name).type(hot(name).temperature(temp).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
+        return FLUIDS.register(name).type(hot(name).temperature(temp).lightLevel(12)).block(MapColor.COLOR_RED, 12).bucket().flowing();
     }
 }

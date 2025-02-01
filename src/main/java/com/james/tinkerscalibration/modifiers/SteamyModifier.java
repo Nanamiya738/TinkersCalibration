@@ -15,7 +15,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
-import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nullable;
 
@@ -24,7 +24,7 @@ public class SteamyModifier extends Modifier implements MeleeDamageModifierHook,
     public float getMeleeDamage(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage) {
         int level = modifier.getLevel();
         if(level <= 3)
-            return damage * (1 + 0.25f - modifier.getLevel());
+            return damage * (1 - 0.25f * modifier.getLevel());
         return damage * 0.2f;
     }
     @Override
@@ -36,7 +36,7 @@ public class SteamyModifier extends Modifier implements MeleeDamageModifierHook,
         return knockback * (1 + 0.25f * modifier.getLevel());
     }
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target){
         if (projectile instanceof AbstractArrow arrow) {
             arrow.setBaseDamage(arrow.getBaseDamage() * 0.75);
             arrow.setKnockback((int) (arrow.getKnockback() * (1 + 0.25f * modifier.getLevel())));

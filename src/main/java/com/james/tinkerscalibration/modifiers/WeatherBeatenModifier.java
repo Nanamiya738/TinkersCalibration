@@ -13,8 +13,8 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 public class WeatherBeatenModifier extends Modifier implements ToolDamageModifierHook {
     @Override
     public int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @javax.annotation.Nullable LivingEntity holder) {
-        if (holder != null && (holder.level.getBiome(holder.getOnPos()).value().getBaseTemperature() <= 0.5f || holder.level.getBiome(holder.getOnPos()).value().getBaseTemperature() >= 1.5f)) {
-            return ReduceToolDamageModule.reduceDamage(amount, Math.abs(holder.level.getBiome(holder.getOnPos()).value().getBaseTemperature() - 0.75f) * (25 + 5 * modifier.getLevel()));
+        if (holder != null && (holder.getCommandSenderWorld().getBiome(holder.getOnPos()).value().getBaseTemperature() <= 0.5f || holder.getCommandSenderWorld().getBiome(holder.getOnPos()).value().getBaseTemperature() >= 1.5f)) {
+            return ReduceToolDamageModule.reduceDamage(amount, Math.abs(holder.getCommandSenderWorld().getBiome(holder.getOnPos()).value().getBaseTemperature() - 0.75f) * (25 + 5 * modifier.getLevel()));
         }
         return amount;
     }

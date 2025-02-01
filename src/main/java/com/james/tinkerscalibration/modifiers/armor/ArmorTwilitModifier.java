@@ -57,7 +57,7 @@ public class ArmorTwilitModifier extends Modifier implements AttributesModifierH
         if (!living.isSpectator()) {
             EquipmentContext context = new EquipmentContext(living);
             if (context.hasModifiableArmor()) {
-                if (!living.level.isClientSide && living.isAlive()) {
+                if (!living.getCommandSenderWorld().isClientSide && living.isAlive()) {
                     living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent((holder) -> {
                         int level = holder.get(TWILIT, 0);
                         if (level > 0) {

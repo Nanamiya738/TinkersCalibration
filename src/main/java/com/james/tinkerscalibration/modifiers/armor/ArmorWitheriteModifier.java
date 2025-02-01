@@ -1,7 +1,6 @@
 package com.james.tinkerscalibration.modifiers.armor;
 
 
-import com.rolfmao.upgradednetherite.config.UpgradedNetheriteConfig;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,7 +30,7 @@ public class ArmorWitheriteModifier extends Modifier {
         living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent((holder) -> {
             int level = holder.get(WITHER, 0);
             if (level > 0 && living instanceof ServerPlayer && event.getEffectInstance() != null) {
-                if (event.getEffectInstance().getEffect() == MobEffects.WITHER && UpgradedNetheriteConfig.EnableWitherImmune) {
+                if (event.getEffectInstance().getEffect() == MobEffects.WITHER){// && UpgradedNetheriteConfig.EnableWitherImmune) {
                     event.setResult(Event.Result.DENY);
                     if (event.isCancelable()) {
                         event.setCanceled(true);

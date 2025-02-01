@@ -5,7 +5,6 @@ import com.james.tinkerscalibration.Utils;
 import com.james.tinkerscalibration.modifiers.OvershieldModifier;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -40,13 +39,13 @@ public class OvershieldHud {
                 OvershieldModifier overshield = (OvershieldModifier) Utils.overshield.get();
                 //It's very rarely that the chestplate doesn't grant any armor value, so it's unlikely the hud will be too high.
                 for (int i = 0; i < 10; i++) {
-                    GuiComponent.blit(poseStack, x - 90 + (i * 8), height - 57, 0, 0, 7, 7, 7, 7);
+                    poseStack.blit(EMPTY_SHIELD, x - 90 + (i * 8), height - 57, 0, 0, 7, 7, 7, 7);
                 }
 
                 RenderSystem.setShaderTexture(0, CRITICAL_SHIELD);
                 for (int i = 0; i < 4; i++) {
                     if ((float)overshield.getShield(tool) / (float)overshield.getShieldCapacity(tool, tool.getModifiers().getEntry(Utils.overshield.getId())) * 10 > i) {
-                        GuiComponent.blit(poseStack, x - 90 + (i * 8), height - 57, 0, 0, 7, 7, 7, 7);
+                        poseStack.blit(CRITICAL_SHIELD, x - 90 + (i * 8), height - 57, 0, 0, 7, 7, 7, 7);
                     } else {
                         break;
                     }
@@ -54,7 +53,7 @@ public class OvershieldHud {
                 RenderSystem.setShaderTexture(0, WARNING_SHIELD);
                 for (int i = 4; i < 7; i++) {
                     if ((float)overshield.getShield(tool) / (float)overshield.getShieldCapacity(tool, tool.getModifiers().getEntry(Utils.overshield.getId())) * 10 > i) {
-                        GuiComponent.blit(poseStack, x - 90 + (i * 8), height - 57, 0, 0, 7, 7, 7, 7);
+                        poseStack.blit(WARNING_SHIELD, x - 90 + (i * 8), height - 57, 0, 0, 7, 7, 7, 7);
                     } else {
                         break;
                     }
@@ -62,7 +61,7 @@ public class OvershieldHud {
                 RenderSystem.setShaderTexture(0, FILLED_SHIELD);
                 for (int i = 7; i < 10; i++) {
                     if ((float)overshield.getShield(tool) / (float)overshield.getShieldCapacity(tool, tool.getModifiers().getEntry(Utils.overshield.getId())) * 10 > i) {
-                        GuiComponent.blit(poseStack, x - 90 + (i * 8), height - 57, 0, 0, 7, 7, 7, 7);
+                        poseStack.blit(FILLED_SHIELD, x - 90 + (i * 8), height - 57, 0, 0, 7, 7, 7, 7);
                     } else {
                         break;
                     }
@@ -71,7 +70,7 @@ public class OvershieldHud {
                 {
                     RenderSystem.setShaderTexture(0, COOLDOWN_SHIELD);
                     for (int i = 0; i < 10; i++) {
-                        GuiComponent.blit(poseStack, x - 90 + (i * 8), height - 57, 0, 0, 7, 7, 7, 7);
+                        poseStack.blit(COOLDOWN_SHIELD, x - 90 + (i * 8), height - 57, 0, 0, 7, 7, 7, 7);
                     }
                 }
             }

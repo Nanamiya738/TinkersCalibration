@@ -1,24 +1,13 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
     {
-      "conditions": [
-        {
-          "type": "forge:true"
-        }
-      ],
-      "recipe": {
-        "type": "minecraft:crafting_shapeless",
-        "ingredients": [
-          {
-            "item": "tinkerscalibration:tourmaline_block"
-          }
-        ],
-        "result": {
-          "item": "tinkerscalibration:tourmaline",
-          "count": 4
-        }
-      }
+      "item": "tinkerscalibration:tourmaline_block"
     }
-  ]
+  ],
+  "result": {
+    "item": "tinkerscalibration:tourmaline",
+    "count": 4
+  }
 }

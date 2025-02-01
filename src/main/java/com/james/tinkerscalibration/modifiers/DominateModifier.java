@@ -1,5 +1,6 @@
 package com.james.tinkerscalibration.modifiers;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -16,7 +17,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
-import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -39,7 +40,7 @@ public class DominateModifier extends Modifier implements DisplayNameModifierHoo
         hookBuilder.addHook(this, ModifierHooks.DISPLAY_NAME, ModifierHooks.MELEE_DAMAGE, ModifierHooks.PROJECTILE_HIT);
     }
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target){
         if (projectile instanceof AbstractArrow arrow && target != null) {
             int level = modifier.getLevel();
             if (level == 1)
@@ -51,9 +52,10 @@ public class DominateModifier extends Modifier implements DisplayNameModifierHoo
     }
 
     @Override
-    public Component getDisplayName(IToolStackView tool, ModifierEntry modifier, Component name) {
+    public Component getDisplayName(IToolStackView tool, ModifierEntry modifier, Component name, @org.jetbrains.annotations.Nullable RegistryAccess access) {
         if(modifier.getLevel() >= 2)
             return getDisplayName(2);
         return getDisplayName(modifier.getLevel());
     }
+
 }
