@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item":"tinkerscalibration:hard_wheat_rod"
+  },
+  "cast_consumed": true,
+  "cooling_time": 300,
+  "fluid": {
+    "amount": 3000,
+    "tag": "mantle:water"
+  },
+  "result": "tinkerscalibration:wet_soft_noodles"
+}
